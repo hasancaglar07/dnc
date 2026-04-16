@@ -87,7 +87,7 @@ export default function ReklamYonetimiPage() {
         <div className="wrap" style={{ textAlign: 'center' }}>
           <div className="sec-tag" style={{ justifyContent: 'center' }}>Süreç</div>
           <h2 className="sec-title" style={{ textAlign: 'center' }}>Reklam <em>Sürecimiz</em></h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24, marginTop: 48 }}>
+          <div className="process-grid-4">
             {[
               { step: '01', title: 'Analiz', desc: 'Mevcut hesap, rakip ve pazar analizi.', icon: 'bi-search' },
               { step: '02', title: 'Strateji', desc: 'Hedef kitle, bütçe ve kanal planlaması.', icon: 'bi-diagram-3' },

@@ -131,9 +131,9 @@ export const projects: Project[] = [
     technologies: ['Unity', 'C#', 'Blender', 'FMOD', 'Firebase'],
     features: [
       '100+ özgün seviye',
-      'Günlük挑战lar',
+      'Günlük meydan okumalar',
       'Liderlik tabloları',
-      'Başım systems',
+      'Başarı sistemi',
       'Haptic feedback'
     ],
     challenges: 'Oyuncuların uzun süre ilgilenmesini sağlayacak zorluk dengesi yaratmak.',

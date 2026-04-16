@@ -72,7 +72,7 @@ export default function EticaretDanismanligiPage() {
         <div className="wrap" style={{ textAlign: 'center' }}>
           <div className="sec-tag" style={{ justifyContent: 'center' }}>Paketler</div>
           <h2 className="sec-title" style={{ textAlign: 'center' }}>Fiyat <em>Paketleri</em></h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24, marginTop: 48 }}>
+          <div className="package-grid">
             {packages.map((pkg, i) => (
               <div key={i} style={{ padding: '40px 32px', borderRadius: 24, border: i === 1 ? '2px solid #14B8A6' : '1.5px solid var(--border)', background: i === 1 ? '#14B8A605' : '#fff', position: 'relative' }}>
                 {i === 1 && <div style={{ position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)', background: '#14B8A6', color: '#fff', fontSize: 11, fontWeight: 700, padding: '4px 16px', borderRadius: 9999, letterSpacing: 1, textTransform: 'uppercase' }}>Popüler</div>}
