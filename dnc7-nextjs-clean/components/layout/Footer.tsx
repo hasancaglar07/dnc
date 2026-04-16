@@ -1,35 +1,39 @@
+import Link from 'next/link';
+
 export default function Footer() {
   return (
     <footer className="footer">
       <div className="wrap">
         <div className="footer-g">
           <div>
-            <a href="#" className="f-logo">DNC<span>7</span></a>
+            <Link href="/" className="f-logo">DNC<span>7</span></Link>
             <p className="f-desc">
               Prodüksiyon, AI entegrasyonu ve dijital çözümler konusunda 12 yıllık deneyimle markanızı büyütüyoruz.
             </p>
             <div className="f-socs">
-              <a href="#" className="fsoc"><i className="bi bi-instagram"></i></a>
-              <a href="#" className="fsoc"><i className="bi bi-linkedin"></i></a>
-              <a href="#" className="fsoc"><i className="bi bi-twitter"></i></a>
-              <a href="#" className="fsoc"><i className="bi bi-youtube"></i></a>
+              <a href="https://instagram.com/dnc7" target="_blank" rel="noopener noreferrer" className="fsoc"><i className="bi bi-instagram"></i></a>
+              <a href="https://linkedin.com/company/dnc7" target="_blank" rel="noopener noreferrer" className="fsoc"><i className="bi bi-linkedin"></i></a>
+              <a href="https://twitter.com/dnc7" target="_blank" rel="noopener noreferrer" className="fsoc"><i className="bi bi-twitter-x"></i></a>
+              <a href="https://youtube.com/@dnc7" target="_blank" rel="noopener noreferrer" className="fsoc"><i className="bi bi-youtube"></i></a>
             </div>
           </div>
 
           <div className="fc">
             <div className="fc-title">Hizmetler</div>
-            <a href="#hizmetler">Prodüksiyon</a>
-            <a href="#hizmetler">AI Entegrasyon</a>
-            <a href="#hizmetler">Web Tasarım</a>
-            <a href="#hizmetler">Mobil Uygulama</a>
+            <Link href="/hizmetler">Tüm Hizmetler</Link>
+            <Link href="/hizmetler/ai-entegrasyonu">AI Entegrasyon</Link>
+            <Link href="/hizmetler/web-tasarim">Web Tasarım</Link>
+            <Link href="/hizmetler/e-ticaret-danismanligi">E-Ticaret</Link>
+            <Link href="/hizmetler/reklam-yonetimi">Reklam Yönetimi</Link>
           </div>
 
           <div className="fc">
             <div className="fc-title">Şirket</div>
-            <a href="#ekip">Hakkımızda</a>
-            <a href="#projeler">Projeler</a>
-            <a href="#referanslar">Referanslar</a>
-            <a href="#iletisim">İletişim</a>
+            <Link href="/projeler">Projeler</Link>
+            <Link href="/hizmetler">Hizmetler</Link>
+            <Link href="/#ekip">Ekip</Link>
+            <Link href="/#referanslar">Referanslar</Link>
+            <Link href="/#iletisim">İletişim</Link>
           </div>
 
           <div>
@@ -43,11 +47,10 @@ export default function Footer() {
         </div>
 
         <div className="f-bot">
-          <div className="f-copy">© 2025 DNC7. Tüm hakları saklıdır.</div>
+          <div className="f-copy">© {new Date().getFullYear()} DNC7. Tüm hakları saklıdır.</div>
           <div className="f-leg">
-            <a href="#">Gizlilik Politikası</a>
-            <a href="#">Kullanım Şartları</a>
-            <a href="#">Çerez Politikası</a>
+            <Link href="/gizlilik">Gizlilik Politikası</Link>
+            <Link href="/kullanim-sartlari">Kullanım Şartları</Link>
           </div>
         </div>
       </div>

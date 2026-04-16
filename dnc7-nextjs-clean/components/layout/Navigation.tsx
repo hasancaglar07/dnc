@@ -30,7 +30,7 @@ export default function Navigation() {
       return <a href={hashHref}>{label}</a>;
     }
     return (
-      <Link href={hashHref ? href : href} className={pathname === href ? 'active' : ''}>
+      <Link href={href} className={pathname.startsWith(href) && href !== '/' ? 'active' : ''}>
         {label}
       </Link>
     );
