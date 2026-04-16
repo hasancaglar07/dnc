@@ -1,6 +1,7 @@
+import { type ReactElement } from 'react';
 import { services } from '@/data/services';
 
-const serviceIcons: Record<number, JSX.Element> = {
+const serviceIcons: Record<number, ReactElement> = {
   1: (
     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.82v6.36a1 1 0 0 1-1.447.889L15 14"/>
