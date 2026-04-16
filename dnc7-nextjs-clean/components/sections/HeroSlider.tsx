@@ -4,7 +4,19 @@ import { useState, useEffect, useRef, type ReactElement } from 'react';
 import { services } from '@/data/services';
 import dynamic from 'next/dynamic';
 const Hero3DBackground = dynamic(() => import('@/components/ui/Hero3DBackground'), { ssr: false });
+import HeroBackground from '@/components/ui/HeroBackground';
 import Magnetic from '@/components/ui/Magnetic';
+
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= breakpoint);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, [breakpoint]);
+  return isMobile;
+}
 
 const serviceIcons: Record<number, ReactElement> = {
   1: <i className="bi bi-camera-reels" style={{ fontSize: 48 }}></i>,
@@ -25,6 +37,7 @@ export default function HeroSlider() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const progressRef = useRef<NodeJS.Timeout | null>(null);
   const sectionRef = useRef<HTMLElement | null>(null);
+  const isMobile = useIsMobile(900);
   const SLIDE_DURATION = 6000;
 
   const goTo = (idx: number) => {
@@ -75,8 +88,12 @@ export default function HeroSlider() {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Three.js 3D BG */}
-      <Hero3DBackground accentColor={s.accent} />
+      {/* BG: Three.js on desktop, lightweight canvas on mobile */}
+      {isMobile ? (
+        <HeroBackground accentColor={s.accent} particleCount={30} />
+      ) : (
+        <Hero3DBackground accentColor={s.accent} />
+      )}
       
       {/* Noise overlay */}
       <div className="hero-noise" />
