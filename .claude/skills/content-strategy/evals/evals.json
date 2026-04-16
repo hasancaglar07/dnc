@@ -1,0 +1,156 @@
+{
+  "skill_name": "content-strategy",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Help me build a content strategy for our B2B SaaS product. We sell expense management software to finance teams at companies with 50-500 employees. We currently have no blog and want to start from scratch.",
+      "expected_output": "Should check for product-marketing-context.md first. Should establish 3-5 content pillars tied to core product value props. Should map content types by buyer stage (awareness → consideration → decision → implementation). Should identify keyword research opportunities by buyer stage. Should recommend a mix of searchable (SEO-driven) and shareable (thought leadership, data) content. Should use the prioritization scoring framework (customer impact 40%, content-market fit 30%, search potential 20%, resources 10%). Should provide a 90-day editorial calendar or publishing cadence. Should recommend starting with pillar content before spokes. Should not recommend writing only awareness content.",
+      "assertions": [
+        "Checks for product-marketing-context.md",
+        "Establishes 3-5 content pillars tied to product",
+        "Maps content by buyer stage (awareness through implementation)",
+        "Includes keyword research by buyer stage",
+        "Recommends mix of searchable and shareable content",
+        "Uses prioritization scoring framework with weights",
+        "Provides 90-day calendar or publishing cadence",
+        "Recommends pillar-first sequencing"
+      ],
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "We have 200+ blog posts but traffic has been flat for a year. Our content feels random — no clear strategy. How do we fix this?",
+      "expected_output": "Should diagnose the 'random content' problem as topical authority dilution. Should recommend a content audit using the keep/update/consolidate/remove framework. Should introduce content pillars to organize the existing library. Should identify hub-and-spoke opportunities from existing content. Should recommend which posts to update, consolidate, or retire. Should warn against writing more content before fixing what exists. Should address cannibalization as a possible cause of traffic stagnation. Should use the prioritization framework to plan next steps. Should provide a sequencing recommendation (audit first, then rebuild).",
+      "assertions": [
+        "Diagnoses random content as topical authority problem",
+        "Recommends content audit before creating more",
+        "Uses keep/update/consolidate/remove framework",
+        "Introduces content pillars and topical clustering",
+        "Identifies hub-and-spoke opportunities",
+        "Addresses keyword cannibalization",
+        "Uses prioritization framework for next steps",
+        "Sequences audit before new content creation"
+      ],
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "what kind of content should we be creating? we're a developer tool (API testing platform) and our audience is backend developers and QA engineers",
+      "expected_output": "Should trigger on casual phrasing. Should recommend content types appropriate for a developer audience: technical tutorials, documentation-style guides, use-case content, template/example libraries, data-driven benchmarks, comparison content. Should emphasize that developer audiences value depth, accuracy, practical value, and code examples over marketing language. Should suggest content pillars aligned with developer pain points. Should use the ideation sources framework (keyword data, community channels like Stack Overflow, Reddit, GitHub issues, dev Discord). Should note that for developers, 'shareable' often means getting shared in newsletters, Slack groups, and Twitter/X threads by practitioners.",
+      "assertions": [
+        "Triggers on casual phrasing",
+        "Recommends developer-appropriate content types",
+        "Emphasizes technical depth and practical value",
+        "Notes developers prefer substance over marketing",
+        "Suggests content pillars for developer tool",
+        "Uses ideation sources framework",
+        "Mentions developer-specific community channels",
+        "Addresses developer sharing behavior"
+      ],
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "How should we prioritize which content to create first? We have a list of 50 blog post ideas but limited resources — one content marketer writing 2 posts per week.",
+      "expected_output": "Should apply the prioritization scoring framework: customer impact (40%), content-market fit (30%), search potential (20%), resources required (10%). Should help score or categorize the content ideas. Should recommend focusing on pillar content first (highest leverage). Should warn against writing only top-of-funnel. Should recommend 40/30/20/10 balance (awareness/consideration/implementation/thought leadership). Should provide a practical workflow or decision filter for the single content marketer. Should recommend building one complete cluster before starting another.",
+      "assertions": [
+        "Applies prioritization scoring framework with weights",
+        "Explains each scoring dimension",
+        "Recommends pillar content first",
+        "Warns against top-of-funnel only",
+        "Recommends content stage balance",
+        "Provides workflow for limited-resource team",
+        "Suggests cluster completion before starting new pillar"
+      ],
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "We want to build topical authority in 'employee engagement.' What does a content cluster look like for this topic?",
+      "expected_output": "Should apply the hub-and-spoke content cluster model. Should design a comprehensive pillar page for 'employee engagement' (3000+ words, covers the full topic). Should identify 10-15 supporting spoke articles targeting specific long-tail keywords within the cluster. Should map the internal linking structure: hub links to all spokes, spokes link back to hub, spokes cross-link where relevant. Should address keyword research for each spoke. Should recommend content types for each piece. Should note that the hub should be published first before spokes for maximum authority transfer.",
+      "assertions": [
+        "Applies hub-and-spoke content cluster model",
+        "Designs comprehensive pillar page",
+        "Identifies 10-15 supporting spoke articles",
+        "Maps internal linking (hub → spokes, spokes → hub, cross-links)",
+        "Addresses keyword research for cluster",
+        "Recommends content types for each piece",
+        "Notes hub-first sequencing"
+      ],
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "Can you write a blog post about remote work best practices for our HR software blog?",
+      "expected_output": "Should recognize this is a content creation task, not a content strategy task. Should defer to or cross-reference the copywriting skill for writing individual pieces. May provide strategic context (where this fits in the content strategy, keyword targeting, buyer stage, audience considerations) but should make clear that copywriting is the right skill for executing the actual writing.",
+      "assertions": [
+        "Recognizes this as content creation, not strategy",
+        "References or defers to copywriting skill",
+        "Does not attempt to write the full blog post",
+        "May provide strategic context for the piece"
+      ],
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "We're an AI book generation SaaS targeting coaches, consultants, and first-time authors in Turkey. We have 12 blog posts currently but almost no organic traffic. We publish 1-2 times per month. What should we focus on?",
+      "expected_output": "Should diagnose low traffic with low volume and no pillar structure. Should recommend building content pillars around: (1) AI book writing, (2) self-publishing / KDP, (3) authority building through books, (4) content for specific personas (coaches, consultants). Should recommend a content audit of existing 12 posts first. Should identify quick wins: comparison pages (AI writing tools), alternative pages, 'how to' content for people searching how to write/publish books. Should recommend Turkish vs English content strategy decision — Turkish for local authority, English for global KDP market. Should prioritize hub content before spokes. Should recommend implementation-stage content since buyers need hand-holding through a technical product.",
+      "assertions": [
+        "Diagnoses problem correctly (low volume + no pillar structure)",
+        "Recommends content audit of existing posts",
+        "Suggests 3-5 relevant content pillars for AI book SaaS",
+        "Identifies comparison and alternative pages as quick wins",
+        "Addresses Turkish vs English content decision",
+        "Recommends implementation-stage content for technical product",
+        "Prioritizes hub content before spokes",
+        "Uses prioritization framework"
+      ],
+      "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "Our conversion rate from blog to trial signup is under 1%. We get decent traffic but it's not converting. What's wrong with our content strategy?",
+      "expected_output": "Should identify this as a content-conversion alignment problem, not a traffic problem. Should diagnose possible causes: wrong buyer stage content (too much awareness, not enough decision), CTA misalignment (CTAs don't match reader intent), content-product bridge is weak, content doesn't attract the right ICP. Should recommend auditing top-traffic posts to check buyer stage and CTA quality. Should recommend adding decision/consideration content that attracts people closer to buying. Should suggest upgrading CTAs on high-traffic posts (contextual CTAs > generic sidebar). Should recommend implementing lead magnets (gated resources) to capture emails from non-ready-to-buy visitors. Should NOT recommend just writing more content.",
+      "assertions": [
+        "Identifies this as conversion alignment problem, not traffic problem",
+        "Diagnoses buyer stage mismatch as key cause",
+        "Diagnoses CTA quality/alignment issues",
+        "Recommends auditing top posts for buyer stage",
+        "Recommends adding consideration/decision content",
+        "Suggests contextual CTA improvements",
+        "Recommends lead magnets for non-ready visitors",
+        "Does not recommend writing more content as primary solution"
+      ],
+      "files": []
+    },
+    {
+      "id": 9,
+      "prompt": "What content should we create to compete with [Competitor] who is dominating our keyword space?",
+      "expected_output": "Should recommend a competitor content analysis process. Should identify: (1) what keywords competitor ranks for that you don't, (2) where their content is thin, outdated, or missing angles, (3) comparison/alternative pages targeting competitor's brand terms. Should recommend creating 'X alternatives' and 'X vs Y' pages to capture users already searching for that competitor. Should recommend going deeper on topics where competitor is shallow. Should warn against copying competitor's content structure — differentiate by angle, depth, or format. Should use web search to analyze competitor if possible.",
+      "assertions": [
+        "Recommends competitor content analysis",
+        "Identifies gap opportunities",
+        "Recommends comparison and alternative pages",
+        "Suggests depth/angle differentiation",
+        "Warns against copying competitor structure",
+        "Recommends capturing competitor's brand search traffic"
+      ],
+      "files": []
+    },
+    {
+      "id": 10,
+      "prompt": "We're launching a new product in 60 days. What content should we create before launch?",
+      "expected_output": "Should recommend a pre-launch content strategy. Priority order: (1) SEO foundation content that can start ranking before launch (how-to, problem-aware content), (2) comparison/alternative pages for category-aware buyers, (3) use-case landing pages for key personas, (4) an FAQ/objection-handling page, (5) case studies or beta user stories if available. Should recommend starting SEO content immediately (it takes time to rank). Should recommend thought leadership or data content to build buzz and backlinks. Should flag that decision-stage content (pricing, reviews) needs to be ready on day 1. Should tie to launch-strategy skill for the broader launch plan.",
+      "assertions": [
+        "Recommends starting SEO content immediately (time to rank)",
+        "Prioritizes comparison/alternative pages for category-aware buyers",
+        "Recommends use-case landing pages for key personas",
+        "Recommends FAQ/objection content",
+        "Recommends case studies or beta user stories",
+        "Ensures decision-stage content is ready for launch day",
+        "References launch-strategy skill for broader plan"
+      ],
+      "files": []
+    }
+  ]
+}

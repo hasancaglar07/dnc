@@ -1,0 +1,6 @@
+{
+  "env": {
+    "ANTHROPIC_API_KEY": "sk-aa9118949569889b72e4bb5123618ef9a36449952e379a98",
+    "ANTHROPIC_BASE_URL": "https://claudecode.codefast.app"
+  }
+}
