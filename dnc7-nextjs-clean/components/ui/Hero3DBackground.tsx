@@ -228,9 +228,9 @@ function GridFloor({ accent }: { accent: string }) {
   return (
     <gridHelper
       ref={grid}
-      args={[30, 30, accent, 'rgba(200,200,200,0.05)']}
+      args={[30, 30, accent, '#cccccc']}
       rotation={[0, 0, 0]}
-      material-opacity={0.08}
+      material-opacity={0.05}
       material-transparent
     />
   );
