@@ -44,6 +44,13 @@ export default function RootLayout({
     <html lang="tr" data-scroll-behavior="smooth" className={jakarta.variable}>
       <head>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+        <meta name="geo.region" content="TR" />
+        <meta name="geo.placename" content="İstanbul" />
+        <meta name="geo.position" content="41.0082;28.9784" />
+        <meta name="ICBM" content="41.0082, 28.9784" />
+        <meta name="language" content="Turkish" />
+        <meta name="rating" content="general" />
+        <link rel="canonical" href="https://dnc7.com" />
       </head>
       <body style={{ fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif" }}>{children}</body>
     </html>

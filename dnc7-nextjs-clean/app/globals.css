@@ -1803,6 +1803,26 @@ body.cur-on #cdot {
   font-family: var(--ff);
 }
 
+/* Form field wrapper + label */
+.f-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.f-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text2);
+  letter-spacing: 0.2px;
+}
+
+.f-label span {
+  color: var(--accent);
+  margin-left: 1px;
+}
+
 .fin:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.08);

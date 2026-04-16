@@ -12,48 +12,138 @@ export default function Contact() {
 
         <Reveal delay={120}>
           <div className="contact-box">
-          <div className="contact-in">
-            <div>
-              <h3 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '24px' }}>Bize Ulaşın</h3>
-              <div className="ci-row">
-                <div className="ci-ico"><i className="bi bi-envelope"></i></div>
-                <div className="ci-val">info@dnc7.com</div>
-              </div>
-              <div className="ci-row">
-                <div className="ci-ico"><i className="bi bi-telephone"></i></div>
-                <div className="ci-val">+90 (212) 555 0123</div>
-              </div>
-              <div className="ci-row">
-                <div className="ci-ico"><i className="bi bi-geo-alt"></i></div>
-                <div className="ci-val">Levent, İstanbul - Türkiye</div>
-              </div>
-              <div style={{ marginTop: '28px' }}>
-                <p style={{ fontSize: '13px', color: 'var(--muted)', marginBottom: '12px' }}>Bizi Takip Edin</p>
-                <div className="f-socs">
-                  <a href="#" className="fsoc"><i className="bi bi-instagram"></i></a>
-                  <a href="#" className="fsoc"><i className="bi bi-linkedin"></i></a>
-                  <a href="#" className="fsoc"><i className="bi bi-twitter"></i></a>
-                  <a href="#" className="fsoc"><i className="bi bi-youtube"></i></a>
-                </div>
-              </div>
-            </div>
+            <div className="contact-in">
+              {/* Contact Info */}
+              <div>
+                <h3 style={{ fontSize: 'clamp(1.4rem, 3vw, 1.8rem)', fontWeight: 800, marginBottom: '28px' }}>Bize Ulaşın</h3>
 
-            <div>
-              <h3 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '24px' }}>Mesaj Gönderin</h3>
-              <form>
-                <div className="f-row">
-                  <input type="text" className="fin" placeholder="Adınız" />
-                  <input type="text" className="fin" placeholder="Soyadınız" />
+                <a href="mailto:info@dnc7.com" className="ci-row" style={{ textDecoration: 'none' }}>
+                  <div className="ci-ico">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                      <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                    </svg>
+                  </div>
+                  <div className="ci-val">info@dnc7.com</div>
+                </a>
+
+                <a href="tel:+902125550123" className="ci-row" style={{ textDecoration: 'none' }}>
+                  <div className="ci-ico">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.92 13.5 19.79 19.79 0 0 1 1.85 5 2 2 0 0 1 3.84 3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 10.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                  </div>
+                  <div className="ci-val">+90 (212) 555 0123</div>
+                </a>
+
+                <div className="ci-row">
+                  <div className="ci-ico">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+                    </svg>
+                  </div>
+                  <div className="ci-val">Levent, İstanbul — Türkiye</div>
                 </div>
-                <input type="email" className="fin" placeholder="E-posta Adresiniz" />
-                <input type="text" className="fin" placeholder="Konu" />
-                <textarea className="fin fta" placeholder="Projenizden bahsedin..."></textarea>
-                <button type="submit" className="btn-send">
-                  Gönder <span className="arr"><i className="bi bi-arrow-up-right"></i></span>
-                </button>
-              </form>
+
+                <div style={{ marginTop: '32px' }}>
+                  <p style={{ fontSize: '13px', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: '14px' }}>Bizi Takip Edin</p>
+                  <div className="f-socs">
+                    <a href="#" className="fsoc" aria-label="Instagram">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/>
+                      </svg>
+                    </a>
+                    <a href="#" className="fsoc" aria-label="LinkedIn">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+                      </svg>
+                    </a>
+                    <a href="#" className="fsoc" aria-label="X (Twitter)">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                      </svg>
+                    </a>
+                    <a href="#" className="fsoc" aria-label="YouTube">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#fff"/>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Form */}
+              <div>
+                <h3 style={{ fontSize: 'clamp(1.4rem, 3vw, 1.8rem)', fontWeight: 800, marginBottom: '28px' }}>Mesaj Gönderin</h3>
+                <form noValidate>
+                  <div className="f-row" style={{ marginBottom: 14 }}>
+                    <div className="f-field">
+                      <label htmlFor="contact-first-name" className="f-label">Ad <span aria-hidden>*</span></label>
+                      <input
+                        id="contact-first-name"
+                        type="text"
+                        className="fin"
+                        placeholder="Adınız"
+                        autoComplete="given-name"
+                        required
+                      />
+                    </div>
+                    <div className="f-field">
+                      <label htmlFor="contact-last-name" className="f-label">Soyad <span aria-hidden>*</span></label>
+                      <input
+                        id="contact-last-name"
+                        type="text"
+                        className="fin"
+                        placeholder="Soyadınız"
+                        autoComplete="family-name"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="f-field">
+                    <label htmlFor="contact-email" className="f-label">E-posta <span aria-hidden>*</span></label>
+                    <input
+                      id="contact-email"
+                      type="email"
+                      className="fin"
+                      placeholder="ornek@mail.com"
+                      autoComplete="email"
+                      required
+                    />
+                  </div>
+
+                  <div className="f-field">
+                    <label htmlFor="contact-subject" className="f-label">Konu</label>
+                    <input
+                      id="contact-subject"
+                      type="text"
+                      className="fin"
+                      placeholder="Projenizin konusu"
+                      autoComplete="off"
+                    />
+                  </div>
+
+                  <div className="f-field">
+                    <label htmlFor="contact-message" className="f-label">Mesaj <span aria-hidden>*</span></label>
+                    <textarea
+                      id="contact-message"
+                      className="fin fta"
+                      placeholder="Projenizden bahsedin, bütçenizi ve zaman çizelgenizi paylaşın..."
+                      required
+                    />
+                  </div>
+
+                  <button type="submit" className="btn-send">
+                    Gönder
+                    <span className="arr">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+                      </svg>
+                    </span>
+                  </button>
+                </form>
+              </div>
             </div>
-          </div>
           </div>
         </Reveal>
       </div>

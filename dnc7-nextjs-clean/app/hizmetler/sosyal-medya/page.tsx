@@ -25,7 +25,7 @@ export default function SosyalMedyaPage() {
       <section className="page-hero" style={{ background: 'var(--dark)', color: '#fff', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, opacity: 0.08, background: `radial-gradient(circle at 30% 50%, ${accent} 0%, transparent 60%)` }} />
         <div className="wrap" style={{ position: 'relative', zIndex: 1 }}>
-          <Link href="/hizmetler" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13, fontWeight: 600, color: 'rgba(255,255,255,.5)', marginBottom: 32 }}>
+          <Link href="/hizmetler" className="back-link">
             <i className="bi bi-arrow-left"></i> Tüm Hizmetler
           </Link>
           <div className="sec-tag" style={{ color: accent }}>Sosyal Medya Yönetimi</div>
@@ -46,7 +46,7 @@ export default function SosyalMedyaPage() {
         <div className="wrap">
           <div className="sec-tag">Hizmetler</div>
           <h2 className="sec-title">Sosyal Medya <em>Çözümlerimiz</em></h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 20, marginTop: 48 }}>
+          <div className="feature-grid">
             {features.map((f, i) => (
               <div key={i} style={{ padding: '28px 24px', borderRadius: 20, border: '1.5px solid var(--border)', background: '#fff' }}>
                 <div style={{ width: 48, height: 48, borderRadius: 14, background: `${accent}12`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}>
@@ -62,7 +62,7 @@ export default function SosyalMedyaPage() {
 
       <section className="sec" style={{ background: 'var(--bg3)' }}>
         <div className="wrap" style={{ textAlign: 'center' }}>
-          <div style={{ maxWidth: 700, margin: '0 auto' }}>
+          <div className="cta-center">
             <div className="sec-tag" style={{ justifyContent: 'center' }}>Başlayalım</div>
             <h2 className="sec-title" style={{ textAlign: 'center' }}>
               Sosyal medyanızı <em>profesyonellere</em> bırakın
