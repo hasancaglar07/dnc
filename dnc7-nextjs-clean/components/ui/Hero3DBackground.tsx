@@ -1,246 +1,238 @@
 'use client';
 
-import { useRef, useMemo, useEffect, useCallback } from 'react';
+import { useRef, useMemo, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Text3D, Center, Float } from '@react-three/drei';
 import * as THREE from 'three';
 
-/* ── Generate "7" shape points procedurally ── */
-function generate7Points(count: number, scale: number): Float32Array {
-  const pts: number[] = [];
-  // "7" shape: horizontal top bar + diagonal stroke
-  // Top bar: from (-1, 1.5) to (1, 1.5)
-  // Diagonal: from (1, 1.5) to (-0.5, -1.5)
-  // Small serif on top-left going down a tiny bit
-  const topBarCount = Math.floor(count * 0.35);
-  const diagCount = Math.floor(count * 0.55);
-  const serifCount = count - topBarCount - diagCount;
-
-  // Top horizontal bar
-  for (let i = 0; i < topBarCount; i++) {
-    const t = i / topBarCount;
-    const x = -1 + t * 2;
-    const y = 1.5 + (Math.random() - 0.5) * 0.15;
-    const z = (Math.random() - 0.5) * 0.3;
-    pts.push(x * scale, y * scale, z * scale);
-  }
-
-  // Diagonal stroke
-  for (let i = 0; i < diagCount; i++) {
-    const t = i / diagCount;
-    const x = 1 - t * 1.5 + (Math.random() - 0.5) * 0.12;
-    const y = 1.5 - t * 3 + (Math.random() - 0.5) * 0.12;
-    const z = (Math.random() - 0.5) * 0.3;
-    pts.push(x * scale, y * scale, z * scale);
-  }
-
-  // Small crossbar/serif
-  for (let i = 0; i < serifCount; i++) {
-    const t = i / serifCount;
-    const x = -0.2 + t * 0.8 + (Math.random() - 0.5) * 0.1;
-    const y = 0.2 + (Math.random() - 0.5) * 0.12;
-    const z = (Math.random() - 0.5) * 0.3;
-    pts.push(x * scale, y * scale, z * scale);
-  }
-
-  return new Float32Array(pts);
-}
-
-/* ── Particle "7" that breathes and reacts to mouse ── */
-function SevenParticles({ accent }: { accent: string }) {
-  const points = useRef<THREE.Points>(null!);
-  const matRef = useRef<THREE.ShaderMaterial>(null!);
-  const COUNT = 600;
-  const SCALE = 1.8;
-
-  const { basePositions, randomOffsets } = useMemo(() => {
-    const base = generate7Points(COUNT, SCALE);
-    const offsets = new Float32Array(COUNT * 3);
-    for (let i = 0; i < COUNT; i++) {
-      offsets[i * 3] = (Math.random() - 0.5) * 8;
-      offsets[i * 3 + 1] = (Math.random() - 0.5) * 8;
-      offsets[i * 3 + 2] = (Math.random() - 0.5) * 4;
-    }
-    return { basePositions: base, randomOffsets: offsets };
-  }, []);
+/* ── Floating morphing sphere ── */
+function MorphSphere({ accent }: { accent: string }) {
+  const mesh = useRef<THREE.Mesh>(null!);
+  const mat = useRef<THREE.ShaderMaterial>(null!);
 
   const uniforms = useMemo(() => ({
     uTime: { value: 0 },
     uColor: { value: new THREE.Color(accent) },
-    uMorphProgress: { value: 0 },
+    uMouse: { value: new THREE.Vector2(0, 0) },
   }), []);
 
+  // Update color on accent change
   useEffect(() => {
-    if (matRef.current) matRef.current.uniforms.uColor.value.set(accent);
+    if (mat.current) {
+      mat.current.uniforms.uColor.value.set(accent);
+    }
   }, [accent]);
 
   useFrame((state) => {
     const t = state.clock.elapsedTime;
-    matRef.current.uniforms.uTime.value = t;
-    // Morph in: 0 -> 1 over first 2 seconds
-    matRef.current.uniforms.uMorphProgress.value = Math.min(t * 0.5, 1);
-
-    const geo = points.current.geometry;
-    const pos = geo.attributes.position.array as Float32Array;
-    const morph = matRef.current.uniforms.uMorphProgress.value;
-
-    for (let i = 0; i < COUNT; i++) {
-      const i3 = i * 3;
-      // Lerp from scattered to "7" shape
-      const bx = basePositions[i3];
-      const by = basePositions[i3 + 1];
-      const bz = basePositions[i3 + 2];
-      const ox = randomOffsets[i3];
-      const oy = randomOffsets[i3 + 1];
-      const oz = randomOffsets[i3 + 2];
-
-      // Breathing
-      const breathe = Math.sin(t * 0.8 + i * 0.01) * 0.08;
-
-      pos[i3] = THREE.MathUtils.lerp(ox, bx + breathe, morph);
-      pos[i3 + 1] = THREE.MathUtils.lerp(oy, by + Math.sin(t * 0.5 + i * 0.02) * 0.06, morph);
-      pos[i3 + 2] = THREE.MathUtils.lerp(oz, bz + Math.cos(t * 0.6 + i * 0.015) * 0.05, morph);
-    }
-    geo.attributes.position.needsUpdate = true;
-
-    // Slow rotation
-    points.current.rotation.y = Math.sin(t * 0.15) * 0.15;
-    points.current.rotation.x = Math.sin(t * 0.1) * 0.05;
+    mat.current.uniforms.uTime.value = t;
+    mesh.current.rotation.x = Math.sin(t * 0.15) * 0.3;
+    mesh.current.rotation.y = t * 0.08;
   });
 
   const vertexShader = `
     uniform float uTime;
-    attribute float aRandom;
-    varying float vAlpha;
+    uniform vec2 uMouse;
+    varying vec3 vNormal;
+    varying vec3 vPosition;
+    varying float vDisplacement;
+    
+    // Simplex noise
+    vec3 mod289(vec3 x) { return x - floor(x * (1.0/289.0)) * 289.0; }
+    vec4 mod289(vec4 x) { return x - floor(x * (1.0/289.0)) * 289.0; }
+    vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
+    vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
+    
+    float snoise(vec3 v) {
+      const vec2 C = vec2(1.0/6.0, 1.0/3.0);
+      const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
+      vec3 i = floor(v + dot(v, C.yyy));
+      vec3 x0 = v - i + dot(i, C.xxx);
+      vec3 g = step(x0.yzx, x0.xyz);
+      vec3 l = 1.0 - g;
+      vec3 i1 = min(g.xyz, l.zxy);
+      vec3 i2 = max(g.xyz, l.zxy);
+      vec3 x1 = x0 - i1 + C.xxx;
+      vec3 x2 = x0 - i2 + C.yyy;
+      vec3 x3 = x0 - D.yyy;
+      i = mod289(i);
+      vec4 p = permute(permute(permute(
+        i.z + vec4(0.0, i1.z, i2.z, 1.0))
+        + i.y + vec4(0.0, i1.y, i2.y, 1.0))
+        + i.x + vec4(0.0, i1.x, i2.x, 1.0));
+      float n_ = 0.142857142857;
+      vec3 ns = n_ * D.wyz - D.xzx;
+      vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
+      vec4 x_ = floor(j * ns.z);
+      vec4 y_ = floor(j - 7.0 * x_);
+      vec4 x = x_ * ns.x + ns.yyyy;
+      vec4 y = y_ * ns.x + ns.yyyy;
+      vec4 h = 1.0 - abs(x) - abs(y);
+      vec4 b0 = vec4(x.xy, y.xy);
+      vec4 b1 = vec4(x.zw, y.zw);
+      vec4 s0 = floor(b0)*2.0 + 1.0;
+      vec4 s1 = floor(b1)*2.0 + 1.0;
+      vec4 sh = -step(h, vec4(0.0));
+      vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy;
+      vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww;
+      vec3 p0 = vec3(a0.xy, h.x);
+      vec3 p1 = vec3(a0.zw, h.y);
+      vec3 p2 = vec3(a1.xy, h.z);
+      vec3 p3 = vec3(a1.zw, h.w);
+      vec4 norm = taylorInvSqrt(vec4(dot(p0,p0),dot(p1,p1),dot(p2,p2),dot(p3,p3)));
+      p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
+      vec4 m = max(0.6 - vec4(dot(x0,x0),dot(x1,x1),dot(x2,x2),dot(x3,x3)), 0.0);
+      m = m * m;
+      return 42.0 * dot(m*m, vec4(dot(p0,x0),dot(p1,x1),dot(p2,x2),dot(p3,x3)));
+    }
+    
     void main() {
-      vec4 mvPos = modelViewMatrix * vec4(position, 1.0);
-      float dist = length(mvPos.xyz);
-      vAlpha = smoothstep(8.0, 2.0, dist);
-      gl_PointSize = max(2.0, 6.0 / -mvPos.z) * (1.0 + sin(uTime * 2.0 + position.x * 3.0) * 0.3);
-      gl_Position = projectionMatrix * mvPos;
+      vNormal = normal;
+      vPosition = position;
+      
+      float noise1 = snoise(position * 1.5 + uTime * 0.3) * 0.35;
+      float noise2 = snoise(position * 3.0 + uTime * 0.5) * 0.15;
+      float noise3 = snoise(position * 6.0 + uTime * 0.2) * 0.05;
+      float displacement = noise1 + noise2 + noise3;
+      vDisplacement = displacement;
+      
+      vec3 newPos = position + normal * displacement;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(newPos, 1.0);
     }
   `;
 
   const fragmentShader = `
-    uniform vec3 uColor;
     uniform float uTime;
-    varying float vAlpha;
+    uniform vec3 uColor;
+    varying vec3 vNormal;
+    varying vec3 vPosition;
+    varying float vDisplacement;
+    
     void main() {
-      float d = length(gl_PointCoord - vec2(0.5));
-      if (d > 0.5) discard;
-      float glow = smoothstep(0.5, 0.0, d);
-      vec3 col = mix(uColor, vec3(1.0), glow * 0.4);
-      gl_FragColor = vec4(col, glow * vAlpha * 0.9);
+      // Fresnel effect
+      vec3 viewDir = normalize(cameraPosition - vPosition);
+      float fresnel = pow(1.0 - max(dot(viewDir, vNormal), 0.0), 3.0);
+      
+      // Color based on displacement
+      vec3 baseColor = uColor;
+      vec3 highlightColor = mix(uColor, vec3(1.0), 0.5);
+      vec3 color = mix(baseColor, highlightColor, vDisplacement * 1.5 + 0.5);
+      
+      // Add fresnel glow
+      color = mix(color, vec3(1.0), fresnel * 0.6);
+      
+      // Alpha with fresnel edge glow
+      float alpha = mix(0.15, 0.6, fresnel) + vDisplacement * 0.15;
+      
+      gl_FragColor = vec4(color, alpha);
     }
   `;
 
   return (
-    <points ref={points} position={[2, 0.2, 0]}>
-      <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[new Float32Array(COUNT * 3), 3]} />
-      </bufferGeometry>
+    <mesh ref={mesh} position={[2.5, 0, -1]} scale={2.2}>
+      <icosahedronGeometry args={[1, 64]} />
       <shaderMaterial
-        ref={matRef}
+        ref={mat}
         vertexShader={vertexShader}
         fragmentShader={fragmentShader}
         uniforms={uniforms}
         transparent
         depthWrite={false}
-        blending={THREE.AdditiveBlending}
+        side={THREE.DoubleSide}
       />
-    </points>
+    </mesh>
   );
 }
 
-/* ── Orbiting rings around "7" ── */
-function OrbitRings({ accent }: { accent: string }) {
-  const g1 = useRef<THREE.Mesh>(null!);
-  const g2 = useRef<THREE.Mesh>(null!);
-  const g3 = useRef<THREE.Mesh>(null!);
-
-  useFrame((state) => {
-    const t = state.clock.elapsedTime;
-    g1.current.rotation.x = t * 0.2;
-    g1.current.rotation.y = t * 0.1;
-    g2.current.rotation.x = t * 0.15 + 1;
-    g2.current.rotation.z = t * 0.12;
-    g3.current.rotation.y = t * 0.18;
-    g3.current.rotation.z = t * 0.08 + 2;
-  });
-
-  return (
-    <group position={[2, 0.2, 0]}>
-      <mesh ref={g1}>
-        <torusGeometry args={[3.5, 0.008, 16, 120]} />
-        <meshBasicMaterial color={accent} transparent opacity={0.12} />
-      </mesh>
-      <mesh ref={g2}>
-        <torusGeometry args={[3.0, 0.006, 16, 100]} />
-        <meshBasicMaterial color={accent} transparent opacity={0.08} />
-      </mesh>
-      <mesh ref={g3}>
-        <torusGeometry args={[4.0, 0.005, 16, 80]} />
-        <meshBasicMaterial color="#999" transparent opacity={0.05} />
-      </mesh>
-    </group>
-  );
-}
-
-/* ── Background floating particles ── */
-function BgParticles({ count = 120 }: { count?: number }) {
+/* ── Floating particles ── */
+function Particles({ accent, count = 200 }: { accent: string; count?: number }) {
   const points = useRef<THREE.Points>(null!);
-
+  
   const { positions, velocities } = useMemo(() => {
     const pos = new Float32Array(count * 3);
     const vel = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 25;
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 14;
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 10 - 3;
-      vel[i * 3] = (Math.random() - 0.5) * 0.003;
-      vel[i * 3 + 1] = (Math.random() - 0.5) * 0.003;
-      vel[i * 3 + 2] = (Math.random() - 0.5) * 0.002;
+      pos[i * 3] = (Math.random() - 0.5) * 20;
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 12;
+      pos[i * 3 + 2] = (Math.random() - 0.5) * 10;
+      vel[i * 3] = (Math.random() - 0.5) * 0.005;
+      vel[i * 3 + 1] = (Math.random() - 0.5) * 0.005;
+      vel[i * 3 + 2] = (Math.random() - 0.5) * 0.003;
     }
     return { positions: pos, velocities: vel };
   }, [count]);
 
   useFrame(() => {
-    const pos = points.current.geometry.attributes.position.array as Float32Array;
+    const geo = points.current.geometry;
+    const pos = geo.attributes.position.array as Float32Array;
     for (let i = 0; i < count; i++) {
       pos[i * 3] += velocities[i * 3];
       pos[i * 3 + 1] += velocities[i * 3 + 1];
       pos[i * 3 + 2] += velocities[i * 3 + 2];
-      if (Math.abs(pos[i * 3]) > 12) velocities[i * 3] *= -1;
-      if (Math.abs(pos[i * 3 + 1]) > 7) velocities[i * 3 + 1] *= -1;
-      if (Math.abs(pos[i * 3 + 2]) > 6) velocities[i * 3 + 2] *= -1;
+      // Wrap around
+      if (Math.abs(pos[i * 3]) > 10) velocities[i * 3] *= -1;
+      if (Math.abs(pos[i * 3 + 1]) > 6) velocities[i * 3 + 1] *= -1;
+      if (Math.abs(pos[i * 3 + 2]) > 5) velocities[i * 3 + 2] *= -1;
     }
-    points.current.geometry.attributes.position.needsUpdate = true;
+    geo.attributes.position.needsUpdate = true;
   });
 
   return (
     <points ref={points}>
       <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
+        <bufferAttribute
+          attach="attributes-position"
+          args={[positions, 3]}
+        />
       </bufferGeometry>
-      <pointsMaterial size={0.015} color="#aaa" transparent opacity={0.3} sizeAttenuation depthWrite={false} />
+      <pointsMaterial
+        size={0.03}
+        color={accent}
+        transparent
+        opacity={0.6}
+        sizeAttenuation
+        depthWrite={false}
+      />
     </points>
   );
 }
 
-/* ── Accent glow sphere behind "7" ── */
-function GlowOrb({ accent }: { accent: string }) {
+/* ── Wireframe ring ── */
+function WireRing({ accent }: { accent: string }) {
   const mesh = useRef<THREE.Mesh>(null!);
 
   useFrame((state) => {
     const t = state.clock.elapsedTime;
-    mesh.current.scale.setScalar(2.5 + Math.sin(t * 0.5) * 0.3);
+    mesh.current.rotation.x = t * 0.1 + Math.PI * 0.3;
+    mesh.current.rotation.z = t * 0.05;
   });
 
   return (
-    <mesh ref={mesh} position={[2, 0.2, -2]}>
-      <sphereGeometry args={[1, 32, 32]} />
-      <meshBasicMaterial color={accent} transparent opacity={0.06} />
+    <mesh ref={mesh} position={[2.5, 0, -1]} scale={3.2}>
+      <torusGeometry args={[1, 0.01, 16, 100]} />
+      <meshBasicMaterial color={accent} transparent opacity={0.15} />
     </mesh>
+  );
+}
+
+/* ── Grid floor ── */
+function GridFloor({ accent }: { accent: string }) {
+  const grid = useRef<THREE.GridHelper>(null!);
+
+  useFrame(() => {
+    if (grid.current) {
+      grid.current.position.z = -3;
+      grid.current.position.y = -3;
+    }
+  });
+
+  return (
+    <gridHelper
+      ref={grid}
+      args={[30, 30, accent, 'rgba(200,200,200,0.05)']}
+      rotation={[0, 0, 0]}
+      material-opacity={0.08}
+      material-transparent
+    />
   );
 }
 
@@ -252,26 +244,26 @@ function MouseLight() {
   useFrame((state) => {
     const x = (state.pointer.x * viewport.width) / 2;
     const y = (state.pointer.y * viewport.height) / 2;
-    light.current.position.set(x, y, 4);
+    light.current.position.set(x, y, 3);
   });
 
-  return <pointLight ref={light} intensity={0.8} distance={12} color="#ffffff" />;
+  return <pointLight ref={light} intensity={0.5} distance={10} color="#ffffff" />;
 }
 
-/* ── Camera rig with mouse parallax ── */
+/* ── Camera rig ── */
 function CameraRig() {
   useFrame((state) => {
     state.camera.position.x = THREE.MathUtils.lerp(
       state.camera.position.x,
-      state.pointer.x * 0.8,
-      0.015
+      state.pointer.x * 0.5,
+      0.02
     );
     state.camera.position.y = THREE.MathUtils.lerp(
       state.camera.position.y,
-      state.pointer.y * 0.4 + 0.5,
-      0.015
+      state.pointer.y * 0.3 + 0.5,
+      0.02
     );
-    state.camera.lookAt(1.5, 0, 0);
+    state.camera.lookAt(0, 0, 0);
   });
 
   return null;
@@ -282,18 +274,18 @@ export default function Hero3DBackground({ accentColor }: { accentColor: string 
   return (
     <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
       <Canvas
-        camera={{ position: [0, 0.5, 7], fov: 45 }}
+        camera={{ position: [0, 0.5, 6], fov: 50 }}
         dpr={[1, 1.5]}
         gl={{ antialias: true, alpha: true }}
         style={{ background: 'transparent' }}
       >
-        <ambientLight intensity={0.2} />
-        <directionalLight position={[5, 5, 5]} intensity={0.3} />
+        <ambientLight intensity={0.3} />
+        <directionalLight position={[5, 5, 5]} intensity={0.4} />
         <MouseLight />
-        <SevenParticles accent={accentColor} />
-        <OrbitRings accent={accentColor} />
-        <GlowOrb accent={accentColor} />
-        <BgParticles count={100} />
+        <MorphSphere accent={accentColor} />
+        <WireRing accent={accentColor} />
+        <Particles accent={accentColor} count={150} />
+        <GridFloor accent={accentColor} />
         <CameraRig />
       </Canvas>
     </div>
