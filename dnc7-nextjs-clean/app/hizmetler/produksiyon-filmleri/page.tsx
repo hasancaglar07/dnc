@@ -22,7 +22,7 @@ export default function ProduksiyonFilmleriPage() {
       <CustomCursor />
       <Navigation />
 
-      <section style={{ paddingTop: 160, paddingBottom: 80, background: 'var(--dark)', color: '#fff', position: 'relative', overflow: 'hidden' }}>
+      <section className="page-hero" style={{ background: 'var(--dark)', color: '#fff', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, opacity: 0.08, background: `radial-gradient(circle at 30% 50%, ${accent} 0%, transparent 60%)` }} />
         <div className="wrap" style={{ position: 'relative', zIndex: 1 }}>
           <Link href="/hizmetler" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13, fontWeight: 600, color: 'rgba(255,255,255,.5)', marginBottom: 32 }}>
