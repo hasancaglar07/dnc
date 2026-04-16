@@ -6,15 +6,15 @@ import CustomCursor from '@/components/layout/CustomCursor';
 import ScrollToTop from '@/components/layout/ScrollToTop';
 import Footer from '@/components/layout/Footer';
 
-export default function SosyalMedyaPage() {
-  const accent = '#F59E0B';
+export default function ProduksiyonFilmleriPage() {
+  const accent = '#F97316';
   const features = [
-    { icon: 'bi-pencil-square', title: 'İçerik Stratejisi', desc: 'Markanıza özel içerik planı, editoryal takvim ve kreatif konseptler.' },
-    { icon: 'bi-chat-dots', title: 'Topluluk Yönetimi', desc: 'Yorum, mesaj ve etkileşim yönetimi ile sadık bir topluluk oluşturun.' },
-    { icon: 'bi-megaphone', title: 'Reklam Yönetimi', desc: 'Meta ve TikTok reklamları ile organik büyümeyi destekleyin.' },
-    { icon: 'bi-star', title: 'Influencer Marketing', desc: 'Doğru influencer eşleştirmesi ve kampanya yönetimi.' },
-    { icon: 'bi-clipboard-data', title: 'Analiz & Raporlama', desc: 'Aylık performans raporları, rakip analizi ve büyüme önerileri.' },
-    { icon: 'bi-shield-exclamation', title: 'Kriz Yönetimi', desc: 'Sosyal medya krizlerinde hızlı müdahale ve itibar koruma stratejileri.' },
+    { icon: 'bi-camera-reels', title: '4K / 8K Video', desc: 'RED V-RAPTOR ve Arri Alexa ile sinema kalitesinde kurumsal ve reklam filmleri.' },
+    { icon: 'bi-journal-text', title: 'Senaryo Yazımı', desc: 'Markanızın hikayesini anlatan profesyonel senaryo ve storyboard hazırlığı.' },
+    { icon: 'bi-scissors', title: 'Post-Prodüksiyon', desc: 'Kurgu, renk düzeltme ve görsel efektler ile kusursuz son ürün.' },
+    { icon: 'bi-palette2', title: 'Color Grading', desc: 'DaVinci Resolve ile profesyonel renk grading ve sinematik görünüm.' },
+    { icon: 'bi-soundwave', title: 'Ses Tasarımı', desc: 'Orijinal müzik, seslendirme ve ses efektleri ile etkileyici ses deneyimi.' },
+    { icon: 'bi-stars', title: 'Motion Graphics', desc: 'After Effects ile animasyon, infografik ve görsel efekt prodüksiyonu.' },
   ];
 
   return (
@@ -28,16 +28,16 @@ export default function SosyalMedyaPage() {
           <Link href="/hizmetler" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13, fontWeight: 600, color: 'rgba(255,255,255,.5)', marginBottom: 32 }}>
             <i className="bi bi-arrow-left"></i> Tüm Hizmetler
           </Link>
-          <div className="sec-tag" style={{ color: accent }}>Sosyal Medya Yönetimi</div>
+          <div className="sec-tag" style={{ color: accent }}>Prodüksiyon Filmleri</div>
           <h1 style={{ fontSize: 'clamp(2.8rem, 6vw, 5rem)', fontWeight: 900, lineHeight: 1.05, letterSpacing: -3, marginBottom: 20 }}>
-            Sosyal Medyada<br /><span style={{ color: accent }}>Güçlü Varlık</span>
+            Sinematik<br /><span style={{ color: accent }}>Video Prodüksiyon</span>
           </h1>
           <p style={{ fontSize: 18, lineHeight: 1.75, color: 'rgba(255,255,255,.6)', maxWidth: 600, marginBottom: 32 }}>
-            Instagram, TikTok, LinkedIn ve YouTube için içerik stratejisi ve 
-            topluluk yönetimi ile markanızı büyütün.
+            Kurumsal tanıtım, reklam ve sinematik video prodüksiyonu. 
+            Senaryo yazımından post-prodüksiyona, 4K/8K çözünürlük ile eksiksiz hizmet.
           </p>
           <Link href="/#iletisim" className="cta-main" style={{ background: accent }}>
-            Ücretsiz Strateji Görüşmesi <span className="ico"><i className="bi bi-arrow-right"></i></span>
+            Proje Başlat <span className="ico"><i className="bi bi-arrow-right"></i></span>
           </Link>
         </div>
       </section>
@@ -45,7 +45,7 @@ export default function SosyalMedyaPage() {
       <section className="sec" style={{ background: 'var(--bg2)' }}>
         <div className="wrap">
           <div className="sec-tag">Hizmetler</div>
-          <h2 className="sec-title">Sosyal Medya <em>Çözümlerimiz</em></h2>
+          <h2 className="sec-title">Prodüksiyon <em>Çözümlerimiz</em></h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 20, marginTop: 48 }}>
             {features.map((f, i) => (
               <div key={i} style={{ padding: '28px 24px', borderRadius: 20, border: '1.5px solid var(--border)', background: '#fff' }}>
@@ -65,13 +65,13 @@ export default function SosyalMedyaPage() {
           <div style={{ maxWidth: 700, margin: '0 auto' }}>
             <div className="sec-tag" style={{ justifyContent: 'center' }}>Başlayalım</div>
             <h2 className="sec-title" style={{ textAlign: 'center' }}>
-              Sosyal medyanızı <em>profesyonellere</em> bırakın
+              Markanızın hikayesini <em>anlatmaya</em> hazır mısınız?
             </h2>
             <p className="sec-sub" style={{ textAlign: 'center', margin: '0 auto 40px' }}>
-              Markanız için özel sosyal medya stratejisi oluşturalım.
+              Prodüksiyon ihtiyaçlarınız için hemen iletişime geçin.
             </p>
             <Link href="/#iletisim" className="cta-main" style={{ background: accent }}>
-              Teklif Al <span className="ico"><i className="bi bi-arrow-right"></i></span>
+              Ücretsiz Keşif Toplantısı <span className="ico"><i className="bi bi-arrow-right"></i></span>
             </Link>
           </div>
         </div>

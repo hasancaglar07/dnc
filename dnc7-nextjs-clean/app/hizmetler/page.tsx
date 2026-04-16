@@ -8,7 +8,7 @@ import Footer from '@/components/layout/Footer';
 import { services } from '@/data/services';
 
 const serviceDetails: Record<number, { slug: string; features: string[]; tools: string[] }> = {
-  1: { slug: 'drone-cekim', features: ['4K/8K Çekim', 'Senaryo Yazımı', 'Post-Prodüksiyon', 'Color Grading', 'Ses Tasarımı', 'Motion Graphics'], tools: ['RED V-RAPTOR 8K', 'Arri Alexa Mini', 'DaVinci Resolve', 'After Effects'] },
+  1: { slug: 'produksiyon-filmleri', features: ['4K/8K Çekim', 'Senaryo Yazımı', 'Post-Prodüksiyon', 'Color Grading', 'Ses Tasarımı', 'Motion Graphics'], tools: ['RED V-RAPTOR 8K', 'Arri Alexa Mini', 'DaVinci Resolve', 'After Effects'] },
   2: { slug: 'ai-entegrasyonu', features: ['GPT-4 Chatbot', 'İçerik Otomasyonu', 'Veri Analizi', 'API Entegrasyon', 'Süreç Optimizasyonu', 'Custom AI Modelleri'], tools: ['OpenAI', 'LangChain', 'Python', 'TensorFlow'] },
   3: { slug: 'drone-cekim', features: ['4K Hava Çekimi', 'Thermal Kamera', 'Panoramik Görüntü', 'Lisanslı Operatör', 'İnşaat Takibi', 'Etkinlik Çekimi'], tools: ['DJI Mavic 3 Pro', 'DJI Inspire 3', 'Thermal Cam', 'Premiere Pro'] },
   4: { slug: 'web-tasarim', features: ['UI/UX Tasarım', 'Responsive Design', 'SEO Optimizasyonu', 'E-Ticaret', 'CMS Entegrasyonu', 'Performans'], tools: ['React', 'Next.js', 'Tailwind CSS', 'Figma', 'WordPress'] },
