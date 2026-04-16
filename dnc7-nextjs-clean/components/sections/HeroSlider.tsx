@@ -2,7 +2,9 @@
 
 import { useState, useEffect, useRef, type ReactElement } from 'react';
 import { services } from '@/data/services';
-import HeroBackground from '@/components/ui/HeroBackground';
+import dynamic from 'next/dynamic';
+const Hero3DBackground = dynamic(() => import('@/components/ui/Hero3DBackground'), { ssr: false });
+import Magnetic from '@/components/ui/Magnetic';
 
 const serviceIcons: Record<number, ReactElement> = {
   1: <i className="bi bi-camera-reels" style={{ fontSize: 48 }}></i>,
@@ -20,7 +22,9 @@ export default function HeroSlider() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const progressRef = useRef<NodeJS.Timeout | null>(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
   const SLIDE_DURATION = 6000;
 
   const goTo = (idx: number) => {
@@ -51,18 +55,41 @@ export default function HeroSlider() {
     return () => { if (progressRef.current) clearTimeout(progressRef.current); };
   }, [currentIndex]);
 
+  // Mouse parallax handler
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = sectionRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;   // -1..1
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;  // -1..1
+    setMouse({ x, y });
+  };
+
+  const handleMouseLeave = () => setMouse({ x: 0, y: 0 });
+
   const s = services[currentIndex];
 
   return (
-    <section className="hero-new">
-      {/* Canvas BG */}
-      <HeroBackground accentColor={s.accent} particleCount={50} />
+    <section
+      className="hero-new"
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
+      {/* Three.js 3D BG */}
+      <Hero3DBackground accentColor={s.accent} />
       
       {/* Noise overlay */}
       <div className="hero-noise" />
 
-      {/* Large decorative number */}
-      <div className="hero-big-num" style={{ color: s.accent }}>
+      {/* Large decorative number — parallax */}
+      <div
+        className="hero-big-num"
+        style={{
+          color: s.accent,
+          transform: `translate(${mouse.x * 18}px, ${mouse.y * 10}px)`,
+          transition: 'transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)',
+        }}
+      >
         {String(currentIndex + 1).padStart(2, '0')}
       </div>
 
@@ -136,26 +163,37 @@ export default function HeroSlider() {
 
             {/* Actions */}
             <div className="hero-actions" key={`acts-${currentIndex}`}>
-              <a href="#hizmetler" className="hero-cta-primary" style={{ background: s.accent }}>
-                <span>Keşfet</span>
-                <span className="hero-cta-arrow">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" />
+              <Magnetic strength={0.4}>
+                <a href="#hizmetler" className="hero-cta-primary" style={{ background: s.accent }}>
+                  <span>Keşfet</span>
+                  <span className="hero-cta-arrow">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" />
+                    </svg>
+                  </span>
+                </a>
+              </Magnetic>
+              <Magnetic strength={0.3}>
+                <a href="#iletisim" className="hero-cta-ghost">
+                  Teklif Al
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
                   </svg>
-                </span>
-              </a>
-              <a href="#iletisim" className="hero-cta-ghost">
-                Teklif Al
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
-                </svg>
-              </a>
+                </a>
+              </Magnetic>
             </div>
           </div>
 
           {/* Right: Visual Card */}
           <div className="hero-right">
-            <div className="hero-card" key={`card-${currentIndex}`}>
+            <div
+              className="hero-card"
+              key={`card-${currentIndex}`}
+              style={{
+                transform: `translate(${mouse.x * -12}px, ${mouse.y * -8}px) rotateY(${mouse.x * 4}deg) rotateX(${-mouse.y * 3}deg)`,
+                transition: 'transform 0.7s cubic-bezier(0.22, 1, 0.36, 1)',
+              }}
+            >
               <div className="hero-card-glow" style={{ background: s.accent }}></div>
               <div className="hero-card-inner" style={{ borderColor: `${s.accent}20` }}>
                 <div className="hero-card-icon" style={{ color: s.accent, background: `${s.accent}08` }}>
