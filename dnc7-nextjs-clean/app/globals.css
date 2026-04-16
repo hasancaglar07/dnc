@@ -811,6 +811,46 @@ body.cur-on #cdot {
   .hero-dot { padding: 10px; }
 }
 
+/* ── Mobile service badge (hidden on desktop) ── */
+.hero-mob-badge {
+  display: none;
+}
+
+@media(max-width: 900px) {
+  .hero-mob-badge {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    border-radius: 20px;
+    border: 1.5px solid;
+    background: rgba(255,255,255,.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    margin-bottom: 24px;
+    animation: heroCardIn 0.7s var(--ease) 0.15s both;
+    box-shadow: 0 8px 32px rgba(0,0,0,.06);
+  }
+  .hero-mob-icon {
+    width: 56px; height: 56px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .hero-mob-icon i { font-size: 28px !important; }
+  .hero-mob-info { flex: 1; min-width: 0; }
+  .hero-mob-name {
+    font-size: 15px; font-weight: 800; color: var(--text);
+    letter-spacing: -0.3px; display: block; margin-bottom: 8px;
+  }
+  .hero-mob-bar {
+    width: 100%; height: 3px; border-radius: 2px;
+    background: var(--border); overflow: hidden;
+  }
+  .hero-mob-bar-fill {
+    height: 100%; border-radius: 2px; transition: width 0.1s linear;
+  }
+}
+
 .hero-arrows { display: flex; gap: 8px; }
 
 .hero-arr {

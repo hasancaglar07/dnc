@@ -121,6 +121,19 @@ export default function HeroSlider() {
               ))}
             </div>
 
+            {/* Mobile service badge (visible only on mobile) */}
+            <div className="hero-mob-badge" key={`mob-${currentIndex}`} style={{ borderColor: `${s.accent}30` }}>
+              <div className="hero-mob-icon" style={{ color: s.accent, background: `${s.accent}10` }}>
+                {serviceIcons[s.id]}
+              </div>
+              <div className="hero-mob-info">
+                <span className="hero-mob-name">{s.name}</span>
+                <div className="hero-mob-bar">
+                  <div className="hero-mob-bar-fill" style={{ background: s.accent, width: `${progress * 100}%` }}></div>
+                </div>
+              </div>
+            </div>
+
             {/* Actions */}
             <div className="hero-actions" key={`acts-${currentIndex}`}>
               <a href="#hizmetler" className="hero-cta-primary" style={{ background: s.accent }}>
