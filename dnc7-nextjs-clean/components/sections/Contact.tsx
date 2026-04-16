@@ -1,12 +1,17 @@
+import Reveal from '@/components/ui/Reveal';
+
 export default function Contact() {
   return (
     <section id="iletisim" className="sec contact-sec">
       <div className="wrap">
-        <div className="sec-tag">İletişim</div>
-        <h2 className="sec-title">Projenizi <em>Başlatalım</em></h2>
-        <p className="sec-sub">Size özel çözümler için bizimle iletişime geçin</p>
+        <Reveal>
+          <div className="sec-tag">İletişim</div>
+          <h2 className="sec-title">Projenizi <em>Başlatalım</em></h2>
+          <p className="sec-sub">Size özel çözümler için bizimle iletişime geçin</p>
+        </Reveal>
 
-        <div className="contact-box">
+        <Reveal delay={120}>
+          <div className="contact-box">
           <div className="contact-in">
             <div>
               <h3 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '24px' }}>Bize Ulaşın</h3>
@@ -49,7 +54,8 @@ export default function Contact() {
               </form>
             </div>
           </div>
-        </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 import { type ReactElement } from 'react';
 import { services } from '@/data/services';
+import Reveal from '@/components/ui/Reveal';
 
 const serviceIcons: Record<number, ReactElement> = {
   1: <i className="bi bi-camera-reels" style={{ fontSize: 28 }}></i>,
@@ -29,36 +30,40 @@ export default function Services() {
   return (
     <section id="hizmetler" className="sec svc-sec">
       <div className="wrap">
-        <div className="svc-hd">
-          <div>
-            <div className="sec-tag">Hizmetlerimiz</div>
-            <h2 className="sec-title">Size <em>Sunduğumuz</em> Değer</h2>
-            <p className="sec-sub">Her projede mükemmellik için çalışıyoruz.</p>
+        <Reveal>
+          <div className="svc-hd">
+            <div>
+              <div className="sec-tag">Hizmetlerimiz</div>
+              <h2 className="sec-title">Size <em>Sunduğumuz</em> Değer</h2>
+              <p className="sec-sub">Her projede mükemmellik için çalışıyoruz.</p>
+            </div>
           </div>
-        </div>
+        </Reveal>
 
-        <div className="svc-list">
-          {services.map((service) => (
-            <a
-              key={service.id}
-              href={serviceLinks[service.id] || '/hizmetler'}
-              className="svc-item"
-              style={{ textDecoration: 'none' }}
-            >
-              <div className="svc-n">{service.number}</div>
-              <div>
-                <div className="svc-name">
-                  <span style={{ color: service.accent, marginRight: 8 }}>{serviceIcons[service.id]}</span>
-                  {service.name}
+        <Reveal stagger>
+          <div className="svc-list">
+            {services.map((service) => (
+              <a
+                key={service.id}
+                href={serviceLinks[service.id] || '/hizmetler'}
+                className="svc-item"
+                style={{ textDecoration: 'none' }}
+              >
+                <div className="svc-n">{service.number}</div>
+                <div>
+                  <div className="svc-name">
+                    <span style={{ color: service.accent, marginRight: 8 }}>{serviceIcons[service.id]}</span>
+                    {service.name}
+                  </div>
+                  <div className="svc-desc">{service.description}</div>
                 </div>
-                <div className="svc-desc">{service.description}</div>
-              </div>
-              <div className="svc-arr">
-                <i className="bi bi-arrow-up-right"></i>
-              </div>
-            </a>
-          ))}
-        </div>
+                <div className="svc-arr">
+                  <i className="bi bi-arrow-up-right"></i>
+                </div>
+              </a>
+            ))}
+          </div>
+        </Reveal>
       </div>
     </section>
   );

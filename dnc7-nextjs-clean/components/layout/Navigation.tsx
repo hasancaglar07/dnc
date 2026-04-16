@@ -62,17 +62,62 @@ export default function Navigation() {
       </nav>
 
       <div className={`mob-nav ${isMobileMenuOpen ? 'open' : ''}`}>
-        <button className="mob-close" onClick={() => setIsMobileMenuOpen(false)}>✕</button>
-        {links.map((link) => {
-          if (isHome && link.hashHref) {
-            return <a key={link.label} href={link.hashHref} onClick={() => setIsMobileMenuOpen(false)}>{link.label}</a>;
-          }
-          return (
-            <Link key={link.label} href={link.hashHref ? link.href : link.href} onClick={() => setIsMobileMenuOpen(false)}>
-              {link.label}
+        <div className="mob-nav-top">
+          <Link href="/" className="nav-logo" onClick={() => setIsMobileMenuOpen(false)}>DNC<span>7</span></Link>
+          <button className="mob-close" onClick={() => setIsMobileMenuOpen(false)} aria-label="Menüyü kapat">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+
+        <div className="mob-nav-links">
+          {links.map((link, i) => {
+            if (isHome && link.hashHref) {
+              return (
+                <a key={link.label} href={link.hashHref} className="mob-link" onClick={() => setIsMobileMenuOpen(false)}
+                  style={{ animationDelay: `${i * 60}ms` }}>
+                  <span className="mob-link-num">0{i + 1}</span>
+                  {link.label}
+                </a>
+              );
+            }
+            return (
+              <Link key={link.label} href={link.href} className="mob-link" onClick={() => setIsMobileMenuOpen(false)}
+                style={{ animationDelay: `${i * 60}ms` }}>
+                <span className="mob-link-num">0{i + 1}</span>
+                {link.label}
+              </Link>
+            );
+          })}
+        </div>
+
+        <div className="mob-nav-footer">
+          {isHome ? (
+            <a href="#iletisim" className="cta-main" onClick={() => setIsMobileMenuOpen(false)}
+              style={{ width: '100%', justifyContent: 'center' }}>
+              Proje Başlat
+              <span className="ico">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <line x1="7" y1="17" x2="17" y2="7"/>
+                  <polyline points="7 7 17 7 17 17"/>
+                </svg>
+              </span>
+            </a>
+          ) : (
+            <Link href="/#iletisim" className="cta-main" onClick={() => setIsMobileMenuOpen(false)}
+              style={{ width: '100%', justifyContent: 'center' }}>
+              Proje Başlat
+              <span className="ico">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <line x1="7" y1="17" x2="17" y2="7"/>
+                  <polyline points="7 7 17 7 17 17"/>
+                </svg>
+              </span>
             </Link>
-          );
-        })}
+          )}
+        </div>
       </div>
     </>
   );

@@ -1,5 +1,6 @@
 import { type ReactElement } from 'react';
 import { team } from '@/data/team';
+import Reveal from '@/components/ui/Reveal';
 
 export default function Team() {
   const socIcons: Record<string, ReactElement> = {
@@ -26,12 +27,17 @@ export default function Team() {
   return (
     <section id="ekip" className="sec team-sec">
       <div className="wrap">
-        <div className="sec-tag">Ekibimiz</div>
-        <h2 className="sec-title">Profesyonel <em>Kadromuz</em></h2>
-        <p className="sec-sub">Yaratıcı ve deneyimli ekibimizle tanışın</p>
+        <Reveal>
+          <div>
+            <div className="sec-tag">Ekibimiz</div>
+            <h2 className="sec-title">Profesyonel <em>Kadromuz</em></h2>
+            <p className="sec-sub">Yaratıcı ve deneyimli ekibimizle tanışın</p>
+          </div>
+        </Reveal>
 
-        <div className="team-grid">
-          {team.map((member) => (
+        <Reveal stagger>
+          <div className="team-grid">
+            {team.map((member) => (
             <div key={member.id} className="team-card">
               <div className="team-img">
                 <img
@@ -54,7 +60,8 @@ export default function Team() {
               </div>
             </div>
           ))}
-        </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

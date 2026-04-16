@@ -1,19 +1,23 @@
 import { testimonials } from '@/data/testimonials';
+import Reveal from '@/components/ui/Reveal';
 
 export default function Testimonials() {
   return (
     <section id="referanslar" className="sec ref-sec">
       <div className="wrap">
-        <div className="ref-hd">
-          <div>
-            <div className="sec-tag">Referanslar</div>
-            <h2 className="sec-title">Müşterilerimiz <em>Neler Söylüyor?</em></h2>
-            <p className="sec-sub">Birlikte çalıştığımız markaların deneyimleri</p>
+        <Reveal>
+          <div className="ref-hd">
+            <div>
+              <div className="sec-tag">Referanslar</div>
+              <h2 className="sec-title">Müşterilerimiz <em>Neler Söylüyor?</em></h2>
+              <p className="sec-sub">Birlikte çalıştığımız markaların deneyimleri</p>
+            </div>
           </div>
-        </div>
+        </Reveal>
 
-        <div className="ref-grid">
-          {testimonials.map((t) => (
+        <Reveal stagger>
+          <div className="ref-grid">
+            {testimonials.map((t) => (
             <div key={t.id} className="ref-card">
               {/* Stars */}
               <div className="ref-stars-row">
@@ -40,7 +44,8 @@ export default function Testimonials() {
               </div>
             </div>
           ))}
-        </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

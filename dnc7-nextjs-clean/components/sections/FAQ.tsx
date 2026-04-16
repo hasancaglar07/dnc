@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Reveal from '@/components/ui/Reveal';
 
 const faqs = [
   { id: 1, q: 'Proje teslim süresi ne kadar?', a: 'Proje kapsamına göre değişmekle birlikte, basit bir web sitesi 2-4 hafta, mobil uygulama 6-12 hafta, prodüksiyon filmi 1-4 hafta arasında teslim edilmektedir.' },
@@ -17,11 +18,14 @@ export default function FAQ() {
   return (
     <section className="sec faq-sec">
       <div className="wrap">
-        <div className="sec-tag">SSS</div>
-        <h2 className="sec-title">Sıkça Sorulan <em>Sorular</em></h2>
-        <p className="sec-sub">Aklınıza takılan soruların cevapları</p>
+        <Reveal>
+          <div className="sec-tag">SSS</div>
+          <h2 className="sec-title">Sıkça Sorulan <em>Sorular</em></h2>
+          <p className="sec-sub">Aklınıza takılan soruların cevapları</p>
+        </Reveal>
 
-        <div className="faq-lay">
+        <Reveal delay={100}>
+          <div className="faq-lay">
           <div>
             <p style={{ fontSize: '15px', color: 'var(--text2)', lineHeight: 1.75 }}>
               Proje sürecimiz, fiyatlandırma politikalarımız ve çalışma şeklimiz hakkında merak edilenler.
@@ -52,6 +56,7 @@ export default function FAQ() {
             ))}
           </div>
         </div>
+        </Reveal>
       </div>
     </section>
   );

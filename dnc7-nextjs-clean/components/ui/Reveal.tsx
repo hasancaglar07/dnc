@@ -1,23 +1,36 @@
 'use client';
 
-import { useScrollReveal } from '@/lib/useScrollReveal';
-import { type ReactNode } from 'react';
+import { useRef, useEffect, useState, type ReactNode } from 'react';
 
 interface RevealProps {
   children: ReactNode;
-  className?: string;
-  stagger?: boolean;
   delay?: number;
+  stagger?: boolean;
 }
 
-export default function Reveal({ children, className = '', stagger = false, delay = 0 }: RevealProps) {
-  const ref = useScrollReveal();
+export default function Reveal({ children, delay = 0, stagger = false }: RevealProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold: 0.1 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
 
   return (
     <div
-      ref={ref as React.RefObject<HTMLDivElement>}
-      className={`${stagger ? 'reveal-stagger' : 'reveal'} ${className}`}
-      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+      ref={ref}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(30px)',
+        transition: `opacity 0.7s cubic-bezier(.22,1,.36,1) ${delay}ms, transform 0.7s cubic-bezier(.22,1,.36,1) ${delay}ms`,
+      }}
     >
       {children}
     </div>
