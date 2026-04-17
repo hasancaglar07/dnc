@@ -331,13 +331,71 @@ body.cur-on #cdot {
 }
 
 .nav-logo {
-  font-size: 1.8rem;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.7rem;
   font-weight: 800;
   letter-spacing: 4px;
   color: var(--text);
+  padding: 4px 2px 4px 4px;
+  transition: letter-spacing .4s var(--ease);
+}
+.nav-logo:hover { letter-spacing: 6px; }
+
+.nav-logo-mark {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+}
+.nav-logo-mark::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 26px;
+  bottom: -3px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--text), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .45s var(--ease);
+}
+.nav-logo:hover .nav-logo-mark::after { transform: scaleX(1); }
+
+.nav-logo-seven {
+  background: linear-gradient(135deg, #F97316 0%, #FCD34D 50%, #F97316 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: logoSevenShine 4s linear infinite;
+  margin-left: 2px;
+  filter: drop-shadow(0 1px 8px rgba(249,115,22,0.25));
+}
+@keyframes logoSevenShine {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
-.nav-logo span {
+.nav-logo-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 0 3px rgba(16,185,129,0.18);
+  animation: logoDotPulse 2s ease-in-out infinite;
+  align-self: flex-start;
+  margin-top: 6px;
+}
+@keyframes logoDotPulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(16,185,129,0.18); }
+  50% { box-shadow: 0 0 0 6px rgba(16,185,129,0.08); }
+}
+
+/* Keep legacy fallback for pages that render <Link>DNC<span>7</span></Link> */
+.nav-logo > span:not([class]) {
   color: var(--accent);
 }
 

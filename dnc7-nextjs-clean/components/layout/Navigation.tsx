@@ -50,7 +50,10 @@ export default function Navigation() {
     <>
       <nav className={`nav ${isScrolled ? 'scrolled' : ''} ${isLight ? 'nav-light' : ''}`}>
         <div className="nav-shell">
-          <Link href="/" className="nav-logo">DNC<span>7</span></Link>
+          <Link href="/" className="nav-logo">
+            <span className="nav-logo-mark">DNC<span className="nav-logo-seven">7</span></span>
+            <span className="nav-logo-dot" aria-hidden="true" />
+          </Link>
           <div className="nav-menu">
             {links.map((link) => (
               <NavLink key={link.label} {...link} />
@@ -65,8 +68,17 @@ export default function Navigation() {
               Ücretsiz Teklif <i className="bi bi-arrow-up-right"></i>
             </Link>
           )}
-          <button className="nav-burger" onClick={() => setIsMobileMenuOpen(true)} aria-label="Menüyü aç" aria-expanded={isMobileMenuOpen} aria-controls="mob-nav">
-            <i className="bi bi-list" aria-hidden="true"></i>
+          <a href="tel:+902125550000" className="nav-phone-m" aria-label="Bizi arayın">
+            <i className="bi bi-telephone-fill"></i>
+          </a>
+          <button
+            className={`nav-burger ${isMobileMenuOpen ? 'on' : ''}`}
+            onClick={() => setIsMobileMenuOpen(true)}
+            aria-label="Menüyü aç"
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mob-nav"
+          >
+            <span /><span /><span />
           </button>
         </div>
       </nav>
