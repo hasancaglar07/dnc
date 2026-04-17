@@ -7,6 +7,7 @@ export const team = [
     socials: {
       linkedin: 'https://linkedin.com',
       twitter: 'https://twitter.com',
+      instagram: 'https://instagram.com',
     },
   },
   {
@@ -17,6 +18,7 @@ export const team = [
     socials: {
       linkedin: 'https://linkedin.com',
       twitter: 'https://twitter.com',
+      instagram: 'https://instagram.com',
     },
   },
   {
@@ -27,6 +29,7 @@ export const team = [
     socials: {
       linkedin: 'https://linkedin.com',
       twitter: 'https://twitter.com',
+      instagram: 'https://instagram.com',
     },
   },
   {
@@ -37,6 +40,7 @@ export const team = [
     socials: {
       linkedin: 'https://linkedin.com',
       twitter: 'https://twitter.com',
+      instagram: 'https://instagram.com',
     },
   },
   {
@@ -47,6 +51,7 @@ export const team = [
     socials: {
       linkedin: 'https://linkedin.com',
       twitter: 'https://twitter.com',
+      instagram: 'https://instagram.com',
     },
   },
   {
@@ -57,6 +62,7 @@ export const team = [
     socials: {
       linkedin: 'https://linkedin.com',
       twitter: 'https://twitter.com',
+      instagram: 'https://instagram.com',
     },
   },
   {
@@ -67,6 +73,7 @@ export const team = [
     socials: {
       linkedin: 'https://linkedin.com',
       twitter: 'https://twitter.com',
+      instagram: 'https://instagram.com',
     },
   },
   {
@@ -77,6 +84,7 @@ export const team = [
     socials: {
       linkedin: 'https://linkedin.com',
       twitter: 'https://twitter.com',
+      instagram: 'https://instagram.com',
     },
   },
 ];
