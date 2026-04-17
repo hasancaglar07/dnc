@@ -2598,6 +2598,36 @@ body.cur-on #cdot {
   transform: scale(1);
 }
 
+.proj-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.7);
+  z-index: 10;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: transform 0.35s var(--ease), opacity 0.3s var(--ease), box-shadow 0.35s var(--ease);
+  padding-left: 4px;
+}
+.proj-card:hover .proj-play-btn {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  box-shadow: 0 0 0 12px rgba(249, 115, 22, 0.2);
+}
+.proj-play-btn:hover {
+  transform: translate(-50%, -50%) scale(1.12);
+  box-shadow: 0 0 0 18px rgba(249, 115, 22, 0.25);
+}
+
 .proj-info {
   padding: 24px 28px 28px;
 }

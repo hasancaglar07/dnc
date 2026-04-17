@@ -17,6 +17,7 @@ export interface Project {
   challenges?: string;
   solutions?: string;
   results?: string;
+  videoUrl?: string;
   testimonial?: {
     text: string;
     author: string;
@@ -264,6 +265,31 @@ export const projects: Project[] = [
       author: 'Emre Koç',
       role: 'Founder, Indie Games'
     }
+  },
+  {
+    id: 9,
+    name: 'CW Energy Production Facility',
+    category: 'video',
+    year: '2025',
+    image: '/assets/images/work/work-img-1.jpg',
+    videoUrl: 'https://player.vimeo.com/video/1116741515',
+    tags: ['Video', 'Prodüksiyon', 'Enerji'],
+    accent: '#F97316',
+    description: 'CW Energy üretim tesisi için profesyonel tanıtım filmi',
+    longDescription: 'CW Energy\'in üretim tesislerinin kapsamlı drone ve sinematik çekimlerini içeren kurumsal tanıtım filmi.',
+    client: 'CW Energy',
+    duration: '2 ay',
+    team: ['Yönetmen', 'Drone Operatörü', 'Görüntü Yönetmeni', 'Kurgucu'],
+    technologies: ['Premiere Pro', 'DaVinci Resolve', 'DJI Mavic 3 Pro'],
+    features: [
+      '4K drone çekimleri',
+      'Sinematik kamera hareketleri',
+      'Profesyonel ses tasarımı',
+      'Renk grading'
+    ],
+    challenges: 'Büyük ölçekli endüstriyel tesisin etkileyici bir şekilde görselleştirilmesi.',
+    solutions: 'Drone ve ground-level çekimleri birleştirerek tesisin boyutunu ve teknolojisini vurguladık.',
+    results: 'Kurumsal sunumlarda kullanılan ana tanıtım videosu',
   },
 ];
 
