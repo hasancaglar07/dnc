@@ -1,340 +1,178 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { BlogPost } from '@/data/blog';
+import { IconBack, IconPlus, IconLink } from '@/components/admin/icons';
 
-interface BlogFormProps {
-  post?: BlogPost;
-  isEdit?: boolean;
-}
+interface Props { post?: BlogPost; isEdit?: boolean }
 
 const categories = ['AI & Teknoloji', 'Web Tasarım', 'Dijital Pazarlama', 'Prodüksiyon', 'E-Ticaret'];
 
-export default function BlogForm({ post, isEdit = false }: BlogFormProps) {
+const input = "w-full px-3 py-2.5 bg-[#12151A] border border-white/5 rounded-lg text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:border-orange-500/40 transition-colors";
+const label = "block text-xs font-medium text-zinc-500 mb-1.5";
+
+export default function BlogForm({ post, isEdit = false }: Props) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-
-  const [formData, setFormData] = useState<Partial<BlogPost>>(
-    post || {
-      id: Date.now().toString(),
-      slug: '',
-      title: '',
-      excerpt: '',
-      content: '',
-      category: categories[0],
-      tags: [],
-      author: 'DNC7 Ekibi',
-      authorRole: '',
-      date: new Date().toISOString().split('T')[0],
-      readTime: '5 dk',
-      image: '',
-      featured: false,
-    }
-  );
-
   const [tagInput, setTagInput] = useState('');
+  const [form, setForm] = useState<Partial<BlogPost>>(post || {
+    id: Date.now().toString(), slug: '', title: '', excerpt: '', content: '',
+    category: categories[0], tags: [], author: 'DNC7 Ekibi', authorRole: '',
+    date: new Date().toISOString().split('T')[0], readTime: '5 dk', image: '', featured: false,
+  });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
-    }));
-  };
+  const set = (name: string, value: any) => setForm(prev => ({ ...prev, [name]: value }));
+  const onChange = (e: any) => set(e.target.name, e.target.type === 'checkbox' ? e.target.checked : e.target.value);
 
-  const handleAddTag = () => {
-    if (tagInput.trim() && !formData.tags?.includes(tagInput.trim())) {
-      setFormData(prev => ({
-        ...prev,
-        tags: [...(prev.tags || []), tagInput.trim()],
-      }));
-      setTagInput('');
-    }
+  const addTag = () => {
+    const t = tagInput.trim();
+    if (t && !form.tags?.includes(t)) { set('tags', [...(form.tags || []), t]); setTagInput(''); }
   };
-
-  const handleRemoveTag = (tag: string) => {
-    setFormData(prev => ({
-      ...prev,
-      tags: prev.tags?.filter(t => t !== tag) || [],
-    }));
-  };
+  const removeTag = (tag: string) => set('tags', form.tags?.filter(t => t !== tag) || []);
 
   const generateSlug = () => {
-    const slug = (formData.title || '')
-      .toLowerCase()
-      .replace(/[^a-z0-9ğüşıöç]+/g, '-')
-      .replace(/^-+|-+$/g, '')
-      .replace(/ğ/g, 'g')
-      .replace(/ü/g, 'u')
-      .replace(/ş/g, 's')
-      .replace(/ı/g, 'i')
-      .replace(/ö/g, 'o')
-      .replace(/ç/g, 'c');
-    setFormData(prev => ({ ...prev, slug }));
+    const slug = (form.title || '').toLowerCase()
+      .replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ı/g,'i').replace(/ö/g,'o').replace(/ç/g,'c')
+      .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    set('slug', slug);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       const res = await fetch('/api/admin/blog', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form),
       });
-
-      if (res.ok) {
-        router.push('/admin/blog');
-      } else {
-        alert('Kaydetme başarısız');
-      }
-    } catch {
-      alert('Bir hata oluştu');
-    } finally {
-      setLoading(false);
-    }
+      if (res.ok) router.push('/admin/blog'); else alert('Kaydetme başarısız');
+    } catch { alert('Bir hata oluştu'); }
+    finally { setLoading(false); }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      {/* Main Content */}
+    <form onSubmit={handleSubmit} className="max-w-5xl space-y-6">
+      {/* Header */}
+      <div className="flex items-center gap-3">
+        <button type="button" onClick={() => router.back()} className="p-2 rounded-lg text-zinc-500 hover:text-white hover:bg-white/5 transition-colors">
+          <IconBack width={18} height={18} />
+        </button>
+        <div>
+          <h1 className="text-xl font-bold text-white">{isEdit ? 'Yazıyı Düzenle' : 'Yeni Blog Yazısı'}</h1>
+          <p className="text-xs text-zinc-600 mt-0.5">{isEdit ? 'Mevcut yazıyı güncelleyin' : 'Yeni bir yazı oluşturun'}</p>
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left Column */}
-        <div className="lg:col-span-2 space-y-6">
-          <div className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-6">
-            <h3 className="text-lg font-semibold text-white mb-4">İçerik</h3>
-            
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Başlık *</label>
-                <input
-                  type="text"
-                  name="title"
-                  value={formData.title}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                  placeholder="Blog yazısı başlığı"
-                />
-              </div>
-
-              <div className="flex gap-4">
-                <div className="flex-1">
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Slug *</label>
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
-                      name="slug"
-                      value={formData.slug}
-                      onChange={handleChange}
-                      required
-                      className="flex-1 px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                      placeholder="url-slug"
-                    />
-                    <button
-                      type="button"
-                      onClick={generateSlug}
-                      className="px-4 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition"
-                      title="Başlıktan Slug Oluştur"
-                    >
-                      <i className="bi bi-magic" />
-                    </button>
-                  </div>
-                </div>
-                <div className="w-40">
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Okuma Süresi</label>
-                  <input
-                    type="text"
-                    name="readTime"
-                    value={formData.readTime}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                    placeholder="5 dk"
-                  />
+        {/* Main */}
+        <div className="lg:col-span-2 space-y-5">
+          {/* Content Card */}
+          <div className="bg-[#12151A] border border-white/5 rounded-xl p-5 space-y-4">
+            <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">İçerik</h3>
+            <div>
+              <label className={label}>Başlık *</label>
+              <input type="text" name="title" value={form.title} onChange={onChange} required className={input} placeholder="Blog yazısı başlığı" />
+            </div>
+            <div className="flex gap-3">
+              <div className="flex-1">
+                <label className={label}>Slug *</label>
+                <div className="flex gap-2">
+                  <input type="text" name="slug" value={form.slug} onChange={onChange} required className={input} placeholder="url-slug" />
+                  <button type="button" onClick={generateSlug} className="px-3 bg-white/5 hover:bg-white/10 text-zinc-500 hover:text-white rounded-lg transition-colors" title="Otomatik oluştur">
+                    <IconLink width={16} height={16} />
+                  </button>
                 </div>
               </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Özet</label>
-                <textarea
-                  name="excerpt"
-                  value={formData.excerpt}
-                  onChange={handleChange}
-                  rows={2}
-                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                  placeholder="Kısa özet..."
-                />
+              <div className="w-28">
+                <label className={label}>Okuma Süresi</label>
+                <input type="text" name="readTime" value={form.readTime} onChange={onChange} className={input} placeholder="5 dk" />
               </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">İçerik (Markdown) *</label>
-                <textarea
-                  name="content"
-                  value={formData.content}
-                  onChange={handleChange}
-                  required
-                  rows={15}
-                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono text-sm"
-                  placeholder="# Başlık&#10;&#10;İçerik..."
-                />
-              </div>
+            </div>
+            <div>
+              <label className={label}>Özet</label>
+              <textarea name="excerpt" value={form.excerpt} onChange={onChange} rows={2} className={input} placeholder="Kısa özet..." />
+            </div>
+            <div>
+              <label className={label}>İçerik (Markdown) *</label>
+              <textarea name="content" value={form.content} onChange={onChange} required rows={14}
+                className={`${input} font-mono text-xs leading-relaxed`} placeholder="# Başlık&#10;&#10;İçerik buraya..." />
             </div>
           </div>
         </div>
 
-        {/* Right Column */}
-        <div className="space-y-6">
-          <div className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-6">
-            <h3 className="text-lg font-semibold text-white mb-4">Yayınla</h3>
-            
-            <div className="space-y-4">
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-4 rounded-lg transition disabled:opacity-50"
-              >
-                {loading ? 'Kaydediliyor...' : isEdit ? 'Güncelle' : 'Yayınla'}
-              </button>
-              
-              <button
-                type="button"
-                onClick={() => router.back()}
-                className="w-full bg-slate-800 hover:bg-slate-700 text-white py-3 px-4 rounded-lg transition"
-              >
-                İptal
-              </button>
-            </div>
+        {/* Sidebar */}
+        <div className="space-y-5">
+          {/* Publish */}
+          <div className="bg-[#12151A] border border-white/5 rounded-xl p-5 space-y-3">
+            <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Yayınla</h3>
+            <button type="submit" disabled={loading}
+              className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors disabled:opacity-50">
+              {loading ? 'Kaydediliyor...' : isEdit ? 'Güncelle' : 'Yayınla'}
+            </button>
+            <button type="button" onClick={() => router.back()}
+              className="w-full bg-white/5 hover:bg-white/10 text-zinc-400 py-2.5 rounded-lg text-sm transition-colors">
+              İptal
+            </button>
           </div>
 
-          <div className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-6">
-            <h3 className="text-lg font-semibold text-white mb-4">Kategori & Etiketler</h3>
-            
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Kategori</label>
-                <select
-                  name="category"
-                  value={formData.category}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                >
-                  {categories.map(cat => (
-                    <option key={cat} value={cat}>{cat}</option>
-                  ))}
-                </select>
+          {/* Category & Tags */}
+          <div className="bg-[#12151A] border border-white/5 rounded-xl p-5 space-y-4">
+            <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Kategori & Etiketler</h3>
+            <div>
+              <label className={label}>Kategori</label>
+              <select name="category" value={form.category} onChange={onChange} className={input}>
+                {categories.map(c => <option key={c} value={c}>{c}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className={label}>Etiketler</label>
+              <div className="flex gap-2">
+                <input type="text" value={tagInput} onChange={e => setTagInput(e.target.value)}
+                  onKeyDown={e => e.key === 'Enter' && (e.preventDefault(), addTag())}
+                  className={`${input} py-2`} placeholder="Etiket ekle..." />
+                <button type="button" onClick={addTag} className="px-2.5 bg-white/5 hover:bg-white/10 text-zinc-500 hover:text-white rounded-lg transition-colors">
+                  <IconPlus width={14} height={14} />
+                </button>
               </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Etiketler</label>
-                <div className="flex gap-2 mb-2">
-                  <input
-                    type="text"
-                    value={tagInput}
-                    onChange={(e) => setTagInput(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddTag())}
-                    className="flex-1 px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                    placeholder="Etiket ekle..."
-                  />
-                  <button
-                    type="button"
-                    onClick={handleAddTag}
-                    className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition"
-                  >
-                    <i className="bi bi-plus-lg" />
-                  </button>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {formData.tags?.map(tag => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 bg-emerald-500/10 text-emerald-400 rounded-full text-sm flex items-center gap-1"
-                    >
+              {form.tags && form.tags.length > 0 && (
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  {form.tags.map(tag => (
+                    <span key={tag} className="inline-flex items-center gap-1 text-xs bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded-md">
                       {tag}
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveTag(tag)}
-                        className="hover:text-red-400"
-                      >
-                        <i className="bi bi-x text-xs" />
-                      </button>
+                      <button type="button" onClick={() => removeTag(tag)} className="hover:text-red-400">×</button>
                     </span>
                   ))}
                 </div>
-              </div>
-
-              <label className="flex items-center gap-3 cursor-pointer">
-                <input
-                  type="checkbox"
-                  name="featured"
-                  checked={formData.featured}
-                  onChange={handleChange}
-                  className="w-5 h-5 rounded border-slate-700 bg-slate-800 text-emerald-500 focus:ring-emerald-500"
-                />
-                <span className="text-white">Öne çıkan yazı</span>
-              </label>
-            </div>
-          </div>
-
-          <div className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-6">
-            <h3 className="text-lg font-semibold text-white mb-4">Görsel</h3>
-            
-            <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">Resim URL</label>
-              <input
-                type="url"
-                name="image"
-                value={formData.image}
-                onChange={handleChange}
-                className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                placeholder="/assets/images/..."
-              />
-              {formData.image && (
-                <img
-                  src={formData.image}
-                  alt="Preview"
-                  className="mt-4 w-full h-40 object-cover rounded-lg"
-                />
               )}
             </div>
+            <label className="flex items-center gap-2.5 cursor-pointer">
+              <input type="checkbox" name="featured" checked={form.featured} onChange={onChange}
+                className="w-4 h-4 rounded border-zinc-700 bg-zinc-800 text-orange-500 focus:ring-orange-500" />
+              <span className="text-sm text-zinc-400">Öne çıkan yazı</span>
+            </label>
           </div>
 
-          <div className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-6">
-            <h3 className="text-lg font-semibold text-white mb-4">Yazar</h3>
-            
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Yazar Adı</label>
-                <input
-                  type="text"
-                  name="author"
-                  value={formData.author}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Yazar Rolü</label>
-                <input
-                  type="text"
-                  name="authorRole"
-                  value={formData.authorRole}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                  placeholder="AI & Teknoloji"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Tarih</label>
-                <input
-                  type="date"
-                  name="date"
-                  value={formData.date}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                />
-              </div>
+          {/* Image */}
+          <div className="bg-[#12151A] border border-white/5 rounded-xl p-5 space-y-3">
+            <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Görsel</h3>
+            <input type="url" name="image" value={form.image} onChange={onChange} className={input} placeholder="/assets/images/..." />
+            {form.image && <img src={form.image} alt="" className="w-full h-32 object-cover rounded-lg border border-white/5" />}
+          </div>
+
+          {/* Author */}
+          <div className="bg-[#12151A] border border-white/5 rounded-xl p-5 space-y-3">
+            <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Yazar</h3>
+            <div>
+              <label className={label}>Ad</label>
+              <input type="text" name="author" value={form.author} onChange={onChange} className={input} />
+            </div>
+            <div>
+              <label className={label}>Rol</label>
+              <input type="text" name="authorRole" value={form.authorRole} onChange={onChange} className={input} placeholder="Teknoloji Editörü" />
+            </div>
+            <div>
+              <label className={label}>Tarih</label>
+              <input type="date" name="date" value={form.date} onChange={onChange} className={input} />
             </div>
           </div>
         </div>

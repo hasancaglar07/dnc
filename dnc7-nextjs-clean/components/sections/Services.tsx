@@ -73,10 +73,9 @@ export default function Services() {
                 <div className="bento-body">
                   <span className="bento-icon">{serviceIcons[service.id]}</span>
                   <h3 className="bento-name">{service.name}</h3>
-                  <p className="bento-desc">{service.description}</p>
 
                   <div className="bento-tags">
-                    {service.tags.slice(0, 3).map((tag, i) => (
+                    {service.tags.slice(0, 2).map((tag, i) => (
                       <span key={i} className="bento-tag">{tag}</span>
                     ))}
                   </div>
