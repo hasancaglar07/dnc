@@ -9,6 +9,16 @@ export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === '/';
+  // Pages with dark hero backgrounds need light nav
+  const hasDarkHero = !isHome && (
+    pathname.startsWith('/hizmetler/') ||
+    pathname === '/hizmetler' ||
+    pathname === '/hakkimizda' ||
+    pathname === '/blog' ||
+    pathname.startsWith('/blog/') ||
+    pathname === '/fiyatlandirma'
+  );
+  const isLight = hasDarkHero && !isScrolled;
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -19,8 +29,8 @@ export default function Navigation() {
   const links = [
     { label: 'Hizmetler', href: '/hizmetler', hashHref: '#hizmetler' },
     { label: 'Projeler', href: '/projeler', hashHref: null },
-    { label: 'Ekip', href: '/#ekip', hashHref: '#ekip' },
-    { label: 'Referanslar', href: '/#referanslar', hashHref: '#referanslar' },
+    { label: 'Blog', href: '/blog', hashHref: null },
+    { label: 'Fiyatlandırma', href: '/fiyatlandirma', hashHref: null },
     { label: 'İletişim', href: '/#iletisim', hashHref: '#iletisim' },
   ];
 
@@ -38,7 +48,7 @@ export default function Navigation() {
 
   return (
     <>
-      <nav className={`nav ${isScrolled ? 'scrolled' : ''}`}>
+      <nav className={`nav ${isScrolled ? 'scrolled' : ''} ${isLight ? 'nav-light' : ''}`}>
         <div className="nav-shell">
           <Link href="/" className="nav-logo">DNC<span>7</span></Link>
           <div className="nav-menu">
@@ -48,20 +58,27 @@ export default function Navigation() {
           </div>
           {isHome ? (
             <a href="#iletisim" className="nav-cta">
-              Proje Başlat <i className="bi bi-arrow-up-right"></i>
+              Ücretsiz Teklif <i className="bi bi-arrow-up-right"></i>
             </a>
           ) : (
             <Link href="/#iletisim" className="nav-cta">
-              Proje Başlat <i className="bi bi-arrow-up-right"></i>
+              Ücretsiz Teklif <i className="bi bi-arrow-up-right"></i>
             </Link>
           )}
-          <button className="nav-burger" onClick={() => setIsMobileMenuOpen(true)}>
-            <i className="bi bi-list"></i>
+          <button className="nav-burger" onClick={() => setIsMobileMenuOpen(true)} aria-label="Menüyü aç" aria-expanded={isMobileMenuOpen} aria-controls="mob-nav">
+            <i className="bi bi-list" aria-hidden="true"></i>
           </button>
         </div>
       </nav>
 
-      <div className={`mob-nav ${isMobileMenuOpen ? 'open' : ''}`}>
+      <div
+        id="mob-nav"
+        className={`mob-nav ${isMobileMenuOpen ? 'open' : ''}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Site navigasyonu"
+        aria-hidden={!isMobileMenuOpen}
+      >
         <div className="mob-nav-top">
           <Link href="/" className="nav-logo" onClick={() => setIsMobileMenuOpen(false)}>DNC<span>7</span></Link>
           <button className="mob-close" onClick={() => setIsMobileMenuOpen(false)} aria-label="Menüyü kapat">

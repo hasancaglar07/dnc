@@ -1,6 +1,6 @@
 import CustomCursor from '@/components/layout/CustomCursor';
 import Navigation from '@/components/layout/Navigation';
-import HeroSlider from '@/components/sections/HeroSlider';
+import HeroSection from '@/components/sections/HeroSection';
 import Ticker from '@/components/sections/Ticker';
 import Services from '@/components/sections/Services';
 import Projects from '@/components/sections/Projects';
@@ -17,7 +17,7 @@ export default function Home() {
     <>
       <CustomCursor />
       <Navigation />
-      <HeroSlider />
+      <HeroSection />
       <Ticker />
       <Services />
       <Projects />

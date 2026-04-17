@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { testimonials } from '@/data/testimonials';
 import Reveal from '@/components/ui/Reveal';
 
@@ -9,8 +10,8 @@ export default function Testimonials() {
           <div className="ref-hd">
             <div>
               <div className="sec-tag">Referanslar</div>
-              <h2 className="sec-title">Müşterilerimiz <em>Neler Söylüyor?</em></h2>
-              <p className="sec-sub">Birlikte çalıştığımız markaların deneyimleri</p>
+              <h2 className="sec-title">250+ Başarılı Projeden <em>Gerçek Sonuçlar</em></h2>
+              <p className="sec-sub">Müşterilerimizin kendi ağzından DNC7 deneyimi</p>
             </div>
           </div>
         </Reveal>
@@ -29,6 +30,12 @@ export default function Testimonials() {
               </div>
 
               <p className="ref-txt">{t.quote}</p>
+
+              {t.logo && (
+                <div style={{ marginBottom: '12px', opacity: 0.5 }}>
+                  <Image src={t.logo} alt={t.company || ''} width={80} height={28} style={{ objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />
+                </div>
+              )}
 
               <div className="ref-author">
                 <div className="ref-avatar">

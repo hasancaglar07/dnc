@@ -10,6 +10,9 @@ const faqs = [
   { id: 4, q: 'Revizyon hakkı veriyor musunuz?', a: 'Evet, tüm projelerimizde 3 tur revizyon hakkı sunuyoruz. Ek revizyonlar için saatlik ücretlendirme yapıyoruz.' },
   { id: 5, q: 'AI entegrasyonu hangi platformlarda çalışıyor?', a: 'GPT-4, Claude, Gemini ve kendi özel LLM modellerimizi entegre edebiliyoruz. Web siteleri, mobil uygulamalar ve WhatsApp botları için uygun.' },
   { id: 6, q: 'Drone çekim için izin gerekli mi?', a: 'Evet, SHGM tarafından verilmiş ticari drone uçuş iznimiz mevcut. Özel alanlar için gerekli izinleri biz yönetiyoruz.' },
+  { id: 7, q: 'Neden DNC7\'yi tercih etmeliyim?', a: '12 yıllık sektör deneyimi, 200+ tamamlanmış proje, prodüksiyondan AI\'a kadar uçtan uca hizmet kapasitesi ve uzman kadromuzla fark yaratıyoruz. Tek çatı altında hem kreatif hem teknik çözümler sunuyoruz — bu da zamandan ve bütçeden tasarruf demek.' },
+  { id: 8, q: 'Rakiplerinizden farkınız ne?', a: 'Birçok ajans sadece tek bir alanda uzmanlaşırken, DNC7 prodüksiyon, dijital pazarlama, yazılım ve AI\'ı bir arada sunan ender ajanslardan biridir. Proje bazlı değil, süreç bazlı çalışıyoruz — yani işinizi anlıyor, stratejiden uygulamaya kadar yanınızda duruyoruz.' },
+  { id: 9, q: 'Proje sonrası destek veriyor musunuz?', a: 'Evet, tüm projelerimizde teslim sonrası 30 gün ücretsiz teknik destek sağlıyoruz. Ayrıca aylık bakım ve güncelleme paketlerimiz ile uzun vadeli destek sunuyoruz.' },
 ];
 
 export default function FAQ() {

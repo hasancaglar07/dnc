@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import ExitIntentPopup from "@/components/layout/ExitIntentPopup";
+import WhatsAppButton from "@/components/layout/WhatsAppButton";
+import CookieConsent from "@/components/layout/CookieConsent";
+import SchemaOrg from "@/components/layout/SchemaOrg";
+import MobileStickyCTA from "@/components/layout/MobileStickyCTA";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -51,8 +56,18 @@ export default function RootLayout({
         <meta name="language" content="Turkish" />
         <meta name="rating" content="general" />
         <link rel="canonical" href="https://dnc7.com" />
+        <SchemaOrg />
+        {/* Google Analytics - TODO: Replace G-XXXXXXXXXX with real ID */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX" />
+        <script dangerouslySetInnerHTML={{ __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');` }} />
       </head>
-      <body style={{ fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif" }}>{children}</body>
+      <body>
+        {children}
+        <ExitIntentPopup />
+        <WhatsAppButton />
+        <CookieConsent />
+        <MobileStickyCTA />
+      </body>
     </html>
   );
 }

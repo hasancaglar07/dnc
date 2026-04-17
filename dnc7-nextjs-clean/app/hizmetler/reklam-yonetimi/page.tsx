@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Navigation from '@/components/layout/Navigation';
+import ServiceCROSections from '@/components/sections/ServiceCROSections';
 import CustomCursor from '@/components/layout/CustomCursor';
 import ScrollToTop from '@/components/layout/ScrollToTop';
 import Footer from '@/components/layout/Footer';
@@ -42,6 +43,9 @@ export default function ReklamYonetimiPage() {
           <p style={{ fontSize: 18, lineHeight: 1.75, color: 'rgba(255,255,255,.6)', maxWidth: 600, marginBottom: 32 }}>
             Google Ads, Meta Ads ve TikTok Ads üzerinde data-driven kampanyalar. 
             Her kuruşunuzun geri dönüşünü maksimize ediyoruz.
+          </p>
+          <p style={{ fontSize: 14, color: 'rgba(255,255,255,.45)', marginBottom: 16 }}>
+            <i className="bi bi-tag" style={{ marginRight: 6 }}></i>Aylık yönetim: <strong style={{ color: '#EF4444' }}>₺5.000</strong>&apos;den
           </p>
           <Link href="/#iletisim" className="cta-main" style={{ background: '#EF4444' }}>
             Ücretsiz Reklam Analizi <span className="ico"><i className="bi bi-arrow-right"></i></span>
@@ -104,6 +108,8 @@ export default function ReklamYonetimiPage() {
           </div>
         </div>
       </section>
+
+      <ServiceCROSections slug="reklam-yonetimi" accent="#EF4444" />
 
       {/* CTA */}
       <section className="sec" style={{ background: 'var(--bg3)' }}>

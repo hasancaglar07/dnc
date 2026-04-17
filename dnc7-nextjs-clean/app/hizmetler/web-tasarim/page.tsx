@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Navigation from '@/components/layout/Navigation';
+import ServiceCROSections from '@/components/sections/ServiceCROSections';
 import CustomCursor from '@/components/layout/CustomCursor';
 import ScrollToTop from '@/components/layout/ScrollToTop';
 import Footer from '@/components/layout/Footer';
@@ -36,6 +37,9 @@ export default function WebTasarimPage() {
             Modern teknolojilerle kurumsal siteler ve e-ticaret platformları. 
             UI/UX, SEO ve performans bir arada.
           </p>
+          <p style={{ fontSize: 14, color: 'rgba(255,255,255,.45)', marginBottom: 16 }}>
+            <i className="bi bi-tag" style={{ marginRight: 6 }}></i>Başlangıç fiyatı: <strong style={{ color: accent }}>₺15.000</strong>&apos;den
+          </p>
           <Link href="/#iletisim" className="cta-main" style={{ background: accent }}>
             Ücretsiz Analiz <span className="ico"><i className="bi bi-arrow-right"></i></span>
           </Link>
@@ -59,6 +63,8 @@ export default function WebTasarimPage() {
           </div>
         </div>
       </section>
+
+      <ServiceCROSections slug="web-tasarim" accent={accent} />
 
       <section className="sec" style={{ background: 'var(--bg3)' }}>
         <div className="wrap" style={{ textAlign: 'center' }}>

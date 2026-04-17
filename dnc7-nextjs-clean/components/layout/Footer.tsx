@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 
 export default function Footer() {
@@ -29,10 +31,10 @@ export default function Footer() {
 
           <div className="fc">
             <div className="fc-title">Şirket</div>
+            <Link href="/hakkimizda">Hakkımızda</Link>
             <Link href="/projeler">Projeler</Link>
-            <Link href="/hizmetler">Hizmetler</Link>
-            <Link href="/#ekip">Ekip</Link>
-            <Link href="/#referanslar">Referanslar</Link>
+            <Link href="/blog">Blog</Link>
+            <Link href="/fiyatlandirma">Fiyatlandırma</Link>
             <Link href="/#iletisim">İletişim</Link>
           </div>
 
@@ -41,8 +43,18 @@ export default function Footer() {
             <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.28)', marginBottom: '12px' }}>
               Yeni projeler ve haberlerden haberdar olun
             </p>
-            <input type="email" className="nl-in" placeholder="E-posta adresiniz" />
-            <button className="nl-btn">Abone Ol</button>
+            <form onSubmit={(e) => e.preventDefault()}>
+              <label htmlFor="footer-email" className="sr-only">E-posta adresiniz</label>
+              <input
+                id="footer-email"
+                type="email"
+                className="nl-in"
+                placeholder="E-posta adresiniz"
+                autoComplete="email"
+                aria-label="E-posta adresiniz"
+              />
+              <button type="submit" className="nl-btn">Abone Ol</button>
+            </form>
           </div>
         </div>
 

@@ -5,6 +5,28 @@ import Reveal from '@/components/ui/Reveal';
 
 type FormState = 'idle' | 'loading' | 'success' | 'error';
 
+const serviceOptions = [
+  'Web Tasarım & Geliştirme',
+  'Mobil Uygulama',
+  'AI Entegrasyonu',
+  'Prodüksiyon Filmi',
+  'Drone Çekim',
+  'Sosyal Medya Yönetimi',
+  'E-Ticaret Danışmanlığı',
+  'Reklam Yönetimi',
+  'Mobil Oyun',
+  'Diğer',
+];
+
+const budgetOptions = [
+  '₺5.000 - ₺15.000',
+  '₺15.000 - ₺30.000',
+  '₺30.000 - ₺60.000',
+  '₺60.000 - ₺100.000',
+  '₺100.000+',
+  'Henüz belirlemedim',
+];
+
 export default function Contact() {
   const [state, setState] = useState<FormState>('idle');
   const [errorMsg, setErrorMsg] = useState('');
@@ -19,6 +41,9 @@ export default function Contact() {
       firstName: fd.get('firstName') as string,
       lastName: fd.get('lastName') as string,
       email: fd.get('email') as string,
+      phone: fd.get('phone') as string,
+      service: fd.get('service') as string,
+      budget: fd.get('budget') as string,
       subject: fd.get('subject') as string,
       message: fd.get('message') as string,
     };
@@ -44,8 +69,19 @@ export default function Contact() {
       <div className="wrap">
         <Reveal>
           <div className="sec-tag">İletişim</div>
-          <h2 className="sec-title">Projenizi <em>Başlatalım</em></h2>
-          <p className="sec-sub">Size özel çözümler için bizimle iletişime geçin</p>
+          <h2 className="sec-title">Ücretsiz <em>Strateji Toplantısı</em> Alın</h2>
+          <p className="sec-sub">30 dakikada projenizi değerlendirelim — taahhüt yok, baskı yok</p>
+          <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 12, marginBottom: -8 }}>
+            <span style={{ fontSize: 13, color: 'var(--muted)', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <i className="bi bi-shield-check" style={{ color: '#10B981' }}></i> 100% Memnuniyet Garantisi
+            </span>
+            <span style={{ fontSize: 13, color: 'var(--muted)', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <i className="bi bi-clock" style={{ color: 'var(--accent)' }}></i> 2 Saat İçinde Yanıt
+            </span>
+            <span style={{ fontSize: 13, color: 'var(--muted)', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <i className="bi bi-lock" style={{ color: '#6366F1' }}></i> Bilgileriniz Güvende
+            </span>
+          </div>
         </Reveal>
 
         <Reveal delay={120}>
@@ -136,68 +172,54 @@ export default function Contact() {
                     <div className="f-row" style={{ marginBottom: 14 }}>
                       <div className="f-field">
                         <label htmlFor="contact-first-name" className="f-label">Ad <span aria-hidden>*</span></label>
-                        <input
-                          id="contact-first-name"
-                          name="firstName"
-                          type="text"
-                          className="fin"
-                          placeholder="Adınız"
-                          autoComplete="given-name"
-                          required
-                        />
+                        <input id="contact-first-name" name="firstName" type="text" className="fin" placeholder="Adınız" autoComplete="given-name" required />
                       </div>
                       <div className="f-field">
                         <label htmlFor="contact-last-name" className="f-label">Soyad <span aria-hidden>*</span></label>
-                        <input
-                          id="contact-last-name"
-                          name="lastName"
-                          type="text"
-                          className="fin"
-                          placeholder="Soyadınız"
-                          autoComplete="family-name"
-                          required
-                        />
+                        <input id="contact-last-name" name="lastName" type="text" className="fin" placeholder="Soyadınız" autoComplete="family-name" required />
                       </div>
                     </div>
 
-                    <div className="f-field">
-                      <label htmlFor="contact-email" className="f-label">E-posta <span aria-hidden>*</span></label>
-                      <input
-                        id="contact-email"
-                        name="email"
-                        type="email"
-                        className="fin"
-                        placeholder="ornek@mail.com"
-                        autoComplete="email"
-                        required
-                      />
+                    <div className="f-row" style={{ marginBottom: 14 }}>
+                      <div className="f-field">
+                        <label htmlFor="contact-email" className="f-label">E-posta <span aria-hidden>*</span></label>
+                        <input id="contact-email" name="email" type="email" className="fin" placeholder="ornek@mail.com" autoComplete="email" required />
+                      </div>
+                      <div className="f-field">
+                        <label htmlFor="contact-phone" className="f-label">Telefon</label>
+                        <input id="contact-phone" name="phone" type="tel" className="fin" placeholder="+90 (5XX) XXX XX XX" autoComplete="tel" />
+                      </div>
+                    </div>
+
+                    <div className="f-row" style={{ marginBottom: 14 }}>
+                      <div className="f-field">
+                        <label htmlFor="contact-service" className="f-label">Hizmet Tipi</label>
+                        <select id="contact-service" name="service" className="fin" defaultValue="" style={{ color: 'var(--text)' }}>
+                          <option value="" disabled>Seçiniz...</option>
+                          {serviceOptions.map((s) => <option key={s} value={s}>{s}</option>)}
+                        </select>
+                      </div>
+                      <div className="f-field">
+                        <label htmlFor="contact-budget" className="f-label">Bütçe Aralığı</label>
+                        <select id="contact-budget" name="budget" className="fin" defaultValue="" style={{ color: 'var(--text)' }}>
+                          <option value="" disabled>Seçiniz...</option>
+                          {budgetOptions.map((b) => <option key={b} value={b}>{b}</option>)}
+                        </select>
+                      </div>
                     </div>
 
                     <div className="f-field">
                       <label htmlFor="contact-subject" className="f-label">Konu</label>
-                      <input
-                        id="contact-subject"
-                        name="subject"
-                        type="text"
-                        className="fin"
-                        placeholder="Projenizin konusu"
-                        autoComplete="off"
-                      />
+                      <input id="contact-subject" name="subject" type="text" className="fin" placeholder="Projenizin konusu" autoComplete="off" />
                     </div>
 
                     <div className="f-field">
                       <label htmlFor="contact-message" className="f-label">Mesaj <span aria-hidden>*</span></label>
-                      <textarea
-                        id="contact-message"
-                        name="message"
-                        className="fin fta"
-                        placeholder="Projenizden bahsedin, bütçenizi ve zaman çizelgenizi paylaşın..."
-                        required
-                      />
+                      <textarea id="contact-message" name="message" className="fin fta" placeholder="Projenizden bahsedin, zaman çizelgenizi paylaşın..." required />
                     </div>
 
                     {state === 'error' && (
-                      <div className="contact-error">
+                      <div className="contact-error" role="alert" aria-live="assertive">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                           <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
                         </svg>
