@@ -33,7 +33,7 @@ const bentoSize: Record<number, string> = {
   1: 'bento-wide',
   2: 'bento-tall',
   3: 'bento-std',
-  4: 'bento-std',
+  4: 'bento-wide',
   5: 'bento-wide',
   6: 'bento-std',
   7: 'bento-std',
