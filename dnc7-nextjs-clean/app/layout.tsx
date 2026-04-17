@@ -28,6 +28,7 @@ export const metadata: Metadata = {
     siteName: "DNC7",
     title: "DNC7 — Prodüksiyon, AI & Dijital Çözümler",
     description: "Kurumsal tanıtım, reklam, AI entegrasyonu ve dijital çözümler.",
+    images: [{ url: "https://dnc7.com/opengraph-image", width: 1200, height: 630, alt: "DNC7 Dijital Ajans" }],
   },
   twitter: {
     card: "summary_large_image",
