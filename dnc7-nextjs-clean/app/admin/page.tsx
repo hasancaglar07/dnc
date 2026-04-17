@@ -11,8 +11,10 @@ interface Stats {
 export default function AdminDashboard() {
   const [stats, setStats] = useState<Stats>({ blogs: 0, projects: 0, featuredBlogs: 0 });
   const [loading, setLoading] = useState(true);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     fetchStats();
   }, []);
 
@@ -24,12 +26,12 @@ export default function AdminDashboard() {
       ]);
 
       if (blogsRes.ok && projectsRes.ok) {
-        const blogs = await blogsRes.json();
-        const projects = await projectsRes.json();
+        const blogsData = await blogsRes.json();
+        const projectsData = await projectsRes.json();
         setStats({
-          blogs: blogs.length,
-          projects: projects.length,
-          featuredBlogs: blogs.filter((b: any) => b.featured).length,
+          blogs: blogsData.length,
+          projects: projectsData.length,
+          featuredBlogs: blogsData.filter((b: any) => b.featured).length,
         });
       }
     } finally {
@@ -37,97 +39,53 @@ export default function AdminDashboard() {
     }
   };
 
-  const statCards = [
-    { 
-      title: 'Blog Yazıları', 
-      value: stats.blogs, 
-      icon: (
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-          <polyline points="14 2 14 8 20 8"/>
-          <line x1="16" y1="13" x2="8" y2="13"/>
-          <line x1="16" y1="17" x2="8" y2="17"/>
-          <polyline points="10 9 9 9 8 9"/>
-        </svg>
-      ), 
-      bgGradient: 'from-emerald-500 to-emerald-600',
-      textColor: 'text-white'
-    },
-    { 
-      title: 'Öne Çıkanlar', 
-      value: stats.featuredBlogs, 
-      icon: (
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
-          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-        </svg>
-      ), 
-      bgGradient: 'from-amber-400 to-amber-500',
-      textColor: 'text-white'
-    },
-    { 
-      title: 'Projeler', 
-      value: stats.projects, 
-      icon: (
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-          <line x1="3" y1="9" x2="21" y2="9"/>
-          <line x1="9" y1="21" x2="9" y2="9"/>
-        </svg>
-      ), 
-      bgGradient: 'from-blue-500 to-blue-600',
-      textColor: 'text-white'
-    },
-    { 
-      title: 'Toplam', 
-      value: stats.blogs + stats.projects, 
-      icon: (
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-        </svg>
-      ), 
-      bgGradient: 'from-purple-500 to-purple-600',
-      textColor: 'text-white'
-    },
-  ];
-
   const quickActions = [
     {
-      title: 'Yeni Blog Yazısı',
-      desc: 'Blog içeriği ekleyin',
+      title: 'Yeni Blog',
+      desc: 'Blog yazısı ekle',
       href: '/admin/blog/new',
+      gradient: 'from-emerald-500/20 to-emerald-600/5',
+      borderColor: 'hover:border-emerald-500/50',
+      glowColor: 'group-hover:shadow-emerald-500/20',
+      iconColor: 'text-emerald-400',
+      iconBg: 'bg-emerald-500/10',
       icon: (
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
           <polyline points="14 2 14 8 20 8"/>
+          <line x1="12" y1="18" x2="12" y2="12"/>
+          <line x1="9" y1="15" x2="15" y2="15"/>
         </svg>
-      ),
-      color: 'emerald',
-      bg: 'bg-emerald-50',
-      iconBg: 'bg-emerald-500',
-      hoverBorder: 'hover:border-emerald-300'
+      )
     },
     {
       title: 'Yeni Proje',
-      desc: 'Proje ekleyin',
+      desc: 'Proje ekle',
       href: '/admin/projects/new',
+      gradient: 'from-blue-500/20 to-blue-600/5',
+      borderColor: 'hover:border-blue-500/50',
+      glowColor: 'group-hover:shadow-blue-500/20',
+      iconColor: 'text-blue-400',
+      iconBg: 'bg-blue-500/10',
       icon: (
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
           <line x1="12" y1="8" x2="12" y2="16"/>
           <line x1="8" y1="12" x2="16" y2="12"/>
         </svg>
-      ),
-      color: 'blue',
-      bg: 'bg-blue-50',
-      iconBg: 'bg-blue-500',
-      hoverBorder: 'hover:border-blue-300'
+      )
     },
     {
-      title: 'Tüm Bloglar',
-      desc: 'Yazıları yönetin',
+      title: 'Bloglar',
+      desc: 'Tüm yazıları listele',
       href: '/admin/blog',
+      gradient: 'from-amber-500/20 to-amber-600/5',
+      borderColor: 'hover:border-amber-500/50',
+      glowColor: 'group-hover:shadow-amber-500/20',
+      iconColor: 'text-amber-400',
+      iconBg: 'bg-amber-500/10',
       icon: (
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <line x1="8" y1="6" x2="21" y2="6"/>
           <line x1="8" y1="12" x2="21" y2="12"/>
           <line x1="8" y1="18" x2="21" y2="18"/>
@@ -135,151 +93,269 @@ export default function AdminDashboard() {
           <line x1="3" y1="12" x2="3.01" y2="12"/>
           <line x1="3" y1="18" x2="3.01" y2="18"/>
         </svg>
-      ),
-      color: 'amber',
-      bg: 'bg-amber-50',
-      iconBg: 'bg-amber-500',
-      hoverBorder: 'hover:border-amber-300'
+      )
     },
     {
-      title: 'Tüm Projeler',
-      desc: 'Projeleri yönetin',
+      title: 'Projeler',
+      desc: 'Tüm projeleri listele',
       href: '/admin/projects',
+      gradient: 'from-purple-500/20 to-purple-600/5',
+      borderColor: 'hover:border-purple-500/50',
+      glowColor: 'group-hover:shadow-purple-500/20',
+      iconColor: 'text-purple-400',
+      iconBg: 'bg-purple-500/10',
       icon: (
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-          <rect x="3" y="3" width="7" height="7"/>
-          <rect x="14" y="3" width="7" height="7"/>
-          <rect x="14" y="14" width="7" height="7"/>
-          <rect x="3" y="14" width="7" height="7"/>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <line x1="3" y1="9" x2="21" y2="9"/>
+          <line x1="9" y1="21" x2="9" y2="9"/>
         </svg>
-      ),
-      color: 'purple',
-      bg: 'bg-purple-50',
-      iconBg: 'bg-purple-500',
-      hoverBorder: 'hover:border-purple-300'
+      )
     },
   ];
 
-  return (
-    <div className="space-y-10">
-      {/* Premium Header */}
-      <div className="relative overflow-hidden bg-white rounded-[32px] border-2 border-[#E5E5E5] p-10 shadow-xl shadow-[#F97316]/5">
-        {/* Background Decor */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[#F97316]/5 to-[#FCD34D]/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-[#F97316]/5 to-[#FCD34D]/5 rounded-full blur-3xl" />
-        
-        <div className="relative z-10">
-          <div className="flex items-center gap-2 mb-3">
-            <div className="w-12 h-1 bg-[#F97316] rounded-full" />
-            <span className="text-xs font-black tracking-[0.2em] text-[#F97316]">DASHBOARD</span>
+  interface StatCard {
+    label: string;
+    value: number;
+    gradient: string;
+    bgGradient: string;
+    borderColor: string;
+    hoverBorder: string;
+    glowColor: string;
+    iconColor: string;
+    icon: React.ReactNode;
+  }
+
+  const statCards: StatCard[] = [
+    {
+      label: 'Blog Yazıları',
+      value: stats.blogs,
+      gradient: 'from-emerald-500 to-emerald-600',
+      bgGradient: 'from-emerald-500/10 to-emerald-600/5',
+      borderColor: 'border-emerald-500/20',
+      hoverBorder: 'hover:border-emerald-500/40',
+      glowColor: 'group-hover:shadow-emerald-500/20',
+      iconColor: 'text-emerald-400',
+      icon: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+        </svg>
+      )
+    },
+    {
+      label: 'Öne Çıkanlar',
+      value: stats.featuredBlogs,
+      gradient: 'from-amber-500 to-amber-600',
+      bgGradient: 'from-amber-500/10 to-amber-600/5',
+      borderColor: 'border-amber-500/20',
+      hoverBorder: 'hover:border-amber-500/40',
+      glowColor: 'group-hover:shadow-amber-500/20',
+      iconColor: 'text-amber-400',
+      icon: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+      )
+    },
+    {
+      label: 'Projeler',
+      value: stats.projects,
+      gradient: 'from-blue-500 to-blue-600',
+      bgGradient: 'from-blue-500/10 to-blue-600/5',
+      borderColor: 'border-blue-500/20',
+      hoverBorder: 'hover:border-blue-500/40',
+      glowColor: 'group-hover:shadow-blue-500/20',
+      iconColor: 'text-blue-400',
+      icon: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <line x1="3" y1="9" x2="21" y2="9"/>
+          <line x1="9" y1="21" x2="9" y2="9"/>
+        </svg>
+      )
+    },
+    {
+      label: 'Toplam İçerik',
+      value: stats.blogs + stats.projects,
+      gradient: 'from-purple-500 to-purple-600',
+      bgGradient: 'from-purple-500/10 to-purple-600/5',
+      borderColor: 'border-purple-500/20',
+      hoverBorder: 'hover:border-purple-500/40',
+      glowColor: 'group-hover:shadow-purple-500/20',
+      iconColor: 'text-purple-400',
+      icon: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+          <line x1="12" y1="22.08" x2="12" y2="12"/>
+        </svg>
+      )
+    },
+  ];
+
+  const StatCardSkeleton = () => (
+    <div className="relative bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] backdrop-blur-sm rounded-2xl border border-white/10 p-6 overflow-hidden">
+      <div className="animate-pulse">
+        <div className="flex items-center justify-between mb-4">
+          <div className="w-14 h-14 bg-white/5 rounded-xl"></div>
+          <div className="w-12 h-8 bg-white/5 rounded-lg"></div>
+        </div>
+        <div className="w-24 h-4 bg-white/5 rounded-lg"></div>
+      </div>
+    </div>
+  );
+
+  const ActionCardSkeleton = () => (
+    <div className="relative bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] backdrop-blur-sm rounded-2xl border border-white/10 p-6 overflow-hidden">
+      <div className="animate-pulse">
+        <div className="flex items-center gap-4">
+          <div className="w-14 h-14 bg-white/5 rounded-xl"></div>
+          <div className="flex-1">
+            <div className="w-20 h-5 bg-white/5 rounded-lg mb-2"></div>
+            <div className="w-32 h-4 bg-white/5 rounded-lg"></div>
           </div>
-          <h1 className="text-5xl font-black text-[#0D0D0D] tracking-tight mb-3">
-            Hoş Geldiniz
-          </h1>
-          <p className="text-[#767676] text-lg max-w-xl">
-            İçerinizi kolayca yönetin. Blog yazıları ekleyin, projelerinizi sergileyin ve web sitenizi güncel tutun.
-          </p>
         </div>
       </div>
+    </div>
+  );
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {statCards.map((stat, index) => (
-          <div
-            key={stat.title}
-            className="group relative bg-white rounded-[28px] border-2 border-[#E5E5E5] p-8 hover:shadow-2xl hover:shadow-[#F97316]/10 transition-all duration-500 overflow-hidden"
-            style={{ animationDelay: `${index * 100}ms` }}
-          >
-            {/* Hover Gradient Background */}
-            <div className={`absolute inset-0 bg-gradient-to-br ${stat.bgGradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
-            
-            {/* Corner Accent */}
-            <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl ${stat.bgGradient} opacity-10 rounded-bl-full`} />
-            
-            <div className="relative z-10">
-              <div className={`w-16 h-16 bg-gradient-to-br ${stat.bgGradient} rounded-[24px] flex items-center justify-center text-white mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg shadow-[#F97316]/20`}>
-                {stat.icon}
-              </div>
-              <div className={`text-5xl font-black text-[#0D0D0D] mb-2 ${loading ? 'animate-pulse' : ''}`}>
-                {loading ? '...' : stat.value}
-              </div>
-              <div className="text-sm font-bold text-[#767676] uppercase tracking-wider">{stat.title}</div>
-            </div>
+  return (
+    <div className="space-y-8">
+      {/* Header */}
+      <div className={`flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 pb-8 border-b border-white/10 transition-all duration-700 ${
+        mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
+      }`}>
+        <div>
+          <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight">
+            Dashboard
+          </h1>
+          <p className="text-white/50 font-medium mt-2 text-lg">
+            {loading ? 'Yükleniyor...' : `${stats.blogs + stats.projects} içerik yönetiliyor`}
+          </p>
+        </div>
+        {!loading && (
+          <div className={`flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#F97316]/20 to-[#EA6C0A]/10 rounded-xl border border-[#F97316]/20 transition-all duration-500 ${
+            mounted ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
+          }`}>
+            <div className="w-2 h-2 bg-[#F97316] rounded-full animate-pulse"></div>
+            <span className="text-sm font-medium text-[#F97316]">Canlı</span>
           </div>
-        ))}
+        )}
+      </div>
+
+      {/* Stats */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {loading ? (
+          <>
+            <StatCardSkeleton />
+            <StatCardSkeleton />
+            <StatCardSkeleton />
+            <StatCardSkeleton />
+          </>
+        ) : (
+          statCards.map((card, index) => (
+            <div
+              key={card.label}
+              className={`group relative bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] backdrop-blur-sm rounded-2xl border ${card.borderColor} ${card.hoverBorder} p-6 overflow-hidden transition-all duration-300 hover:scale-[1.02] ${card.glowColor} hover:shadow-2xl ${
+                mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+              style={{
+                transitionDelay: `${index * 100}ms`,
+              }}
+            >
+              {/* Gradient Glow Effect */}
+              <div className={`absolute -top-12 -right-12 w-24 h-24 bg-gradient-to-br ${card.gradient} rounded-full blur-3xl opacity-20 group-hover:opacity-30 transition-opacity duration-300`}></div>
+              
+              {/* Shimmer Effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+              
+              <div className="relative">
+                <div className="flex items-center justify-between mb-4">
+                  <div className={`w-14 h-14 ${card.bgGradient} rounded-xl flex items-center justify-center ${card.iconColor} transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3`}>
+                    {card.icon}
+                  </div>
+                  <div className={`text-4xl font-black text-transparent bg-clip-text bg-gradient-to-br ${card.gradient}`}>
+                    {card.value}
+                  </div>
+                </div>
+                <p className="text-sm font-medium text-white/60">{card.label}</p>
+              </div>
+            </div>
+          ))
+        )}
       </div>
 
       {/* Quick Actions */}
-      <div className="bg-white rounded-[32px] border-2 border-[#E5E5E5] p-10 shadow-xl shadow-[#F97316]/5">
-        <div className="flex items-center gap-4 mb-8">
-          <div className="w-14 h-14 bg-gradient-to-br from-[#F97316] to-[#EA6C0A] rounded-[22px] flex items-center justify-center text-white shadow-lg shadow-[#F97316]/30">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <circle cx="12" cy="12" r="10"/>
-              <polyline points="12 6 12 12 16 14"/>
-            </svg>
-          </div>
-          <div>
-            <h2 className="text-2xl font-black text-[#0D0D0D]">Hızlı İşlemler</h2>
-            <p className="text-[#767676] font-medium">Hızlıca içerik ekleyin ve yönetin</p>
-          </div>
-        </div>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {quickActions.map((action) => (
+      <div className={`grid grid-cols-1 sm:grid-cols-2 gap-6 transition-all duration-700 ${
+        mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+      }`}>
+        {loading ? (
+          <>
+            <ActionCardSkeleton />
+            <ActionCardSkeleton />
+          </>
+        ) : (
+          quickActions.map((action, index) => (
             <a
               key={action.href}
               href={action.href}
-              className={`group relative flex items-center gap-5 p-6 bg-[#FEF9F0] hover:bg-white border-2 border-[#E5E5E5] ${action.hoverBorder} rounded-[24px] transition-all duration-500 overflow-hidden`}
+              className={`group relative bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] backdrop-blur-sm rounded-2xl border border-white/10 ${action.borderColor} p-6 overflow-hidden transition-all duration-300 hover:scale-[1.02] ${action.glowColor} hover:shadow-2xl ${
+                mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+              style={{
+                transitionDelay: `${400 + index * 100}ms`,
+              }}
             >
-              {/* Hover Shine Effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+              {/* Background Gradient */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${action.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
               
-              <div className={`w-14 h-14 ${action.iconBg} rounded-[20px] flex items-center justify-center text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg`}>
-                {action.icon}
-              </div>
-              <div className="flex-1">
-                <p className="text-[#0D0D0D] font-black text-lg">{action.title}</p>
-                <p className="text-sm text-[#767676] font-medium">{action.desc}</p>
-              </div>
-              <div className="w-12 h-12 bg-white rounded-[16px] flex items-center justify-center group-hover:scale-110 group-hover:bg-[#F97316] group-hover:text-white transition-all duration-500 shadow-md">
-                <svg className="w-5 h-5 text-[#767676] group-hover:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <polyline points="9 18 15 12 15 12 9 9 6"/>
-                </svg>
+              {/* Glow Effect */}
+              <div className={`absolute -bottom-12 -left-12 w-32 h-32 bg-gradient-to-br ${action.gradient} rounded-full blur-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-300`}></div>
+              
+              <div className="relative flex items-center gap-4">
+                <div className={`w-14 h-14 ${action.iconBg} rounded-xl flex items-center justify-center ${action.iconColor} transition-all duration-300 group-hover:scale-110 group-hover:-rotate-3`}>
+                  {action.icon}
+                </div>
+                <div className="flex-1">
+                  <p className="text-white font-bold text-lg">{action.title}</p>
+                  <p className="text-sm text-white/50">{action.desc}</p>
+                </div>
+                <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#F97316]/20 transition-all duration-300">
+                  <svg className="w-5 h-5 text-white/40 group-hover:text-[#F97316] group-hover:translate-x-0.5 transition-all duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="9 18 15 12 9 6"/>
+                  </svg>
+                </div>
               </div>
             </a>
-          ))}
-        </div>
+          ))
+        )}
       </div>
 
-      {/* Welcome Banner */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-[#F97316] via-[#FB923C] to-[#EA6C0A] rounded-[32px] p-10 shadow-2xl shadow-[#F97316]/30">
-        {/* Animated Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)',
-            backgroundSize: '30px 30px'
-          }} />
-        </div>
+      {/* Info Box */}
+      <div className={`relative bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] backdrop-blur-sm rounded-2xl border border-white/10 hover:border-[#F97316]/30 p-6 overflow-hidden transition-all duration-300 ${
+        mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+      }`}>
+        {/* Glow Effect */}
+        <div className="absolute -top-12 -right-12 w-32 h-32 bg-gradient-to-br from-[#F97316]/20 to-[#EA6C0A]/10 rounded-full blur-3xl"></div>
         
-        {/* Decorative Elements */}
-        <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl" />
-        <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-white/10 rounded-full blur-2xl" />
-        
-        <div className="relative z-10 flex items-center justify-between">
+        <div className="relative flex items-start gap-4">
+          <div className="w-14 h-14 bg-gradient-to-br from-[#F97316]/20 to-[#EA6C0A]/10 rounded-xl flex items-center justify-center flex-shrink-0 text-[#F97316]">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="16" x2="12" y2="12"/>
+              <line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+          </div>
           <div className="flex-1">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 mb-4">
-              <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
-              <span className="text-xs font-bold text-white tracking-wider">PREMIUM</span>
-            </div>
-            <h3 className="text-3xl font-black text-white mb-3">DNC7 Admin Panel</h3>
-            <p className="text-white/80 max-w-lg text-lg font-medium">
-              Profesyonel içerik yönetimi deneyimi. Blog yazıları, projeler ve daha fazlasını tek bir yerden yönetin.
+            <h3 className="text-white font-bold text-xl mb-2">DNC7 Admin Panel</h3>
+            <p className="text-sm text-white/50 leading-relaxed">
+              İçerik yönetimi için modern arayüz. Blog yazıları ekleyin, projelerinizi sergileyin ve web sitenizi güncel tutun.
             </p>
           </div>
-          <div className="hidden lg:block">
-            <div className="w-32 h-32 bg-white/10 backdrop-blur-sm rounded-[28px] border border-white/20 flex items-center justify-center">
-              <span className="text-5xl font-black text-white/80">7</span>
-            </div>
+          <div className="hidden sm:flex items-center gap-2">
+            <div className="w-2 h-2 bg-[#F97316] rounded-full"></div>
+            <span className="text-xs text-white/40">v2.0</span>
           </div>
         </div>
       </div>

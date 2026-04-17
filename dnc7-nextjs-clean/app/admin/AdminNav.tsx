@@ -22,9 +22,9 @@ export default function AdminNav() {
       ]);
       
       if (blogsRes.ok && projectsRes.ok) {
-        const blogs = await blogsRes.json();
-        const projects = await projectsRes.json();
-        setStats({ blogs: blogs.length, projects: projects.length });
+        const blogsData = await blogsRes.json();
+        const projectsData = await projectsRes.json();
+        setStats({ blogs: blogsData.length, projects: projectsData.length });
       }
     } catch {}
   };
@@ -44,7 +44,7 @@ export default function AdminNav() {
 
   const icons = {
     dashboard: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="3" width="7" height="7"/>
         <rect x="14" y="3" width="7" height="7"/>
         <rect x="14" y="14" width="7" height="7"/>
@@ -52,19 +52,19 @@ export default function AdminNav() {
       </svg>
     ),
     blog: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
         <polyline points="14 2 14 8 20 8"/>
       </svg>
     ),
     new: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <line x1="12" y1="5" x2="12" y2="19"/>
         <line x1="5" y1="12" x2="19" y2="12"/>
       </svg>
     ),
     grid: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="3" width="7" height="7"/>
         <rect x="14" y="3" width="7" height="7"/>
         <rect x="14" y="14" width="7" height="7"/>
@@ -75,32 +75,22 @@ export default function AdminNav() {
 
   return (
     <>
-      {/* Desktop Sidebar - Premium Glass Effect */}
-      <aside className="hidden lg:flex fixed left-0 top-0 z-40 h-screen w-80 bg-white/80 backdrop-blur-xl border-r-2 border-[#E5E5E5]/50 flex flex-col">
+      {/* Desktop Sidebar - Sol Taraf */}
+      <aside className="hidden lg:flex fixed left-0 top-0 z-40 h-screen w-72 bg-[#0d0d0d] border-r border-white/10 flex flex-col">
         {/* Logo Section */}
-        <div className="h-24 flex items-center px-8 border-b-2 border-[#E5E5E5]/50">
+        <div className="h-20 flex items-center px-6 border-b border-white/10">
           <Link href="/admin" className="flex items-center gap-3 group">
             <div className="relative">
-              <span className="text-3xl font-black tracking-[0.15em]">
-                DNC
-                <span className="relative inline-block">
-                  <span className="bg-gradient-to-br from-[#F97316] via-[#FCD34D] to-[#F97316] bg-clip-text text-transparent animate-shimmer">
-                    7
-                  </span>
-                </span>
+              <span className="text-2xl font-black tracking-[0.15em]">
+                DNC<span className="text-[#F97316] group-hover:text-[#ff8c42] transition-colors duration-300">7</span>
               </span>
-              {/* Glow Effect */}
-              <div className="absolute -inset-2 bg-gradient-to-r from-[#F97316]/20 to-[#FCD34D]/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#F97316] group-hover:w-full transition-all duration-300"></div>
             </div>
-            <div className="w-px h-8 bg-[#E5E5E5]/30 mx-2" />
-            <span className="text-xs font-black tracking-widest text-[#767676] bg-[#FEF9F0] px-3 py-1.5 rounded-full border border-[#E5E5E5]/50">
-              ADMIN
-            </span>
           </Link>
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 py-8 px-6 space-y-2">
+        <nav className="flex-1 py-6 px-4 space-y-1">
           {navItems.map((item) => {
             const isActive = pathname === item.href || 
               (item.href !== '/admin' && pathname.startsWith(item.href));
@@ -109,30 +99,26 @@ export default function AdminNav() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`group relative flex items-center gap-4 px-6 py-4 rounded-[20px] transition-all duration-500 ${
+                className={`relative flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
                   isActive
-                    ? 'bg-gradient-to-r from-[#F97316] to-[#EA6C0A] text-white shadow-lg shadow-[#F97316]/30'
-                    : 'text-[#3D3D3D] hover:bg-[#FEF9F0] hover:text-[#0D0D0D]'
+                    ? 'bg-gradient-to-r from-[#F97316] to-[#EA6C0A] text-white shadow-lg shadow-[#F97316]/20'
+                    : 'text-white/60 hover:bg-white/5 hover:text-white hover:shadow-lg hover:shadow-black/20'
                 }`}
               >
                 {/* Active Indicator */}
                 {isActive && (
-                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-8 bg-white rounded-r-full" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#F97316]/20 to-transparent rounded-xl"></div>
                 )}
                 
-                <div className={`w-11 h-11 rounded-[16px] flex items-center justify-center transition-all duration-300 ${
-                  isActive 
-                    ? 'bg-white/20' 
-                    : 'bg-[#FEF9F0] group-hover:bg-[#F97316] group-hover:text-white'
-                }`}>
-                  {icons[item.icon as keyof typeof icons]}
-                </div>
-                <span className="flex-1 font-bold text-sm tracking-wide">{item.label}</span>
+                {icons[item.icon as keyof typeof icons]}
+                
+                <span className="flex-1 font-medium text-sm">{item.label}</span>
+                
                 {item.count !== undefined && (
-                  <span className={`text-xs font-bold px-3 py-1.5 rounded-full ${
+                  <span className={`text-xs font-bold px-2 py-1 rounded ${
                     isActive 
-                      ? 'bg-white/20 text-white' 
-                      : 'bg-[#FEF9F0] text-[#767676]'
+                      ? 'bg-white/20' 
+                      : 'bg-white/10'
                   }`}>
                     {item.count}
                   </span>
@@ -142,59 +128,47 @@ export default function AdminNav() {
           })}
         </nav>
 
-        {/* User Section - Premium */}
-        <div className="p-6 border-t-2 border-[#E5E5E5]/50">
-          <div className="relative group">
-            {/* Hover Glow */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#F97316]/10 to-[#FCD34D]/10 rounded-[24px] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            
-            <div className="relative flex items-center justify-between bg-[#FEF9F0] rounded-[24px] p-4 border-2 border-[#E5E5E5]/50 group-hover:border-[#F97316]/30 transition-all duration-500">
-              <div className="flex items-center gap-4">
-                <div className="relative">
-                  <div className="w-13 h-13 bg-gradient-to-br from-[#F97316] to-[#EA6C0A] rounded-[20px] flex items-center justify-center text-white font-black text-lg shadow-lg">
-                    A
-                  </div>
-                  <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-[#10B981] rounded-full border-2 border-white" />
-                </div>
-                <div>
-                  <p className="text-sm font-black text-[#0D0D0D]">Administrator</p>
-                  <p className="text-xs text-[#767676] font-medium">Yönetici Paneli</p>
-                </div>
+        {/* User Section */}
+        <div className="p-4 border-t border-white/10 bg-gradient-to-t from-[#0a0a0a] to-transparent">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-[#F97316] to-[#EA6C0A] rounded-full flex items-center justify-center text-white font-bold shadow-lg shadow-[#F97316]/20">
+                A
               </div>
-              <button
-                onClick={handleLogout}
-                className="w-11 h-11 flex items-center justify-center rounded-[16px] hover:bg-red-50 text-[#767676] hover:text-red-500 transition-all duration-300 group-hover:scale-110"
-                title="Çıkış Yap"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                  <polyline points="16 17 21 12 16 7"/>
-                  <line x1="21" y1="12" x2="9" y2="12"/>
-                </svg>
-              </button>
+              <div>
+                <p className="text-sm font-medium text-white">Admin</p>
+                <p className="text-xs text-white/40">Yönetici</p>
+              </div>
             </div>
+            <button
+              onClick={handleLogout}
+              className="w-10 h-10 flex items-center justify-center rounded-xl text-white/60 hover:text-red-400 hover:bg-red-500/20 transition-all duration-300 hover:scale-105"
+              title="Çıkış Yap"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                <polyline points="16 17 21 12 16 7"/>
+                <line x1="21" y1="12" x2="9" y2="12"/>
+              </svg>
+            </button>
           </div>
         </div>
       </aside>
 
-      {/* Mobile Header - Premium */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-40 bg-white/80 backdrop-blur-xl border-b-2 border-[#E5E5E5]/50">
-        <div className="flex items-center justify-between h-20 px-6">
+      {/* Mobile Header */}
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-40 bg-[#0d0d0d]/95 backdrop-blur-xl border-b border-white/10">
+        <div className="flex items-center justify-between h-16 px-4">
           <Link href="/admin" className="flex items-center gap-2">
-            <span className="text-2xl font-black tracking-[0.15em]">
-              DNC<span className="bg-gradient-to-br from-[#F97316] to-[#EA6C0A] bg-clip-text text-transparent">7</span>
-            </span>
-            <span className="text-xs font-bold text-[#767676] bg-[#FEF9F0] px-2.5 py-1 rounded-full border border-[#E5E5E5]/50">
-              ADMIN
+            <span className="text-xl font-black tracking-[0.15em]">
+              DNC<span className="text-[#F97316]">7</span>
             </span>
           </Link>
           
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="relative w-12 h-12 flex items-center justify-center rounded-[16px] bg-[#FEF9F0] hover:bg-[#F97316] hover:text-white transition-all duration-300 group"
+            className="w-10 h-10 flex items-center justify-center rounded-xl text-white/60 hover:text-white hover:bg-white/10 transition-all duration-300 hover:scale-105"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-[#F97316]/10 to-[#FCD34D]/10 rounded-[16px] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <svg className="relative" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               {mobileMenuOpen ? (
                 <path d="M18 6L6 18M6 6l12 12"/>
               ) : (
@@ -204,12 +178,12 @@ export default function AdminNav() {
           </button>
         </div>
 
-        {/* Mobile Menu Overlay */}
+        {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="absolute top-full left-0 right-0 bg-white/80 backdrop-blur-xl border-b-2 border-[#E5E5E5]/50">
-            <nav className="py-6 px-6 space-y-2">
+          <div className="absolute top-full left-0 right-0 bg-[#0d0d0d]/95 backdrop-blur-xl border-b border-white/10 animate-in slide-in-from-top duration-300">
+            <nav className="py-4 px-4 space-y-1">
               {navItems.map((item) => {
-                const isActive = pathname === item.href || 
+                const isActive = pathname === item.href ||
                   (item.href !== '/admin' && pathname.startsWith(item.href));
                 
                 return (
@@ -217,21 +191,17 @@ export default function AdminNav() {
                     key={item.href}
                     href={item.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center gap-4 px-6 py-4 rounded-[20px] transition-all duration-300 ${
+                    className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
                       isActive
-                        ? 'bg-gradient-to-r from-[#F97316] to-[#EA6C0A] text-white'
-                        : 'text-[#3D3D3D] hover:bg-[#FEF9F0]'
+                        ? 'bg-gradient-to-r from-[#F97316] to-[#EA6C0A] text-white shadow-lg shadow-[#F97316]/20'
+                        : 'text-white/60 hover:bg-white/5 hover:text-white'
                     }`}
                   >
-                    <div className={`w-11 h-11 rounded-[16px] flex items-center justify-center ${
-                      isActive ? 'bg-white/20' : 'bg-[#FEF9F0]'
-                    }`}>
-                      {icons[item.icon as keyof typeof icons]}
-                    </div>
-                    <span className="flex-1 font-bold text-sm">{item.label}</span>
+                    {icons[item.icon as keyof typeof icons]}
+                    <span className="flex-1 font-medium text-sm">{item.label}</span>
                     {item.count !== undefined && (
-                      <span className={`text-xs font-bold px-3 py-1.5 rounded-full ${
-                        isActive ? 'bg-white/20' : 'bg-[#FEF9F0] text-[#767676]'
+                      <span className={`text-xs font-bold px-2 py-1 rounded ${
+                        isActive ? 'bg-white/20' : 'bg-white/10'
                       }`}>
                         {item.count}
                       </span>
@@ -242,15 +212,13 @@ export default function AdminNav() {
               
               <button
                 onClick={handleLogout}
-                className="w-full flex items-center gap-4 px-6 py-4 rounded-[20px] text-red-500 hover:bg-red-50 transition-all duration-300 font-bold text-sm"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-400 hover:bg-red-500/20 transition-all duration-300 font-medium text-sm hover:scale-[1.02]"
               >
-                <div className="w-11 h-11 bg-red-50 rounded-[16px] flex items-center justify-center">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                    <polyline points="16 17 21 12 16 7"/>
-                    <line x1="21" y1="12" x2="9" y2="12"/>
-                  </svg>
-                </div>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                  <polyline points="16 17 21 12 16 7"/>
+                  <line x1="21" y1="12" x2="9" y2="12"/>
+                </svg>
                 Çıkış Yap
               </button>
             </nav>

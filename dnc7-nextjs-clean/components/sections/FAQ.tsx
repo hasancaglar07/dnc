@@ -4,53 +4,42 @@ import { useState } from 'react';
 import Reveal from '@/components/ui/Reveal';
 
 const faqs = [
-  { id: 1, q: 'Proje teslim süresi ne kadar?', a: 'Proje kapsamına göre değişmekle birlikte, basit bir web sitesi 2-4 hafta, mobil uygulama 6-12 hafta, prodüksiyon filmi 1-4 hafta arasında teslim edilmektedir.' },
-  { id: 2, q: 'Fiyat teklifi nasıl alabilirim?', a: 'İletişim formunu doldurarak veya doğrudan e-posta göndererek proje detaylarınızı paylaşabilirsiniz. 24 saat içinde size özel teklifimizi iletiyoruz.' },
-  { id: 3, q: 'Hangi ödeme yöntemlerini kabul ediyorsunuz?', a: 'Banka havalesi, kredi kartı ve kurumsal fatura seçeneklerimiz mevcuttur. Proje başlangıcında %40 peşin, teslimatta %60 ödeme planı uyguluyoruz.' },
-  { id: 4, q: 'Revizyon hakkı veriyor musunuz?', a: 'Evet, tüm projelerimizde 3 tur revizyon hakkı sunuyoruz. Ek revizyonlar için saatlik ücretlendirme yapıyoruz.' },
-  { id: 5, q: 'AI entegrasyonu hangi platformlarda çalışıyor?', a: 'GPT-4, Claude, Gemini ve kendi özel LLM modellerimizi entegre edebiliyoruz. Web siteleri, mobil uygulamalar ve WhatsApp botları için uygun.' },
-  { id: 6, q: 'Drone çekim için izin gerekli mi?', a: 'Evet, SHGM tarafından verilmiş ticari drone uçuş iznimiz mevcut. Özel alanlar için gerekli izinleri biz yönetiyoruz.' },
-  { id: 7, q: 'Neden DNC7\'yi tercih etmeliyim?', a: '12 yıllık sektör deneyimi, 200+ tamamlanmış proje, prodüksiyondan AI\'a kadar uçtan uca hizmet kapasitesi ve uzman kadromuzla fark yaratıyoruz. Tek çatı altında hem kreatif hem teknik çözümler sunuyoruz — bu da zamandan ve bütçeden tasarruf demek.' },
-  { id: 8, q: 'Rakiplerinizden farkınız ne?', a: 'Birçok ajans sadece tek bir alanda uzmanlaşırken, DNC7 prodüksiyon, dijital pazarlama, yazılım ve AI\'ı bir arada sunan ender ajanslardan biridir. Proje bazlı değil, süreç bazlı çalışıyoruz — yani işinizi anlıyor, stratejiden uygulamaya kadar yanınızda duruyoruz.' },
-  { id: 9, q: 'Proje sonrası destek veriyor musunuz?', a: 'Evet, tüm projelerimizde teslim sonrası 30 gün ücretsiz teknik destek sağlıyoruz. Ayrıca aylık bakım ve güncelleme paketlerimiz ile uzun vadeli destek sunuyoruz.' },
+  { id: 1, q: 'Proje teslim süresi ne kadar?', a: 'Basit web sitesi 2-4 hafta, mobil uygulama 6-12 hafta, prodüksiyon filmi 1-4 hafta arasında teslim edilmektedir.' },
+  { id: 2, q: 'Fiyat teklifi nasıl alabilirim?', a: 'İletişim formunu doldurarak 24 saat içinde size özel teklifimizi alabilirsiniz.' },
+  { id: 3, q: 'Hangi ödeme yöntemlerini kabul ediyorsunuz?', a: 'Banka havalesi, kredi kartı ve kurumsal fatura. %40 peşin, %60 teslimatta ödeme planı.' },
+  { id: 4, q: 'Revizyon hakkı veriyor musunuz?', a: 'Tüm projelerimizde 3 tur revizyon hakkı sunuyoruz.' },
+  { id: 5, q: 'AI entegrasyonu hangi platformlarda çalışıyor?', a: 'GPT-4, Claude, Gemini ve özel LLM modelleri. Web, mobil ve WhatsApp botları için uygun.' },
+  { id: 6, q: 'Drone çekim için izin gerekli mi?', a: 'SHGM ticari drone uçuş iznimiz mevcut. Gerekli izinleri biz yönetiyoruz.' },
+  { id: 7, q: 'Neden DNC7\'yi tercih etmeliyim?', a: '12 yıl deneyim, 200+ proje, prodüksiyondan AI\'a uçtan uca hizmet.' },
+  { id: 8, q: 'Proje sonrası destek veriyor musunuz?', a: '30 gün ücretsiz teknik destek + aylık bakım paketlerimiz mevcut.' },
 ];
 
 export default function FAQ() {
   const [openId, setOpenId] = useState<number | null>(null);
 
   return (
-    <section className="sec faq-sec">
+    <section className="sec faq-sec" style={{ padding: '60px 0' }}>
       <div className="wrap">
         <Reveal>
-          <div className="sec-tag">SSS</div>
-          <h2 className="sec-title">Sıkça Sorulan <em>Sorular</em></h2>
-          <p className="sec-sub">Aklınıza takılan soruların cevapları</p>
+          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+            <div className="sec-tag">SSS</div>
+            <h2 className="sec-title">Sıkça Sorulan <em>Sorular</em></h2>
+          </div>
         </Reveal>
 
-        <Reveal delay={100}>
-          <div className="faq-lay">
-          <div>
-            <p style={{ fontSize: '15px', color: 'var(--text2)', lineHeight: 1.75 }}>
-              Proje sürecimiz, fiyatlandırma politikalarımız ve çalışma şeklimiz hakkında merak edilenler.
-              Daha fazlası için bizimle iletişime geçin.
-            </p>
-            <a href="#iletisim" className="btn-orange" style={{ marginTop: '20px' }}>
-              Sorunuzu Sorun <span className="ico"><i className="bi bi-arrow-up-right"></i></span>
-            </a>
-          </div>
-
-          <div className="faq-list">
+        <Reveal delay={60}>
+          <div className="faq-compact-grid">
             {faqs.map((faq) => (
-              <div key={faq.id} className={`faq-item ${openId === faq.id ? 'on' : ''}`}>
+              <div key={faq.id} className={`faq-chip ${openId === faq.id ? 'on' : ''}`}>
                 <button
-                  className="faq-q"
+                  className="faq-chip-q"
                   onClick={() => setOpenId(openId === faq.id ? null : faq.id)}
                 >
-                  {faq.q}
-                  <i className="faq-ico"><i className={`bi bi-${openId === faq.id ? 'dash' : 'plus'}`}></i></i>
+                  <span>{faq.q}</span>
+                  <span className="faq-chip-ico">{openId === faq.id ? '−' : '+'}</span>
                 </button>
-                <div className="faq-a" style={{
-                  maxHeight: openId === faq.id ? '200px' : '0',
+                <div className="faq-chip-a" style={{
+                  maxHeight: openId === faq.id ? '120px' : '0',
                   opacity: openId === faq.id ? 1 : 0
                 }}>
                   {faq.a}
@@ -58,7 +47,6 @@ export default function FAQ() {
               </div>
             ))}
           </div>
-        </div>
         </Reveal>
       </div>
     </section>
