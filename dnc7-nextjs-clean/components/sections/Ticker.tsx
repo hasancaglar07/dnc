@@ -1,8 +1,9 @@
 export default function Ticker() {
   const brands = [
-    'Turkcell', 'Garanti BBVA', 'Arçelik', 'Mavi', 'Trendyol', 'Beko',
-    'Getir', 'Hepsiburada', 'Yemeksepeti', 'Vestel', 'LC Waikiki', 'Migros',
-    'Koçtaş', 'Bim', 'Turkish Airlines', 'Vodafone', 'Akbank',
+    'Rehnüma Dergisi', 'CW Enerji', 'Spice Hotel', 'Perfect Timing Holding', 'CoinFeedBack',
+    'BookGenerator.net', 'BabyNest', 'Güney Seracılık', 'Tulu Çocuk Vakfı', 'Verenel',
+    'Safa Vakfı', 'Kyp Yönetim Sistemleri', 'Tarf', 'Armas Group', 'Dr.Sufi',
+    'Harbee', 'DncPro', 'Mihmandar', 'SeyrFm', 'FaceLoveApp',
   ];
 
   return (
@@ -24,7 +25,7 @@ export default function Ticker() {
       </div>
 
       <div className="ticker-tr ticker-tr-rev">
-        {[...brands, ...brands].reverse().map((b, idx) => (
+        {[...brands.slice().reverse(), ...brands.slice().reverse()].map((b, idx) => (
           <div key={`b-${idx}`} className="t-item t-item-alt">
             <span className="t-star">✦</span>
             <span>{b}</span>

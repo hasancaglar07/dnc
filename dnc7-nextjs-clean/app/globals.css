@@ -1916,12 +1916,12 @@ body.cur-on #cdot {
 
 .ticker-fade-l {
   left: 0;
-  background: linear-gradient(to right, var(--bg2) 0%, transparent 100%);
+  background: linear-gradient(to right, var(--dark) 0%, transparent 100%);
 }
 
 .ticker-fade-r {
   right: 0;
-  background: linear-gradient(to left, var(--bg2) 0%, transparent 100%);
+  background: linear-gradient(to left, var(--dark) 0%, transparent 100%);
 }
 
 .ticker-tr {
@@ -1934,6 +1934,8 @@ body.cur-on #cdot {
   text-transform: uppercase;
   color: var(--muted);
   will-change: transform;
+  margin: 0;
+  padding: 0;
 }
 
 .ticker-tr:hover {
@@ -3065,6 +3067,7 @@ body.cur-on #cdot {
   background: var(--dark);
   border-top: 1px solid rgba(255,255,255,0.06);
   border-bottom: 1px solid rgba(255,255,255,0.06);
+  overflow: hidden;
 }
 .ticker-label {
   position: relative;

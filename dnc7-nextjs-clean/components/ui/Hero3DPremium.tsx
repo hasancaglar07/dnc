@@ -195,7 +195,6 @@ export default function Hero3DPremium() {
       style={{ background: 'transparent' }}
     >
       <ambientLight intensity={0.5} />
-      <Halo />
       <LightBeams mobile={mobile} />
       <SoftBlobs />
       <Sparkles count={mobile ? 35 : 80} />
