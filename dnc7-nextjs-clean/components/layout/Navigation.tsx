@@ -52,7 +52,6 @@ export default function Navigation() {
         <div className="nav-shell">
           <Link href="/" className="nav-logo">
             <span className="nav-logo-mark">DNC<span className="nav-logo-seven">7</span></span>
-            <span className="nav-logo-dot" aria-hidden="true" />
           </Link>
           <div className="nav-menu">
             {links.map((link) => (
@@ -68,9 +67,6 @@ export default function Navigation() {
               Ücretsiz Teklif <i className="bi bi-arrow-up-right"></i>
             </Link>
           )}
-          <a href="tel:+902125550000" className="nav-phone-m" aria-label="Bizi arayın">
-            <i className="bi bi-telephone-fill"></i>
-          </a>
           <button
             className={`nav-burger ${isMobileMenuOpen ? 'on' : ''}`}
             onClick={() => setIsMobileMenuOpen(true)}
