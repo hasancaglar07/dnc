@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import ExitIntentPopup from "@/components/layout/ExitIntentPopup";
 import WhatsAppButton from "@/components/layout/WhatsAppButton";
@@ -59,10 +60,15 @@ export default function RootLayout({
         <link rel="canonical" href="https://dnc7.com" />
         <SchemaOrg />
         {/* Google Analytics - TODO: Replace G-XXXXXXXXXX with real ID */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX" />
-        <script dangerouslySetInnerHTML={{ __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');` }} />
       </head>
       <body className={jakarta.className}>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');`}
+        </Script>
         {children}
         <ExitIntentPopup />
         <WhatsAppButton />

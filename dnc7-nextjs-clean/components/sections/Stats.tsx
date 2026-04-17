@@ -1,45 +1,72 @@
 'use client';
 
 import { useRef, useState, useEffect, useCallback } from 'react';
-import { useCountUp } from '@/lib/useCountUp';
-import { stats } from '@/data/stats';
 
-function parseNumber(raw: string): { target: number; suffix: string } {
-  const match = raw.match(/^(\d+)(.*)$/);
-  if (!match) return { target: 0, suffix: raw };
-  return { target: parseInt(match[1], 10), suffix: match[2] };
-}
-
-const statMeta = [
-  { color: '#F97316', emoji: '💼' },
-  { color: '#3B82F6', emoji: '🤝' },
-  { color: '#A855F7', emoji: '📅' },
-  { color: '#10B981', emoji: '🏆' },
+const videoRefs = [
+  {
+    id: 'CghBKEBAr73',
+    type: 'reel',
+    title: 'Referans Video 01',
+    href: 'https://www.instagram.com/reel/CghBKEBAr73/?igsh=NmxmcW9hcDlubWtl',
+    embed: 'https://www.instagram.com/reel/CghBKEBAr73/embed',
+  },
+  {
+    id: 'CTp0o6rAgwl',
+    type: 'tv',
+    title: 'Referans Video 02',
+    href: 'https://www.instagram.com/tv/CTp0o6rAgwl/?igsh=OTJsdmVlM2Rjam13',
+    embed: 'https://www.instagram.com/tv/CTp0o6rAgwl/embed',
+  },
+  {
+    id: 'CQvAbSHgwL-',
+    type: 'post',
+    title: 'Referans Video 03',
+    href: 'https://www.instagram.com/p/CQvAbSHgwL-/?igsh=MXVvcXR6OTFlYXQzMg==',
+    embed: 'https://www.instagram.com/p/CQvAbSHgwL-/embed',
+  },
+  {
+    id: 'CL4gzEYgh_l',
+    type: 'tv',
+    title: 'Referans Video 04',
+    href: 'https://www.instagram.com/tv/CL4gzEYgh_l/?igsh=MWM2NnlvdW83Nm80Mg==',
+    embed: 'https://www.instagram.com/tv/CL4gzEYgh_l/embed',
+  },
+  {
+    id: 'CHaxkuTJIdj',
+    type: 'tv',
+    title: 'Referans Video 05',
+    href: 'https://www.instagram.com/tv/CHaxkuTJIdj/?igsh=MWlpMXViMm5qZWFsZA==',
+    embed: 'https://www.instagram.com/tv/CHaxkuTJIdj/embed',
+  },
+  {
+    id: 'CFMSYaVJhim',
+    type: 'tv',
+    title: 'Referans Video 06',
+    href: 'https://www.instagram.com/tv/CFMSYaVJhim/?igsh=MW1iNzhnMHZvbmgzOA==',
+    embed: 'https://www.instagram.com/tv/CFMSYaVJhim/embed',
+  },
 ];
 
-function AnimatedStat({ number, label, index }: { number: string; label: string; index: number }) {
-  const { target, suffix } = parseNumber(number);
-  const { value, ref } = useCountUp({ target, duration: 1800 });
-  const done = value >= target;
-  const meta = statMeta[index] || statMeta[0];
-
+function VideoCard({
+  embed,
+  title,
+}: {
+  embed: string;
+  title: string;
+}) {
   return (
-    <div
-      className={`stat-card ${done ? 'stat-card--done' : ''}`}
-      ref={ref as React.RefObject<HTMLDivElement>}
-      style={{ '--stat-accent': meta.color } as React.CSSProperties}
-    >
-      <div className="stat-card__glow" aria-hidden="true" />
-      <div className="stat-card__icon">{meta.emoji}</div>
-      <div className="stat-card__number">
-        <span className="stat-card__count">{value}</span>
-        <span className="stat-card__suffix">{suffix}</span>
+    <article className="video-ref-card">
+      <div className="video-ref-frame-wrap">
+        <iframe
+          src={embed}
+          className="video-ref-frame"
+          loading="lazy"
+          allowFullScreen
+          referrerPolicy="strict-origin-when-cross-origin"
+          title={title}
+        />
       </div>
-      <div className="stat-card__label">{label}</div>
-      <div className="stat-card__bar" aria-hidden="true">
-        <div className="stat-card__bar-fill" style={{ width: done ? '100%' : '0%' }} />
-      </div>
-    </div>
+    </article>
   );
 }
 
@@ -49,12 +76,12 @@ export default function Stats() {
 
   const checkActive = useCallback(() => {
     const el = trackRef.current;
-    if (!el) return;
-    const card = el.querySelector('.stat-card') as HTMLElement;
+    if (!el || window.innerWidth > 768) return;
+    const card = el.querySelector('.video-ref-card') as HTMLElement | null;
     if (!card) return;
     const cardW = card.offsetWidth + 14;
     const idx = Math.round(el.scrollLeft / cardW);
-    setActiveIdx(Math.min(idx, stats.length - 1));
+    setActiveIdx(Math.min(idx, videoRefs.length - 1));
   }, []);
 
   useEffect(() => {
@@ -72,7 +99,7 @@ export default function Stats() {
   function scrollTo(idx: number) {
     const el = trackRef.current;
     if (!el) return;
-    const card = el.querySelector('.stat-card') as HTMLElement;
+    const card = el.querySelector('.video-ref-card') as HTMLElement | null;
     if (!card) return;
     const cardW = card.offsetWidth + 14;
     el.scrollTo({ left: idx * cardW, behavior: 'smooth' });
@@ -87,31 +114,28 @@ export default function Stats() {
       </div>
       <div className="wrap">
         <div className="stats-intro">
-          <span className="stats-kicker">RAKAMLARLA DNC7</span>
+          <span className="stats-kicker">REFERANS VİDEOLAR</span>
           <h2 className="stats-title">
-            12 yıl<span className="stats-title-dot">.</span> 250+ proje<span className="stats-title-dot">.</span> <em>Sıfır tesadüf.</em>
+            DNC7<span className="stats-title-dot">.</span> video projeleri<span className="stats-title-dot">.</span> <em>öne çıkan işler.</em>
           </h2>
         </div>
-
         <div className="stats-track-wrap">
-          <div className="stats-g" ref={trackRef}>
-            {stats.map((stat, idx) => (
-              <AnimatedStat
-                key={stat.id}
-                number={stat.number}
-                label={stat.label}
-                index={idx}
+          <div className="stats-g video-ref-grid" ref={trackRef}>
+            {videoRefs.map((video, idx) => (
+              <VideoCard
+                key={video.id}
+                title={video.title}
+                embed={video.embed}
               />
             ))}
           </div>
-
           <div className="stats-dots">
-            {stats.map((_, idx) => (
+            {videoRefs.map((_, idx) => (
               <button
                 key={idx}
                 className={`stats-dot ${idx === activeIdx ? 'stats-dot--active' : ''}`}
                 onClick={() => scrollTo(idx)}
-                aria-label={`İstatistik ${idx + 1}`}
+                aria-label={`Video ${idx + 1}`}
               />
             ))}
           </div>
