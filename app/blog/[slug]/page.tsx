@@ -9,7 +9,7 @@ import CustomCursor from '@/components/layout/CustomCursor';
 import ScrollToTop from '@/components/layout/ScrollToTop';
 import Footer from '@/components/layout/Footer';
 import Reveal from '@/components/ui/Reveal';
-import { blogPosts, getBlogPost } from '@/data/blog';
+import { type BlogPost } from '@/data/blog';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -109,10 +109,24 @@ function renderContent(content: string) {
 
 export default function BlogDetailPage({ params }: Props) {
   const { slug } = use(params);
-  const post = getBlogPost(slug);
-  if (!post) notFound();
+  const [post, setPost] = useState<BlogPost | null>(null);
+  const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
+  const [ready, setReady] = useState(false);
 
-  const relatedPosts = blogPosts.filter((p) => p.id !== post.id).slice(0, 3);
+  useEffect(() => {
+    fetch('/api/posts')
+      .then(r => r.ok ? r.json() : [])
+      .then((posts: BlogPost[]) => {
+        const found = posts.find(p => p.slug === slug);
+        if (!found) { setReady(true); return; }
+        setPost(found);
+        setRelatedPosts(posts.filter(p => p.id !== found.id).slice(0, 3));
+        setReady(true);
+      });
+  }, [slug]);
+
+  if (!ready) return null;
+  if (!post) notFound();
 
   return (
     <>
@@ -168,9 +182,9 @@ export default function BlogDetailPage({ params }: Props) {
       {/* Content + Sidebar */}
       <section className="sec" style={{ background: '#fff' }}>
         <div className="wrap" style={{ maxWidth: 1100, margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: 64, alignItems: 'start' }}>
+          <div className="blog-detail-layout">
             {/* Article */}
-            <article>
+            <article className="blog-article">
               {renderContent(post.content)}
 
               {/* Tags */}
@@ -224,7 +238,7 @@ export default function BlogDetailPage({ params }: Props) {
             </article>
 
             {/* Sidebar */}
-            <aside style={{ position: 'sticky', top: 100 }}>
+            <aside className="blog-detail-sidebar" style={{ position: 'sticky', top: 100 }}>
               {/* Table of contents hint */}
               <div style={{ padding: '24px', borderRadius: 20, background: 'var(--bg2)', border: '1.5px solid var(--border)', marginBottom: 24 }}>
                 <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 2, textTransform: 'uppercase', color: 'var(--muted)', marginBottom: 16 }}>Bu Yazıda</div>

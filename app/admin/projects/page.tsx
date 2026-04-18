@@ -3,262 +3,138 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Project } from '@/data/projects';
-import { IconPlus, IconEdit, IconTrash, IconFolder, IconSearch } from '@/components/admin/icons';
-
-function SkeletonCard() {
-  return (
-    <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl overflow-hidden animate-pulse">
-      <div className="aspect-video bg-white/[0.04]" />
-      <div className="p-4 space-y-2.5">
-        <div className="h-4 bg-white/[0.05] rounded w-3/4" />
-        <div className="h-3 bg-white/[0.04] rounded w-1/2" />
-        <div className="h-3 bg-white/[0.03] rounded w-2/3" />
-      </div>
-    </div>
-  );
-}
+import { IconPlus, IconPencil, IconTrash, IconBriefcase, IconSearch, IconX, IconLoader2 } from '@tabler/icons-react';
 
 export default function AdminProjectsList() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
-  const [mounted, setMounted] = useState(false);
-  const [deletingId, setDeletingId] = useState<number | null>(null);
+  const [deleting, setDeleting] = useState<number | null>(null);
 
   useEffect(() => {
-    setMounted(true);
-    fetchProjects();
+    fetch('/api/admin/projects').then(r => r.ok ? r.json() : []).then(setProjects).finally(() => setLoading(false));
   }, []);
 
-  const fetchProjects = async () => {
-    try {
-      const res = await fetch('/api/admin/projects');
-      if (res.ok) {
-        const data = await res.json();
-        setProjects(data);
-      }
-    } finally {
-      setLoading(false);
-    }
+  const del = async (id: number) => {
+    if (!confirm('Bu projeyi silmek istediğine emin misin?')) return;
+    setDeleting(id);
+    const r = await fetch(`/api/admin/projects?id=${id}`, { method: 'DELETE' });
+    if (r.ok) setProjects(p => p.filter(x => x.id !== id));
+    else alert('Silme başarısız');
+    setDeleting(null);
   };
 
-  const handleDelete = async (id: number) => {
-    if (!confirm('Bu projeyi silmek istediğinizden emin misiniz?')) return;
-    setDeletingId(id);
-    try {
-      const res = await fetch(`/api/admin/projects?id=${id}`, { method: 'DELETE' });
-      if (res.ok) {
-        setProjects(prev => prev.filter(p => p.id !== id));
-      } else {
-        alert('Silme işlemi başarısız');
-      }
-    } finally {
-      setDeletingId(null);
-    }
-  };
-
-  const filteredProjects = projects.filter(project =>
-    project.name.toLowerCase().includes(search.toLowerCase()) ||
-    project.category.toLowerCase().includes(search.toLowerCase())
+  const filtered = projects.filter(p =>
+    p.name.toLowerCase().includes(search.toLowerCase()) ||
+    p.category.toLowerCase().includes(search.toLowerCase())
   );
 
-  // Group by year for display
-  const years = Array.from(new Set(filteredProjects.map(p => p.year))).sort((a, b) => Number(b) - Number(a));
+  const years = [...new Set(filtered.map(p => p.year))].sort((a, b) => Number(b) - Number(a));
 
   return (
-    <div className="space-y-6">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+
       {/* Header */}
-      <div className={`flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 transition-all duration-500 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'}`}>
-        <div className="flex items-center gap-3.5">
-          <div className="w-11 h-11 bg-purple-500/15 rounded-2xl flex items-center justify-center text-purple-400 border border-purple-500/20 shrink-0">
-            <IconFolder width={20} height={20} />
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{ width: 42, height: 42, borderRadius: 12, background: 'rgba(167,139,250,0.1)', border: '1px solid rgba(167,139,250,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <IconBriefcase size={20} style={{ color: 'var(--adm-purple)' }} />
           </div>
           <div>
-            <h1 className="text-2xl font-extrabold text-white tracking-tight">Projeler</h1>
-            <p className="text-xs text-zinc-500 mt-0.5 font-medium">
-              {loading ? '...' : `${projects.length} proje`}
-            </p>
+            <h1 className="adm-page-title">Projeler</h1>
+            <div style={{ fontSize: 13, color: 'var(--adm-text-3)', marginTop: 2 }}>{loading ? '—' : `${projects.length} proje`}</div>
           </div>
         </div>
-        <Link
-          href="/admin/projects/new"
-          className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white px-4 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 shadow-lg shadow-orange-500/20 hover:shadow-orange-500/30 hover:-translate-y-0.5 shrink-0"
-        >
-          <IconPlus width={15} height={15} />
-          Yeni Proje
-        </Link>
+        <Link href="/admin/projects/new" className="adm-btn-primary"><IconPlus size={15} />Yeni Proje</Link>
       </div>
 
       {/* Search */}
-      <div className={`relative transition-all duration-500 delay-100 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
-        <IconSearch width={15} height={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-600 pointer-events-none" />
-        <input
-          type="text"
-          placeholder="Proje adı veya kategori ara..."
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          className="w-full pl-10 pr-4 py-2.5 bg-white/[0.04] border border-white/[0.07] rounded-xl text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:border-orange-500/40 focus:bg-white/[0.06] transition-all"
-        />
-        {search && (
-          <button
-            onClick={() => setSearch('')}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-600 hover:text-zinc-400 transition-colors"
-          >
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-            </svg>
-          </button>
-        )}
+      <div style={{ position: 'relative', maxWidth: 400 }}>
+        <IconSearch size={15} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--adm-text-3)', pointerEvents: 'none' }} />
+        <input type="text" placeholder="Proje ara..." value={search} onChange={e => setSearch(e.target.value)} className="adm-input" style={{ paddingLeft: 38, paddingRight: search ? 38 : 14 }} />
+        {search && <button onClick={() => setSearch('')} style={{ position: 'absolute', right: 10, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: 'var(--adm-text-3)', display: 'flex', padding: 4 }}><IconX size={13} /></button>}
       </div>
 
       {/* Content */}
-      <div className={`transition-all duration-500 delay-200 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
-        {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-            {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
-          </div>
-        ) : filteredProjects.length === 0 ? (
-          <div className="relative bg-white/[0.02] border border-white/[0.06] rounded-2xl p-16 text-center overflow-hidden">
-            <div className="absolute -top-20 -right-20 w-48 h-48 bg-purple-500/[0.05] rounded-full blur-3xl pointer-events-none" />
-            <div className="w-16 h-16 bg-purple-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <IconFolder width={28} height={28} className="text-purple-400/50" />
-            </div>
-            <p className="text-zinc-500 font-medium text-sm">
-              {search ? 'Sonuç bulunamadı' : 'Henüz proje yok'}
-            </p>
-            {!search && (
-              <Link
-                href="/admin/projects/new"
-                className="inline-flex items-center gap-2 mt-4 text-sm font-bold text-orange-400 hover:text-orange-300 transition-colors"
-              >
-                <IconPlus width={14} height={14} />
-                İlk projeyi oluştur
-              </Link>
-            )}
-          </div>
-        ) : (
-          <div className="space-y-8">
-            {years.map(year => (
-              <div key={year}>
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-xs font-bold text-zinc-600 uppercase tracking-widest">{year}</span>
-                  <div className="flex-1 h-px bg-white/[0.05]" />
-                  <span className="text-[11px] text-zinc-700 font-medium">
-                    {filteredProjects.filter(p => p.year === year).length} proje
-                  </span>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                  {filteredProjects
-                    .filter(p => p.year === year)
-                    .map((project, index) => (
-                      <div
-                        key={project.id}
-                        className="group relative bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.11] rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/25"
-                        style={{ transitionDelay: `${index * 30}ms` }}
-                      >
-                        {/* Image */}
-                        <div className="aspect-video relative overflow-hidden bg-white/[0.02]">
-                          {project.image ? (
-                            <img
-                              src={project.image}
-                              alt={project.name}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center">
-                              <div
-                                className="w-16 h-16 rounded-2xl flex items-center justify-center opacity-30"
-                                style={{ backgroundColor: project.accent ? `${project.accent}20` : 'rgba(168,85,247,0.2)' }}
-                              >
-                                <IconFolder width={28} height={28} style={{ color: project.accent || '#a855f7' }} />
-                              </div>
-                            </div>
-                          )}
-                          {/* Overlay */}
-                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/55 transition-all duration-300 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100">
-                            <Link
-                              href={`/admin/projects/edit/${project.id}`}
-                              className="w-10 h-10 bg-white/10 hover:bg-blue-500 backdrop-blur-md rounded-xl flex items-center justify-center text-white transition-all duration-200 hover:scale-110 border border-white/10"
-                              title="Düzenle"
-                            >
-                              <IconEdit width={15} height={15} />
-                            </Link>
-                            <button
-                              onClick={() => handleDelete(project.id)}
-                              disabled={deletingId === project.id}
-                              className="w-10 h-10 bg-white/10 hover:bg-red-500 backdrop-blur-md rounded-xl flex items-center justify-center text-white transition-all duration-200 hover:scale-110 border border-white/10 disabled:opacity-50"
-                              title="Sil"
-                            >
-                              {deletingId === project.id ? (
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="animate-spin">
-                                  <path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/>
-                                </svg>
-                              ) : (
-                                <IconTrash width={15} height={15} />
-                              )}
-                            </button>
-                          </div>
-                        </div>
-
-                        {/* Content */}
-                        <div className="p-4">
-                          <div className="flex items-start justify-between gap-2 mb-2">
-                            <h3 className="text-sm font-bold text-white group-hover:text-orange-300 transition-colors line-clamp-1 leading-snug">
-                              {project.name}
-                            </h3>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <span
-                              className="text-[11px] font-bold px-2 py-0.5 rounded-md border"
-                              style={{
-                                backgroundColor: project.accent ? `${project.accent}12` : 'rgba(168,85,247,0.08)',
-                                color: project.accent || '#a855f7',
-                                borderColor: project.accent ? `${project.accent}25` : 'rgba(168,85,247,0.15)',
-                              }}
-                            >
-                              {project.category}
-                            </span>
-                            <span className="text-[11px] text-zinc-600 font-medium">{project.year}</span>
-                          </div>
-                          {project.description && (
-                            <p className="text-xs text-zinc-600 mt-2 line-clamp-2 leading-relaxed">{project.description}</p>
-                          )}
-                        </div>
-
-                        {/* Bottom actions - always visible on mobile */}
-                        <div className="px-4 pb-4 flex items-center gap-2 lg:hidden">
-                          <Link
-                            href={`/admin/projects/edit/${project.id}`}
-                            className="flex-1 inline-flex items-center justify-center gap-1.5 text-xs font-semibold text-zinc-300 bg-white/[0.05] hover:bg-blue-500/15 hover:text-blue-300 py-2 px-3 rounded-lg transition-all border border-white/[0.06] hover:border-blue-500/20"
-                          >
-                            <IconEdit width={12} height={12} />
-                            Düzenle
-                          </Link>
-                          <button
-                            onClick={() => handleDelete(project.id)}
-                            disabled={deletingId === project.id}
-                            className="inline-flex items-center justify-center gap-1.5 text-xs font-semibold text-zinc-500 hover:text-red-400 bg-white/[0.03] hover:bg-red-500/10 py-2 px-3 rounded-lg transition-all border border-white/[0.06] hover:border-red-500/20 disabled:opacity-50"
-                          >
-                            <IconTrash width={12} height={12} />
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                </div>
+      {loading ? (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 16 }}>
+          {Array(6).fill(0).map((_, i) => (
+            <div key={i} style={{ background: 'var(--adm-surface)', border: '1px solid var(--adm-border)', borderRadius: 14, overflow: 'hidden' }}>
+              <div style={{ aspectRatio: '16/9', background: 'rgba(255,255,255,0.06)' }} />
+              <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <div style={{ height: 14, background: 'rgba(255,255,255,0.06)', borderRadius: 4, width: '70%' }} />
+                <div style={{ height: 12, background: 'rgba(255,255,255,0.04)', borderRadius: 4, width: '45%' }} />
               </div>
-            ))}
-          </div>
-        )}
-      </div>
+            </div>
+          ))}
+        </div>
+      ) : filtered.length === 0 ? (
+        <div style={{ background: 'var(--adm-surface)', border: '1px solid var(--adm-border)', borderRadius: 14, padding: '60px 20px', textAlign: 'center' }}>
+          <IconBriefcase size={32} style={{ color: 'var(--adm-text-4)', margin: '0 auto 12px' }} />
+          <div style={{ fontSize: 14, color: 'var(--adm-text-3)' }}>{search ? 'Sonuç bulunamadı' : 'Henüz proje yok'}</div>
+          {!search && <Link href="/admin/projects/new" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 12, fontSize: 14, fontWeight: 600, color: 'var(--adm-accent)', textDecoration: 'none' }}><IconPlus size={14} />İlk projeyi oluştur</Link>}
+        </div>
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
+          {years.map(year => (
+            <div key={year}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 14 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--adm-text-3)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{year}</span>
+                <div style={{ flex: 1, height: 1, background: 'var(--adm-border)' }} />
+                <span style={{ fontSize: 11, color: 'var(--adm-text-4)' }}>{filtered.filter(p => p.year === year).length} proje</span>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 14 }}>
+                {filtered.filter(p => p.year === year).map(proj => (
+                  <div key={proj.id} style={{ background: 'var(--adm-surface)', border: '1px solid var(--adm-border)', borderRadius: 14, overflow: 'hidden', transition: 'all 0.15s' }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = 'var(--adm-border-hi)'; (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-2px)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 8px 24px rgba(0,0,0,0.3)'; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = 'var(--adm-border)'; (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)'; (e.currentTarget as HTMLDivElement).style.boxShadow = 'none'; }}
+                  >
+                    {/* Image */}
+                    <div style={{ aspectRatio: '16/9', background: '#0d0f12', position: 'relative', overflow: 'hidden' }}>
+                      {proj.image
+                        ? <img src={proj.image} alt={proj.name} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s' }}
+                            onMouseEnter={e => (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.04)'}
+                            onMouseLeave={e => (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)'}
+                          />
+                        : <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <IconBriefcase size={28} style={{ color: proj.accent || 'var(--adm-purple)', opacity: 0.2 }} />
+                          </div>}
+                      {/* Hover actions */}
+                      <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, transition: 'all 0.2s' }}
+                        onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.background = 'rgba(0,0,0,0.6)'; Array.from((e.currentTarget as HTMLDivElement).children).forEach(c => (c as HTMLElement).style.opacity = '1'); }}
+                        onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.background = 'rgba(0,0,0,0)'; Array.from((e.currentTarget as HTMLDivElement).children).forEach(c => (c as HTMLElement).style.opacity = '0'); }}
+                      >
+                        <Link href={`/admin/projects/edit/${proj.id}`} style={{ width: 40, height: 40, borderRadius: 10, background: 'rgba(255,255,255,0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', textDecoration: 'none', transition: 'background 0.1s', opacity: 0 }}
+                          onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.background = 'var(--adm-blue)'}
+                          onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(255,255,255,0.12)'}
+                        ><IconPencil size={15} /></Link>
+                        <button onClick={() => del(proj.id)} disabled={deleting === proj.id} style={{ width: 40, height: 40, borderRadius: 10, background: 'rgba(255,255,255,0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', transition: 'background 0.1s', opacity: 0 }}
+                          onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.background = 'var(--adm-red)'}
+                          onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.12)'}
+                        >{deleting === proj.id ? <IconLoader2 size={14} className="animate-spin" /> : <IconTrash size={14} />}</button>
+                      </div>
+                    </div>
 
-      {/* Footer count */}
-      {!loading && filteredProjects.length > 0 && search && (
-        <p className="text-xs text-zinc-600 text-center font-medium">
-          {filteredProjects.length} / {projects.length} proje gösteriliyor
-          <button onClick={() => setSearch('')} className="ml-2 text-orange-400 hover:text-orange-300 transition-colors">
-            Temizle
-          </button>
-        </p>
+                    {/* Info */}
+                    <div style={{ padding: '14px 16px' }}>
+                      <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--adm-text-1)', marginBottom: 8, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{proj.name}</div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <span style={{ fontSize: 12, fontWeight: 600, padding: '2px 10px', borderRadius: 6, background: proj.accent ? `color-mix(in srgb, ${proj.accent} 10%, transparent)` : 'rgba(167,139,250,0.1)', color: proj.accent || 'var(--adm-purple)', border: `1px solid ${proj.accent ? `color-mix(in srgb, ${proj.accent} 20%, transparent)` : 'rgba(167,139,250,0.18)'}` }}>{proj.category}</span>
+                        <span style={{ fontSize: 12, color: 'var(--adm-text-3)' }}>{proj.year}</span>
+                      </div>
+                      {proj.description && <p style={{ fontSize: 12, color: 'var(--adm-text-3)', marginTop: 8, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', lineHeight: 1.5 }}>{proj.description}</p>}
+                      {/* Mobile actions */}
+                      <div className="lg:hidden" style={{ display: 'flex', gap: 8, marginTop: 12 }}>
+                        <Link href={`/admin/projects/edit/${proj.id}`} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, height: 36, borderRadius: 8, background: 'rgba(96,165,250,0.08)', border: '1px solid rgba(96,165,250,0.15)', color: 'var(--adm-blue)', fontSize: 13, fontWeight: 600, textDecoration: 'none' }}><IconPencil size={13} />Düzenle</Link>
+                        <button onClick={() => del(proj.id)} disabled={deleting === proj.id} style={{ width: 36, height: 36, borderRadius: 8, background: 'rgba(248,113,113,0.06)', border: '1px solid rgba(248,113,113,0.12)', color: 'var(--adm-red)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><IconTrash size={13} /></button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );

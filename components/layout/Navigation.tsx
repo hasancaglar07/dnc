@@ -4,6 +4,14 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+const kaynaklar = [
+  { label: 'Bütçe Hesaplayıcı', href: '/araclar/butce-hesaplayici', icon: 'bi-calculator' },
+  { label: 'ROI Hesaplayıcı', href: '/araclar/roi-hesaplayici', icon: 'bi-graph-up-arrow' },
+  { label: 'Marka Audit', href: '/araclar/marka-audit', icon: 'bi-search' },
+  { label: 'Renk Paleti', href: '/araclar/renk-paleti', icon: 'bi-palette' },
+  { label: 'Video Brief', href: '/araclar/video-brief', icon: 'bi-camera-reels' },
+];
+
 const hizmetler = [
   { label: 'Web Tasarım', href: '/hizmetler/web-tasarim', icon: 'bi-globe2' },
   { label: 'Mobil Uygulama', href: '/hizmetler/mobil-uygulama', icon: 'bi-phone' },
@@ -20,17 +28,22 @@ export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isKaynaklarOpen, setIsKaynaklarOpen] = useState(false);
   const [mobHizmetOpen, setMobHizmetOpen] = useState(false);
+  const [mobKaynaklarOpen, setMobKaynaklarOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const kaynaklarRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const isHome = pathname === '/';
   const hasDarkHero = !isHome && (
     pathname.startsWith('/hizmetler/') ||
     pathname === '/hizmetler' ||
     pathname === '/hakkimizda' ||
-    pathname === '/blog' ||
-    pathname.startsWith('/blog/') ||
-    pathname === '/fiyatlandirma'
+    pathname === '/kaynaklar' ||
+    pathname.startsWith('/kaynaklar/') ||
+    pathname === '/fiyatlandirma' ||
+    pathname === '/projeler' ||
+    pathname.startsWith('/projeler/')
   );
   const isLight = hasDarkHero && !isScrolled;
 
@@ -45,6 +58,9 @@ export default function Navigation() {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
         setIsDropdownOpen(false);
       }
+      if (kaynaklarRef.current && !kaynaklarRef.current.contains(e.target as Node)) {
+        setIsKaynaklarOpen(false);
+      }
     };
     document.addEventListener('mousedown', handleClick);
     return () => document.removeEventListener('mousedown', handleClick);
@@ -52,7 +68,7 @@ export default function Navigation() {
 
   const navLinks = [
     { label: 'Projeler', href: '/projeler', hashHref: null },
-    { label: 'Blog', href: '/blog', hashHref: null },
+    { label: 'Hakkımızda', href: '/hakkimizda', hashHref: null },
     { label: 'Fiyatlandırma', href: '/fiyatlandirma', hashHref: null },
     { label: 'İletişim', href: '/#iletisim', hashHref: '#iletisim' },
   ];
@@ -91,6 +107,39 @@ export default function Navigation() {
                 <div className="nav-dd-footer">
                   <Link href="/hizmetler" className="nav-dd-all" onClick={() => setIsDropdownOpen(false)}>
                     Tüm Hizmetleri Gör
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                      <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div ref={kaynaklarRef} className="nav-dd-wrap">
+              <button
+                className={`nav-dd-trigger ${isKaynaklarOpen ? 'on' : ''} ${pathname.startsWith('/araclar') ? 'active' : ''}`}
+                onClick={() => setIsKaynaklarOpen(!isKaynaklarOpen)}
+                onMouseEnter={() => setIsKaynaklarOpen(true)}
+              >
+                Kaynaklar
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transition: 'transform .2s', transform: isKaynaklarOpen ? 'rotate(180deg)' : 'rotate(0)' }}>
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </button>
+              <div className={`nav-dd ${isKaynaklarOpen ? 'open' : ''}`} onMouseLeave={() => setIsKaynaklarOpen(false)}>
+                <div className="nav-dd-header">
+                  <span>Kaynaklar</span>
+                </div>
+                <div className="nav-dd-grid">
+                  {kaynaklar.map((k) => (
+                    <Link key={k.href} href={k.href} className="nav-dd-item" onClick={() => setIsKaynaklarOpen(false)}>
+                      <i className={`bi ${k.icon}`}></i>
+                      <span>{k.label}</span>
+                    </Link>
+                  ))}
+                </div>
+                <div className="nav-dd-footer">
+                  <Link href="/araclar" className="nav-dd-all" onClick={() => setIsKaynaklarOpen(false)}>
+                    Tüm Araçları Gör
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                       <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
                     </svg>
@@ -148,19 +197,37 @@ export default function Navigation() {
               Tüm Hizmetleri Gör <i className="bi bi-arrow-right"></i>
             </Link>
           </div>
+          <button className={`mob-link mob-hizmet-toggle ${mobKaynaklarOpen ? 'on' : ''}`} onClick={() => setMobKaynaklarOpen(!mobKaynaklarOpen)} style={{ animationDelay: '60ms' }}>
+            <span className="mob-link-num">02</span>
+            Kaynaklar
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" style={{ marginLeft: 'auto', transition: 'transform .2s', transform: mobKaynaklarOpen ? 'rotate(180deg)' : 'rotate(0)' }}>
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+          <div className={`mob-hizmet-list ${mobKaynaklarOpen ? 'open' : ''}`}>
+            {kaynaklar.map((k) => (
+              <Link key={k.href} href={k.href} className="mob-hizmet-item" onClick={() => setIsMobileMenuOpen(false)}>
+                <i className={`bi ${k.icon}`}></i>
+                {k.label}
+              </Link>
+            ))}
+            <Link href="/araclar" className="mob-hizmet-item mob-hizmet-all" onClick={() => setIsMobileMenuOpen(false)}>
+              Tüm Araçları Gör <i className="bi bi-arrow-right"></i>
+            </Link>
+          </div>
           {navLinks.map((link, i) => {
-            const num = mobHizmetOpen ? i + 1 : i;
+            const baseNum = i + 3;
             if (isHome && link.hashHref) {
               return (
-                <a key={link.label} href={link.hashHref} className="mob-link" onClick={() => setIsMobileMenuOpen(false)} style={{ animationDelay: `${(num + 1) * 60}ms` }}>
-                  <span className="mob-link-num">0{num + 2}</span>
+                <a key={link.label} href={link.hashHref} className="mob-link" onClick={() => setIsMobileMenuOpen(false)} style={{ animationDelay: `${baseNum * 60}ms` }}>
+                  <span className="mob-link-num">0{baseNum}</span>
                   {link.label}
                 </a>
               );
             }
             return (
-              <Link key={link.label} href={link.href} className="mob-link" onClick={() => setIsMobileMenuOpen(false)} style={{ animationDelay: `${(num + 1) * 60}ms` }}>
-                <span className="mob-link-num">0{num + 2}</span>
+              <Link key={link.label} href={link.href} className="mob-link" onClick={() => setIsMobileMenuOpen(false)} style={{ animationDelay: `${baseNum * 60}ms` }}>
+                <span className="mob-link-num">0{baseNum}</span>
                 {link.label}
               </Link>
             );

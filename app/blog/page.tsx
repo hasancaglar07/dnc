@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Navigation from '@/components/layout/Navigation';
@@ -8,11 +8,16 @@ import CustomCursor from '@/components/layout/CustomCursor';
 import ScrollToTop from '@/components/layout/ScrollToTop';
 import Footer from '@/components/layout/Footer';
 import Reveal from '@/components/ui/Reveal';
-import { blogPosts, blogCategories } from '@/data/blog';
+import { type BlogPost } from '@/data/blog';
 
 export default function BlogPage() {
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [activeCategory, setActiveCategory] = useState('Tümü');
   const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    fetch('/api/posts').then(r => r.ok ? r.json() : []).then(setBlogPosts);
+  }, []);
 
   const filtered = blogPosts.filter((p) => {
     const matchesCategory = activeCategory === 'Tümü' || p.category === activeCategory;
@@ -21,6 +26,7 @@ export default function BlogPage() {
   });
 
   const featured = blogPosts.filter((p) => p.featured);
+  const blogCategories = ['Tümü', ...Array.from(new Set(blogPosts.map(p => p.category)))];
 
   return (
     <>

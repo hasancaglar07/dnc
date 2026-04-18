@@ -143,7 +143,7 @@ export default function HeroSection() {
           />
           <div className="hero-v2-float hero-v2-float-1 hero-v2-float-desktop">
             <i className="bi bi-star-fill" style={{ color: 'var(--accent)', fontSize: 12 }} />
-            <span>200+ Proje</span>
+            <span>250+ Proje</span>
           </div>
           <div className="hero-v2-float hero-v2-float-2 hero-v2-float-desktop">
             <i className="bi bi-check-lg" style={{ color: '#fff', fontSize: 16 }} />
@@ -155,7 +155,7 @@ export default function HeroSection() {
           {/* Mobile floats — compact chips shown only on mobile */}
           <div className="hero-v2-float hero-v2-float-m1 hero-v2-float-mobile">
             <i className="bi bi-star-fill" style={{ color: 'var(--accent)', fontSize: 10 }} />
-            <span>200+</span>
+            <span>250+</span>
           </div>
           <div className="hero-v2-float hero-v2-float-m2 hero-v2-float-mobile">
             <i className="bi bi-trophy-fill" style={{ color: '#F59E0B', fontSize: 10 }} />
@@ -170,12 +170,12 @@ export default function HeroSection() {
           </div>
           <div className="hero-v2-stat-divider" />
           <div className="hero-v2-stat">
-            <span className="hero-v2-stat-num">200+</span>
+            <span className="hero-v2-stat-num">250+</span>
             <span className="hero-v2-stat-label">Tamamlanan Proje</span>
           </div>
           <div className="hero-v2-stat-divider" />
           <div className="hero-v2-stat">
-            <span className="hero-v2-stat-num">50+</span>
+            <span className="hero-v2-stat-num">85+</span>
             <span className="hero-v2-stat-label">Mutlu Müşteri</span>
           </div>
           <div className="hero-v2-stat-divider" />
