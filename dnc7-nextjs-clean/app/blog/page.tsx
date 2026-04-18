@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Navigation from '@/components/layout/Navigation';
@@ -8,16 +8,25 @@ import CustomCursor from '@/components/layout/CustomCursor';
 import ScrollToTop from '@/components/layout/ScrollToTop';
 import Footer from '@/components/layout/Footer';
 import Reveal from '@/components/ui/Reveal';
-import { blogPosts, blogCategories } from '@/data/blog';
+import { type BlogPost } from '@/data/blog';
 
 export default function BlogPage() {
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [activeCategory, setActiveCategory] = useState('Tümü');
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const filtered = activeCategory === 'Tümü'
-    ? blogPosts
-    : blogPosts.filter((p) => p.category === activeCategory);
+  useEffect(() => {
+    fetch('/api/posts').then(r => r.ok ? r.json() : []).then(setBlogPosts);
+  }, []);
+
+  const filtered = blogPosts.filter((p) => {
+    const matchesCategory = activeCategory === 'Tümü' || p.category === activeCategory;
+    const matchesSearch = !searchQuery || p.title.toLowerCase().includes(searchQuery.toLowerCase()) || p.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) || p.tags.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase()));
+    return matchesCategory && matchesSearch;
+  });
 
   const featured = blogPosts.filter((p) => p.featured);
+  const blogCategories = ['Tümü', ...Array.from(new Set(blogPosts.map(p => p.category)))];
 
   return (
     <>
@@ -88,6 +97,27 @@ export default function BlogPage() {
             <h2 className="sec-title">Blog <em>Arşivi</em></h2>
           </Reveal>
 
+          {/* Search Bar */}
+          <Reveal delay={30}>
+            <div style={{ marginTop: 32, position: 'relative', maxWidth: 480 }}>
+              <i className="bi bi-search" style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', color: 'var(--muted)', fontSize: 16, pointerEvents: 'none' }}></i>
+              <input
+                type="text"
+                placeholder="Yazı veya etiket ara..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                style={{ width: '100%', padding: '14px 16px 14px 44px', borderRadius: 12, border: '1.5px solid var(--border)', background: '#fff', fontSize: 15, color: 'var(--text)', outline: 'none', transition: 'border-color .2s', fontFamily: 'inherit' }}
+                onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--accent)')}
+                onBlur={(e) => (e.currentTarget.style.borderColor = 'var(--border)')}
+              />
+              {searchQuery && (
+                <button onClick={() => setSearchQuery('')} style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--muted)', display: 'flex', alignItems: 'center' }}>
+                  <i className="bi bi-x-circle-fill" style={{ fontSize: 16 }}></i>
+                </button>
+              )}
+            </div>
+          </Reveal>
+
           <Reveal delay={40}>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 32, marginBottom: 40 }}>
               {blogCategories.map((cat) => (
@@ -135,7 +165,8 @@ export default function BlogPage() {
 
           {filtered.length === 0 && (
             <div style={{ textAlign: 'center', padding: '80px 0' }}>
-              <p style={{ fontSize: 18, color: 'var(--muted)' }}>Bu kategoride henüz yazı bulunmuyor.</p>
+              <i className="bi bi-search" style={{ fontSize: 40, color: 'var(--border)', display: 'block', marginBottom: 16 }}></i>
+              <p style={{ fontSize: 18, color: 'var(--muted)' }}>{searchQuery ? `"${searchQuery}" için sonuç bulunamadı.` : 'Bu kategoride henüz yazı bulunmuyor.'}</p>
             </div>
           )}
         </div>

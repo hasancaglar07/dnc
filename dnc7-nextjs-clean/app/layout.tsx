@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import ExitIntentPopup from "@/components/layout/ExitIntentPopup";
@@ -7,6 +7,9 @@ import WhatsAppButton from "@/components/layout/WhatsAppButton";
 import CookieConsent from "@/components/layout/CookieConsent";
 import SchemaOrg from "@/components/layout/SchemaOrg";
 import MobileStickyCTA from "@/components/layout/MobileStickyCTA";
+import { cn } from "@/lib/utils";
+
+const spaceGrotesk = Space_Grotesk({subsets:['latin'],variable:'--font-sans'});
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -48,7 +51,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="tr" data-scroll-behavior="smooth" className={jakarta.variable}>
+    <html lang="tr" data-scroll-behavior="smooth" className={cn("font-sans", spaceGrotesk.variable)}>
       <head>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
         <meta name="geo.region" content="TR" />

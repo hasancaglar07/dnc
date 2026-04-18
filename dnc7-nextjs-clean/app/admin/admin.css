@@ -1,0 +1,293 @@
+/*
+ * ─────────────────────────────────────────────────────────────────
+ *  ADMIN PANEL — Isolated Design System
+ *  Resets ALL bleeding globals, establishes clean admin variables
+ * ─────────────────────────────────────────────────────────────────
+ */
+
+/* ── Isolation: kill every global bleed ───────────────────────── */
+#admin-root {
+  --adm-bg:        #111214;
+  --adm-sidebar:   #0C0D10;
+  --adm-surface:   rgba(255,255,255,0.04);
+  --adm-elevated:  rgba(255,255,255,0.07);
+  --adm-border:    rgba(255,255,255,0.08);
+  --adm-border-hi: rgba(255,255,255,0.14);
+  --adm-accent:    #F97316;
+  --adm-accent-lo: rgba(249,115,22,0.12);
+  --adm-accent-bd: rgba(249,115,22,0.25);
+  --adm-blue:      #60A5FA;
+  --adm-purple:    #A78BFA;
+  --adm-green:     #34D399;
+  --adm-amber:     #FBBF24;
+  --adm-red:       #F87171;
+  --adm-text-1:    rgba(255,255,255,0.92);
+  --adm-text-2:    rgba(255,255,255,0.55);
+  --adm-text-3:    rgba(255,255,255,0.28);
+  --adm-text-4:    rgba(255,255,255,0.12);
+  --adm-radius-sm: 8px;
+  --adm-radius-md: 12px;
+  --adm-radius-lg: 16px;
+  --adm-radius-xl: 20px;
+
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--adm-text-1);
+  background: var(--adm-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Cursor overrides ─────────────────────────────────────────── */
+#admin-root, #admin-root * { cursor: auto; }
+
+#admin-root a,
+#admin-root button,
+#admin-root [role="button"],
+#admin-root select,
+#admin-root label { cursor: pointer; }
+
+#admin-root input[type="text"],
+#admin-root input[type="email"],
+#admin-root input[type="url"],
+#admin-root input[type="password"],
+#admin-root input[type="date"],
+#admin-root input[type="number"],
+#admin-root input[type="search"],
+#admin-root textarea { cursor: text; }
+
+/* ── Admin typography scale ───────────────────────────────────── */
+#admin-root .adm-page-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--adm-text-1);
+  letter-spacing: -0.3px;
+  line-height: 1.25;
+}
+
+#admin-root .adm-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--adm-text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+#admin-root .adm-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--adm-text-2);
+  margin-bottom: 6px;
+}
+
+/* ── Form inputs ──────────────────────────────────────────────── */
+#admin-root .adm-input {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  background: var(--adm-surface);
+  border: 1px solid var(--adm-border);
+  border-radius: var(--adm-radius-md);
+  font-size: 15px;
+  color: var(--adm-text-1);
+  outline: none;
+  transition: border-color 0.15s, background 0.15s;
+  font-family: inherit;
+}
+
+#admin-root .adm-input::placeholder { color: var(--adm-text-4); }
+
+#admin-root .adm-input:focus {
+  border-color: var(--adm-accent);
+  background: rgba(255,255,255,0.06);
+}
+
+#admin-root textarea.adm-input {
+  height: auto;
+  padding: 12px 14px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+#admin-root select.adm-input {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.35)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+/* ── Buttons ──────────────────────────────────────────────────── */
+#admin-root .adm-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 20px;
+  background: var(--adm-accent);
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: var(--adm-radius-md);
+  border: none;
+  outline: none;
+  transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
+  box-shadow: 0 4px 14px rgba(249,115,22,0.25);
+  white-space: nowrap;
+}
+
+#admin-root .adm-btn-primary:hover {
+  background: #ea6a0a;
+  box-shadow: 0 6px 20px rgba(249,115,22,0.35);
+  transform: translateY(-1px);
+}
+
+#admin-root .adm-btn-primary:active { transform: translateY(0); }
+#admin-root .adm-btn-primary:disabled { opacity: 0.5; transform: none; }
+
+#admin-root .adm-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 20px;
+  background: var(--adm-surface);
+  color: var(--adm-text-2);
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--adm-radius-md);
+  border: 1px solid var(--adm-border);
+  outline: none;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+#admin-root .adm-btn-ghost:hover {
+  background: var(--adm-elevated);
+  color: var(--adm-text-1);
+  border-color: var(--adm-border-hi);
+}
+
+#admin-root .adm-btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--adm-surface);
+  border: 1px solid var(--adm-border);
+  border-radius: var(--adm-radius-sm);
+  color: var(--adm-text-2);
+  outline: none;
+  transition: all 0.15s;
+}
+
+#admin-root .adm-btn-icon:hover {
+  background: var(--adm-elevated);
+  color: var(--adm-text-1);
+  border-color: var(--adm-border-hi);
+}
+
+/* ── Card ─────────────────────────────────────────────────────── */
+#admin-root .adm-card {
+  background: var(--adm-surface);
+  border: 1px solid var(--adm-border);
+  border-radius: var(--adm-radius-lg);
+  padding: 24px;
+}
+
+/* ── Sidebar nav item ─────────────────────────────────────────── */
+#admin-root .adm-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: var(--adm-radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--adm-text-2);
+  border: 1px solid transparent;
+  transition: all 0.12s;
+  position: relative;
+  text-decoration: none;
+}
+
+#admin-root .adm-nav-item:hover {
+  background: rgba(255,255,255,0.05);
+  color: var(--adm-text-1);
+}
+
+#admin-root .adm-nav-item.active {
+  background: rgba(249,115,22,0.1);
+  color: var(--adm-accent);
+  border-color: rgba(249,115,22,0.2);
+}
+
+#admin-root .adm-nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 18px;
+  background: var(--adm-accent);
+  border-radius: 0 3px 3px 0;
+}
+
+/* ── Table ────────────────────────────────────────────────────── */
+#admin-root .adm-table { width: 100%; border-collapse: collapse; }
+
+#admin-root .adm-table th {
+  padding: 10px 16px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--adm-text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  border-bottom: 1px solid var(--adm-border);
+}
+
+#admin-root .adm-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 14px;
+  color: var(--adm-text-2);
+  vertical-align: middle;
+}
+
+#admin-root .adm-table tr:last-child td { border-bottom: none; }
+
+#admin-root .adm-table tbody tr:hover td {
+  background: rgba(255,255,255,0.025);
+  color: var(--adm-text-1);
+}
+
+/* ── Badge ────────────────────────────────────────────────────── */
+#admin-root .adm-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────── */
+#admin-root ::-webkit-scrollbar { width: 6px; height: 6px; }
+#admin-root ::-webkit-scrollbar-track { background: transparent; }
+#admin-root ::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.1);
+  border-radius: 3px;
+}
+#admin-root ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.18); }
+
+/* ── Focus ring ────────────────────────────────────────────────── */
+#admin-root :focus-visible {
+  outline: 2px solid var(--adm-accent);
+  outline-offset: 2px;
+}

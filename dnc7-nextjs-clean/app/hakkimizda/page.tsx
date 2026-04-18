@@ -135,16 +135,52 @@ export default function HakkimizdaPage() {
             </Reveal>
             <Reveal delay={150}>
               <div style={{ position: 'relative' }}>
-                <div style={{ borderRadius: 24, overflow: 'hidden', background: 'var(--bg2)', aspectRatio: '4/3', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1.5px solid var(--border)' }}>
-                  <div style={{ textAlign: 'center', padding: 40 }}>
-                    <div style={{ fontSize: '5rem', marginBottom: 16 }}>🎬</div>
-                    <div style={{ fontSize: 16, color: 'var(--muted)', fontWeight: 600 }}>DNC7 Stüdyo, İstanbul</div>
+                <div style={{ borderRadius: 28, overflow: 'hidden', background: 'var(--dark)', aspectRatio: '4/3', display: 'flex', alignItems: 'stretch', flexDirection: 'column', border: '1.5px solid #222' }}>
+                  {/* Header bar */}
+                  <div style={{ padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,.08)', display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <div style={{ display: 'flex', gap: 6 }}>
+                      <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#FF5F56' }}></div>
+                      <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#FFBD2E' }}></div>
+                      <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#27C93F' }}></div>
+                    </div>
+                    <div style={{ fontSize: 12, color: 'rgba(255,255,255,.3)', fontWeight: 600, marginLeft: 4 }}>dnc7-studio.ts</div>
+                  </div>
+                  {/* Code-like content */}
+                  <div style={{ flex: 1, padding: '24px 24px', fontFamily: 'monospace', fontSize: 13, lineHeight: 1.8, overflow: 'hidden' }}>
+                    <div style={{ color: 'rgba(255,255,255,.3)' }}>// DNC7 Dijital Ajans</div>
+                    <div style={{ marginTop: 8 }}>
+                      <span style={{ color: '#6366F1' }}>const</span>
+                      <span style={{ color: '#fff' }}> studio </span>
+                      <span style={{ color: 'rgba(255,255,255,.4)' }}>=</span>
+                      <span style={{ color: '#fff' }}> {'{'}</span>
+                    </div>
+                    {[
+                      { key: '  kuruluş', val: '"İstanbul, 2013"', color: '#F97316' },
+                      { key: '  ekip', val: '"18 uzman"', color: '#10B981' },
+                      { key: '  proje', val: '"250+ tamamlandı"', color: '#F59E0B' },
+                      { key: '  hizmet', val: '"9 alan"', color: '#0EA5E9' },
+                      { key: '  müşteri', val: '"85+ aktif"', color: '#EC4899' },
+                    ].map((row, i) => (
+                      <div key={i}>
+                        <span style={{ color: 'rgba(255,255,255,.5)' }}>{row.key}</span>
+                        <span style={{ color: 'rgba(255,255,255,.3)' }}>: </span>
+                        <span style={{ color: row.color }}>{row.val}</span>
+                        <span style={{ color: 'rgba(255,255,255,.3)' }}>,</span>
+                      </div>
+                    ))}
+                    <div style={{ color: '#fff' }}>{'}'}</div>
+                    <div style={{ marginTop: 12, color: 'rgba(255,255,255,.25)' }}>// Büyümeye devam ediyor... <span style={{ animation: 'none', borderRight: '2px solid rgba(249,115,22,.7)' }}>&nbsp;</span></div>
                   </div>
                 </div>
                 {/* Floating badge */}
                 <div style={{ position: 'absolute', bottom: -20, left: -20, background: 'var(--accent)', color: '#fff', borderRadius: 20, padding: '16px 24px', boxShadow: '0 20px 40px rgba(249,115,22,.3)' }}>
                   <div style={{ fontSize: 28, fontWeight: 900, lineHeight: 1 }}>12+</div>
                   <div style={{ fontSize: 12, fontWeight: 700, marginTop: 4, opacity: 0.85 }}>Yıl Deneyim</div>
+                </div>
+                {/* Second floating badge */}
+                <div style={{ position: 'absolute', top: -16, right: -16, background: '#fff', color: 'var(--text)', borderRadius: 16, padding: '12px 18px', boxShadow: '0 12px 32px rgba(0,0,0,.1)', border: '1.5px solid var(--border)' }}>
+                  <div style={{ fontSize: 20, fontWeight: 900, lineHeight: 1, color: '#10B981' }}>250+</div>
+                  <div style={{ fontSize: 11, fontWeight: 700, marginTop: 3, color: 'var(--muted)' }}>Proje</div>
                 </div>
               </div>
             </Reveal>

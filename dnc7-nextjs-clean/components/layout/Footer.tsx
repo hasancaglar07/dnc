@@ -17,7 +17,7 @@ const services = [
 const company = [
   { label: 'Hakkımızda', href: '/hakkimizda' },
   { label: 'Projeler', href: '/projeler' },
-  { label: 'Blog', href: '/blog' },
+  { label: 'Araçlar', href: '/araclar' },
   { label: 'Fiyatlandırma', href: '/fiyatlandirma' },
   { label: 'İletişim', href: '/#iletisim' },
 ];
@@ -25,6 +25,14 @@ const company = [
 const legal = [
   { label: 'Gizlilik Politikası', href: '/gizlilik' },
   { label: 'Kullanım Şartları', href: '/kullanim-sartlari' },
+];
+
+const resources = [
+  { label: 'Bütçe Hesaplayıcı', href: '/araclar/butce-hesaplayici' },
+  { label: 'ROI Hesaplayıcı', href: '/araclar/roi-hesaplayici' },
+  { label: 'Marka Audit', href: '/araclar/marka-audit' },
+  { label: 'Renk Paleti', href: '/araclar/renk-paleti' },
+  { label: 'Video Brief', href: '/araclar/video-brief' },
 ];
 
 export default function Footer() {
@@ -60,6 +68,12 @@ export default function Footer() {
               <div className="fc-title" style={{ marginTop: '20px' }}>Yasal</div>
               {legal.map((l) => (
                 <Link key={l.href} href={l.href}>{l.label}</Link>
+              ))}
+            </div>
+            <div className="f-col">
+              <div className="fc-title">Kaynaklar</div>
+              {resources.map((t) => (
+                <Link key={t.href} href={t.href}>{t.label}</Link>
               ))}
             </div>
             <div className="f-col">

@@ -1,12 +1,19 @@
 import type { MetadataRoute } from 'next';
-import { blogPosts } from '@/data/blog';
+import { getBlogPosts, getProjects } from '@/lib/db';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://dnc7.com';
 
-  const blogUrls: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+  const blogUrls: MetadataRoute.Sitemap = getBlogPosts().map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.date),
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }));
+
+  const projectUrls: MetadataRoute.Sitemap = getProjects().map((p) => ({
+    url: `${baseUrl}/projeler/${p.id}`,
+    lastModified: new Date(),
     changeFrequency: 'monthly' as const,
     priority: 0.6,
   }));
@@ -26,17 +33,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/hizmetler/sosyal-medya`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/hizmetler/e-ticaret-danismanligi`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/hizmetler/reklam-yonetimi`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/projeler/1`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${baseUrl}/projeler/2`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${baseUrl}/projeler/3`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${baseUrl}/projeler/4`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${baseUrl}/projeler/5`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${baseUrl}/projeler/6`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${baseUrl}/projeler/7`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${baseUrl}/projeler/8`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
     { url: `${baseUrl}/hakkimizda`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/gizlilik`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
     { url: `${baseUrl}/kullanim-sartlari`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
     ...blogUrls,
+    ...projectUrls,
   ];
 }
