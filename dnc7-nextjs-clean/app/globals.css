@@ -5583,13 +5583,30 @@ select.fin {
 
 @media (max-width: 640px) {
   .pc2-grid,
-  .pc2-grid--featured { grid-template-columns: 1fr; }
-  .pc2-grid--featured .pc2-card:first-child { grid-column: span 1; }
+  .pc2-grid--featured {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 16px;
+    padding-bottom: 8px;
+  }
+  .pc2-grid::-webkit-scrollbar,
+  .pc2-grid--featured::-webkit-scrollbar { display: none; }
+  .pc2-card {
+    flex: 0 0 85%;
+    scroll-snap-align: start;
+  }
+  .pc2-grid--featured .pc2-card:first-child { grid-column: span 1; flex: 0 0 85%; }
+  .pc2-grid--featured .pc2-card:first-child .pc2-img { padding-top: 65%; }
   .pc2-overlay-desc { display: none; }
   .pc2-info { padding: 14px 16px; gap: 10px; }
   .pc2-name { font-size: 14px; }
-  .proj2-filters { gap: 6px; }
-  .proj2-pill { font-size: 12px; padding: 6px 13px; }
+  .proj2-filters { gap: 6px; overflow-x: auto; scrollbar-width: none; flex-wrap: nowrap; }
+  .proj2-filters::-webkit-scrollbar { display: none; }
+  .proj2-pill { font-size: 12px; padding: 6px 13px; white-space: nowrap; }
 }
 /* ═══════════════════════════════════════════════
    PROJELER V2 — Magazine Editorial Redesign

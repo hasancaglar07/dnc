@@ -702,11 +702,11 @@ export default function Services() {
 
         @media (max-width: 768px) {
           .cinematic-films-section {
-            padding: 4rem 0 6rem;
+            padding: 4rem 0 5rem;
           }
 
           .films-header {
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
           }
 
           .films-title {
@@ -717,23 +717,56 @@ export default function Services() {
             font-size: 0.7rem;
           }
 
+          .films-scroll-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding: 1rem 0 2rem;
+          }
+
           .films-track {
-            gap: 2rem;
-            padding: 0 1.5rem;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            gap: 1rem;
+            padding: 0 1.25rem;
+            min-width: min-content;
           }
 
           .film-card {
-            width: 85vw;
+            width: 80vw;
+            flex-shrink: 0;
+            scroll-snap-align: start;
           }
 
           .film-number {
             font-size: 2.5rem;
-            top: -30px;
+            top: -25px;
+          }
+
+          .film-frame {
+            padding: 1rem;
+          }
+
+          .film-image-wrapper {
+            aspect-ratio: 16 / 9;
+          }
+
+          .film-overlay {
+            opacity: 1;
+            background: linear-gradient(
+              180deg,
+              transparent 30%,
+              rgba(0, 0, 0, 0.7) 100%
+            );
+          }
+
+          .play-button-cinematic {
+            transform: scale(0.7);
           }
 
           .scroll-indicator {
-            right: 2rem;
-            bottom: 1rem;
+            display: none;
           }
 
           .video-modal-cinematic {
