@@ -31,37 +31,32 @@ export default function Contact() {
   const [state, setState] = useState<FormState>('idle');
   const [errorMsg, setErrorMsg] = useState('');
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setState('loading');
-    setErrorMsg('');
 
     const fd = new FormData(e.currentTarget);
-    const data = {
-      firstName: fd.get('firstName') as string,
-      lastName: fd.get('lastName') as string,
-      email: fd.get('email') as string,
-      phone: fd.get('phone') as string,
-      service: fd.get('service') as string,
-      budget: fd.get('budget') as string,
-      subject: fd.get('subject') as string,
-      message: fd.get('message') as string,
-    };
+    const firstName = fd.get('firstName') as string;
+    const lastName = fd.get('lastName') as string;
+    const email = fd.get('email') as string;
+    const phone = fd.get('phone') as string;
+    const service = fd.get('service') as string;
+    const budget = fd.get('budget') as string;
+    const subject = fd.get('subject') as string || 'DNC7 İletişim Formu';
+    const message = fd.get('message') as string;
 
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      const json = await res.json();
-      if (!res.ok) throw new Error(json.error || 'Hata oluştu.');
-      setState('success');
-      (e.target as HTMLFormElement).reset();
-    } catch (err: unknown) {
-      setState('error');
-      setErrorMsg(err instanceof Error ? err.message : 'Mesaj gönderilemedi.');
-    }
+    const body = `Ad Soyad: ${firstName} ${lastName}
+E-posta: ${email}
+Telefon: ${phone}
+Hizmet: ${service}
+Bütçe: ${budget}
+
+Mesaj:
+${message}`;
+
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=bubutiko13@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.open(gmailUrl, '_blank');
+    setState('success');
+    (e.target as HTMLFormElement).reset();
   }
 
   return (
@@ -100,13 +95,13 @@ export default function Contact() {
                   <div className="ci-val">info@dnc7.com</div>
                 </a>
 
-                <a href="tel:+902125550123" className="ci-row" style={{ textDecoration: 'none' }}>
+                <a href="tel:+905543794695" className="ci-row" style={{ textDecoration: 'none' }}>
                   <div className="ci-ico">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.92 13.5 19.79 19.79 0 0 1 1.85 5 2 2 0 0 1 3.84 3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 10.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
                     </svg>
                   </div>
-                  <div className="ci-val">+90 (212) 555 0123</div>
+                  <div className="ci-val">+90 (554) 379 46 95</div>
                 </a>
 
                 <div className="ci-row">
