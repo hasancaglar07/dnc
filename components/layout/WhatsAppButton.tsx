@@ -1,7 +1,7 @@
 'use client';
 
 export default function WhatsAppButton() {
-  const phone = '905XXXXXXXXX'; // TODO: gerçek numara
+  const phone = '905543794695';
   const message = encodeURIComponent('Merhaba, DNC7 hizmetleri hakkında bilgi almak istiyorum.');
 
   return (

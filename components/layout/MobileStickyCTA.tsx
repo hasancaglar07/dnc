@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 
 export default function MobileStickyCTA() {
   const [visible, setVisible] = useState(false);
@@ -23,27 +22,20 @@ export default function MobileStickyCTA() {
       padding: '10px 16px', display: 'none',
       gap: 8, animation: 'fadeIn .3s ease',
     }}>
-      <a href="tel:+902125550123" style={{
+      <a href="tel:+905543794695" style={{
         flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
         padding: '12px 0', borderRadius: 10, background: 'rgba(255,255,255,.08)',
         color: '#fff', fontSize: 13, fontWeight: 700, textDecoration: 'none',
       }}>
         <i className="bi bi-telephone-fill" style={{ fontSize: 14 }}></i> Ara
       </a>
-      <a href="https://wa.me/905XXXXXXXXX" target="_blank" rel="noopener noreferrer" style={{
+      <a href="https://wa.me/905543794695" target="_blank" rel="noopener noreferrer" style={{
         flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
         padding: '12px 0', borderRadius: 10, background: '#25D366',
         color: '#fff', fontSize: 13, fontWeight: 700, textDecoration: 'none',
       }}>
         <i className="bi bi-whatsapp" style={{ fontSize: 14 }}></i> WhatsApp
       </a>
-      <Link href="/#iletisim" style={{
-        flex: 1.3, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
-        padding: '12px 0', borderRadius: 10, background: 'var(--accent, #F97316)',
-        color: '#fff', fontSize: 13, fontWeight: 700, textDecoration: 'none',
-      }}>
-        <i className="bi bi-send-fill" style={{ fontSize: 12 }}></i> Teklif Al
-      </Link>
     </div>
   );
 }

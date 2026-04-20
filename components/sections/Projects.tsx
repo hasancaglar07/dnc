@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { projects, Project } from '@/data/projects';
+import { Project } from '@/data/projects';
 import Reveal from '@/components/ui/Reveal';
 
 const CAT_MAP: Record<string, { label: string; color: string }> = {
@@ -98,6 +98,11 @@ function ProjectCard({
 
 export default function Projects() {
   const [active, setActive] = useState('all');
+  const [projects, setProjects] = useState<Project[]>([]);
+
+  useEffect(() => {
+    fetch('/api/projects').then(r => r.ok ? r.json() : []).then(setProjects);
+  }, []);
 
   const filtered = active === 'all'
     ? projects
