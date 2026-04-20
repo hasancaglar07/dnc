@@ -4,7 +4,7 @@
     "name": "CW Enerji — Kurumsal Tanıtım Filmi",
     "category": "video",
     "year": "2025",
-    "image": "/assets/images/work/cw-energy/home.png",
+    "image": "/assets/uploads/1776529761830-slrtj3.png",
     "videoUrl": "https://player.vimeo.com/video/1116741515",
     "tags": [
       "Video Prodüksiyon",
@@ -43,11 +43,7 @@
     "solutions": "Çekim dilini üç katmanda kurguladık: tesis ölçeğini gösteren geniş drone planları, üretim detaylarını anlatan yakın planlar ve kurumsal güveni güçlendiren ritmik kurgu. Böylece hem teknik kapasite hem marka algısı aynı anda görünür hale geldi.",
     "results": "Vimeo yayını ile dijital vitrine taşınan güçlü kurumsal film, Marka sunumlarında ana tanıtım içeriği olarak konumlandı, Üretim kapasitesini anlatan yüksek etkili görsel anlatı elde edildi",
     "gallery": [
-      "/assets/images/work/cw-energy/home.png",
-      "/assets/images/work/cw-energy/about.png",
-      "/assets/images/work/cw-energy/product-solar-panel.png",
-      "/assets/images/work/cw-energy/video-page.png",
-      "/assets/images/work/cw-energy/vimeo-film.png"
+      "/assets/uploads/1776530189547-zs1dma.png"
     ],
     "metrics": [
       {
@@ -77,7 +73,7 @@
     "name": "BabyNest — 10 Yıllık E-Ticaret Vaka Çalışması",
     "category": "web",
     "year": "2025",
-    "image": "/assets/images/work/babynest/homepage.png",
+    "image": "/assets/uploads/1776696409056-fvoku5.png",
     "tags": [
       "E-Ticaret",
       "Vaka Çalışması",
@@ -131,12 +127,7 @@
       "author": "BabyNest Yönetim Ekibi",
       "role": "babynest.com.tr"
     },
-    "gallery": [
-      "/assets/images/work/babynest/homepage.png",
-      "/assets/images/work/babynest/collection-babynest.png",
-      "/assets/images/work/babynest/product-detail.png",
-      "/assets/images/work/babynest/blog.png"
-    ],
+    "gallery": [],
     "metrics": [
       {
         "label": "Ciro Büyümesi",
@@ -165,7 +156,7 @@
     "name": "TARF Akademi — Çok Dilli Kurumsal Platform Vaka Çalışması",
     "category": "web",
     "year": "2026",
-    "image": "/assets/images/work/tarf/homepage.png",
+    "image": "/assets/uploads/1776696163546-utzkxu.png",
     "tags": [
       "Kurumsal Web",
       "Vaka Çalışması",
@@ -208,13 +199,7 @@
     "challenges": "Kurumun farklı faaliyet alanlarını (eğitim, etkinlik, yayın, teknoloji) tek bir platformda dağınıklık oluşturmadan sunmak; hem kurumsal güveni hem de içerik dinamizmini aynı arayüz içinde dengelemek.",
     "solutions": "İçerik kümelerini kullanıcı niyetine göre yeniden sınıflandırdık ve ana navigasyonu bu mantıkla sadeleştirdik. Hero, içerik kartları ve çağrı alanlarında aksiyon odaklı bir hiyerarşi kurduk. Çok dilli yapıda URL ve içerik kurgusunu standardize ederek hem editoryal yönetimi hem de kullanıcı deneyimini kolaylaştırdık.",
     "results": "Kurumsal konumlandırma daha net bir dijital dile taşındı, İçerik üretimi için sürdürülebilir bir yayın omurgası oluşturuldu, TR/EN/AR çok dilli yapı ile uluslararası erişim zemini kuruldu, Kullanıcıların etkinlik ve blog içeriklerine erişimi sadeleşti, İletişim ve başvuru akışları daha görünür hale getirildi",
-    "gallery": [
-      "/assets/images/work/tarf/homepage.png",
-      "/assets/images/work/tarf/about.png",
-      "/assets/images/work/tarf/events.png",
-      "/assets/images/work/tarf/blog.png",
-      "/assets/images/work/tarf/software.png"
-    ],
+    "gallery": [],
     "metrics": [
       {
         "label": "Dil Altyapısı",
@@ -248,7 +233,7 @@
     "name": "Verenel Mobil Uygulama — A’dan Z’ye iOS & Android",
     "category": "mobil",
     "year": "2026",
-    "image": "/assets/images/work/verenel/web-home.png",
+    "image": "/assets/uploads/1776696185415-c0g9i8.png",
     "tags": [
       "Mobil Uygulama",
       "iOS",
@@ -291,13 +276,7 @@
     "challenges": "Mobilde bağış gibi güven odaklı bir işlemi kullanıcıyı yormadan tamamlatmak, farklı cihazlarda tutarlı performans sağlamak ve iOS/Android mağaza gereksinimlerine tam uyumlu bir ürün çıkarmak.",
     "solutions": "Kritik akışları (bağış seçimi, ödeme, doğrulama, işlem sonucu) minimum adım prensibiyle yeniden tasarladık. UI katmanında sade ve anlaşılır bir dil kullanırken teknik tarafta güvenlik, hata yönetimi ve performans optimizasyonlarını önceliklendirdik. Yayın öncesi test matrisiyle farklı cihaz/sürüm kombinasyonlarında stabilite doğrulaması gerçekleştirdik.",
     "results": "Uygulama iOS ve Android mağazalarında başarılı şekilde yayınlandı, Bağış süreçleri mobilde daha hızlı ve daha anlaşılır hale geldi, Kullanıcı güvenini artıran şeffaf takip deneyimi oluşturuldu, Kurumun dijital erişimi web + mobil ekosisteme taşındı",
-    "gallery": [
-      "/assets/images/work/verenel/web-home.png",
-      "/assets/images/work/verenel/web-en.png",
-      "/assets/images/work/verenel/web-ar.png",
-      "/assets/images/work/verenel/ios-store.png",
-      "/assets/images/work/verenel/android-store.png"
-    ],
+    "gallery": [],
     "metrics": [
       {
         "label": "Platform",
@@ -331,7 +310,7 @@
     "name": "KYP Okul Yönetim Sistemi — Web + Mobil + Performans Pazarlama",
     "category": "web",
     "year": "2026",
-    "image": "/assets/images/work/kyp/web-home.png",
+    "image": "/assets/uploads/1776696211575-dhx7um.png",
     "tags": [
       "Web Platform",
       "Mobil Uygulama",
@@ -374,13 +353,7 @@
     "challenges": "Eğitim kurumlarının farklı operasyonel ihtiyaçlarını tek üründe dengeli sunmak, web ve mobil deneyimi birlikte optimize etmek ve pazarlama bütçesini doğrudan nitelikli lead üretimine dönüştürmek.",
     "solutions": "Kullanıcı rollerine göre (yönetici/öğretmen/veli) içerik ve aksiyon hiyerarşisini yeniden tasarladık. Web ve mobilde ortak bir deneyim dili oluşturarak kritik işlemleri daha kısa adımlarla tamamlanabilir hale getirdik. Pazarlama tarafında kampanyaları ürün modülleri ve hedef persona bazında ayrıştırıp A/B testlerle sürekli optimize ettik.",
     "results": "Web + mobil ekosistemde tutarlı ürün deneyimi oluşturuldu, Demo talep akışı daha görünür ve ölçülebilir hale geldi, Reklam yönetiminde hedef kitle bazlı verimlilik artırıldı, Ürün iletişimi modül bazlı anlatımla daha anlaşılır bir yapıya kavuştu",
-    "gallery": [
-      "/assets/images/work/kyp/web-home.png",
-      "/assets/images/work/kyp/web-modules.png",
-      "/assets/images/work/kyp/web-demos.png",
-      "/assets/images/work/kyp/web-contact.png",
-      "/assets/images/work/kyp/web-about.png"
-    ],
+    "gallery": [],
     "metrics": [
       {
         "label": "Ürün Yapısı",
@@ -414,7 +387,7 @@
     "name": "Mihmandar — 3 Platform Dijital Ürün ve AI Entegrasyonu",
     "category": "mobil",
     "year": "2026",
-    "image": "/assets/images/work/mihmandar/web-home.png",
+    "image": "/assets/uploads/1776696230755-oxu3je.png",
     "tags": [
       "Web Platform",
       "iOS",
@@ -457,13 +430,7 @@
     "challenges": "Farklı içerik türlerini tek deneyimde birleştirirken performansı korumak, 3 platformda tutarlı UX sağlamak ve AI modüllerini kullanıcıya net fayda üretecek şekilde konumlandırmak.",
     "solutions": "Önce içerik tiplerini kullanım niyetine göre yeniden grupladık, ardından web ve mobilde ortak bir tasarım dili kurduk. AI modüllerini ana ürün akışından koparmadan, kullanıcı görevlerini hızlandıran yardımcı katmanlar olarak entegre ettik. Teknik tarafta modüler servis yaklaşımıyla bakım ve ölçeklenebilirliği iyileştirdik.",
     "results": "3 platformda tutarlı dijital ürün deneyimi sağlandı, AI özellikleri ürünün aktif kullanım senaryolarına entegre edildi, İçerik keşif ve erişim akışları sadeleştirildi, Ürün mimarisi sürdürülebilir geliştirme için modüler yapıya taşındı",
-    "gallery": [
-      "/assets/images/work/mihmandar/web-home.png",
-      "/assets/images/work/mihmandar/web-books.png",
-      "/assets/images/work/mihmandar/web-audio.png",
-      "/assets/images/work/mihmandar/ai-video-analysis.png",
-      "/assets/images/work/mihmandar/ai-youtube-search.png"
-    ],
+    "gallery": [],
     "metrics": [
       {
         "label": "Platform",
@@ -497,7 +464,7 @@
     "name": "BookGenerator — Global AI ile A’dan Z’ye Kitap Yazma Platformu",
     "category": "web",
     "year": "2026",
-    "image": "/assets/images/work/bookgenerator/home.png",
+    "image": "/assets/uploads/1776696245688-7x464o.png",
     "tags": [
       "AI SaaS",
       "Global Product",
@@ -542,7 +509,6 @@
     "solutions": "Üretim sürecini adım adım yöneten akıllı bir akış tasarladık: konu netleştirme, çerçeve çıkarma, içerik derinliği ayarı ve çıktı formatı seçimi. Prompt katmanında kalite kontrol mekanizmaları kurgulayarak farklı tarzlarda tutarlı çıktı üretilmesini sağladık. Ürün tarafında örnekler, pricing ve “nasıl çalışır” bölümlerini funnel mantığında konumlandırarak denemeden satın almaya giden yolu sadeleştirdik.",
     "results": "Kitap üretim süreci dakikalar seviyesine indirildi, KDP-ready çıktı akışıyla yayına geçiş bariyeri düşürüldü, Global pazara uygun çok dilli ürün yapısı kuruldu, Ürün-funnel bütünleşmesi ile dönüşüm odaklı büyüme altyapısı oluşturuldu",
     "gallery": [
-      "/assets/images/work/bookgenerator/home.png",
       "/assets/images/work/bookgenerator/how-it-works.png",
       "/assets/images/work/bookgenerator/examples.png",
       "/assets/images/work/bookgenerator/pricing.png",
@@ -581,7 +547,7 @@
     "name": "Rehnüma Dergisi — Web Tasarım, Geliştirme ve E-Ticaret Danışmanlığı",
     "category": "web",
     "year": "2026",
-    "image": "/assets/images/work/rehnuma/home.png",
+    "image": "/assets/uploads/1776696276805-td6t6y.png",
     "tags": [
       "Web Tasarım",
       "Web Geliştirme",
@@ -623,13 +589,7 @@
     "challenges": "Dergi deneyimini bozmadan ticari dönüşüm üretmek, içerik yoğun platformda kullanıcıyı kaybetmeden abonelik adımına taşımak ve hukuki/satış süreçlerini teknik akışa doğru entegre etmek.",
     "solutions": "Navigasyon ve içerik hiyerarşisini okuyucu niyetine göre sadeleştirdik. Abonelik sayfası, dergi/sayı sayfaları ve blog akışı arasında funnel ilişkisi kurduk. E-ticaret danışmanlığı kapsamında teklifleme, üyelik segmentasyonu ve satış metni konumlamasını optimize ederek dönüşüm odaklı bir yapı oluşturduk.",
     "results": "Dijital dergi deneyimi daha modern ve okunabilir bir yapıya taşındı, Abonelik/satış akışları daha net bir dönüşüm hattına dönüştü, İçerik ve ticari hedefler aynı platformda dengelendi, Web altyapısı sürdürülebilir içerik yayın modeline uygun hale getirildi",
-    "gallery": [
-      "/assets/images/work/rehnuma/home.png",
-      "/assets/images/work/rehnuma/subscription.png",
-      "/assets/images/work/rehnuma/issues.png",
-      "/assets/images/work/rehnuma/blog.png",
-      "/assets/images/work/rehnuma/magazine.png"
-    ],
+    "gallery": [],
     "metrics": [
       {
         "label": "Model",
@@ -663,7 +623,7 @@
     "name": "Spice Hotel & SPA — Kurumsal Tanıtım Filmi",
     "category": "video",
     "year": "2026",
-    "image": "/assets/images/work/spice/home.png",
+    "image": "/assets/uploads/1776696299827-5o4xcc.png",
     "videoUrl": "https://player.vimeo.com/video/1116760970",
     "tags": [
       "Tanıtım Filmi",
@@ -702,13 +662,7 @@
     "challenges": "Turizm sektöründe benzer görsel dil kullanan rakipler arasında markanın premium algısını ayrıştıran, aynı zamanda satış ekiplerinin kullanabileceği net bir tanıtım filmi üretmek.",
     "solutions": "Film dilini “deneyim odaklı” kurguladık; yalnızca mekan gösterimi yerine misafir yolculuğunu öne çıkaran plan akışı tasarladık. Ritmik kurgu, renk tonu ve sahne geçişleriyle markanın lüks/konfor algısını güçlendiren bütünsel bir anlatı kurduk.",
     "results": "Vimeo yayını ile dijitalde güçlü tanıtım varlığı oluşturuldu, Tesisin premium konumlandırmasını destekleyen ana film üretildi, Satış ve pazarlama sunumlarında kullanılabilir yüksek etkili görsel içerik sağlandı",
-    "gallery": [
-      "/assets/images/work/spice/home.png",
-      "/assets/images/work/spice/about.png",
-      "/assets/images/work/spice/rooms.png",
-      "/assets/images/work/spice/gallery-page.png",
-      "/assets/images/work/spice/vimeo-film.png"
-    ],
+    "gallery": [],
     "metrics": [
       {
         "label": "Yayın Platformu",
@@ -742,7 +696,7 @@
     "name": "Tarf Yazılım — Web Ürün ve SaaS Destek Ekosistemi",
     "category": "web",
     "year": "2026",
-    "image": "/assets/images/work/tarfyazilim/home.png",
+    "image": "/assets/uploads/1776696321285-23kwgy.png",
     "tags": [
       "Yazılım Geliştirme",
       "Web Platform",
@@ -783,13 +737,7 @@
     "challenges": "Kurumsal yazılım hizmetlerini teknik karmaşıklığa düşmeden anlatmak, farklı persona’ların (karar verici, teknik ekip, operasyon) tek platformda hızlı aksiyon almasını sağlamak.",
     "solutions": "Bilgi mimarisini kullanıcı niyetine göre sadeleştirip hizmet-ürün-destek akışını birbirine bağlı bir funnel halinde tasarladık. SaaS destek tarafında süreç görünürlüğünü artırarak talep yönetimini ve çözüm hızını iyileştiren bir operasyon dili oluşturduk.",
     "results": "Web platformu hizmet ve ürün anlatımında daha güçlü bir yapıya taşındı, SaaS destek akışları daha anlaşılır ve erişilebilir hale geldi, Lead ve iletişim noktaları daha ölçülebilir bir dönüşüm hattına dönüştürüldü, Teknik operasyon süreçleri sürdürülebilir bir destek modeline kavuştu",
-    "gallery": [
-      "/assets/images/work/tarfyazilim/home.png",
-      "/assets/images/work/tarfyazilim/services.png",
-      "/assets/images/work/tarfyazilim/products.png",
-      "/assets/images/work/tarfyazilim/case-stories.png",
-      "/assets/images/work/tarfyazilim/support.png"
-    ],
+    "gallery": [],
     "metrics": [
       {
         "label": "Odak",
@@ -823,7 +771,7 @@
     "name": "Delail-i Hayrat — Web + iOS + Android Dua Uygulaması Desteği",
     "category": "mobil",
     "year": "2026",
-    "image": "/assets/images/work/delail/home.png",
+    "image": "/assets/uploads/1776696347027-l1jw9x.png",
     "tags": [
       "Web Uygulaması",
       "iOS Destek",
@@ -862,12 +810,7 @@
     "challenges": "İçerik ve ibadet takibi gibi düzenli kullanım gerektiren bir üründe platformlar arası tutarlılığı korumak, kullanıcı devamlılığını artırmak ve destek süreçlerini kesintisiz yönetmek.",
     "solutions": "Kritik kullanıcı akışlarını (okuma, takip, sıralama, missed day) önceliklendirdik ve web-mobil senkron deneyimi için destek modelini standardize ettik. Ürün davranışındaki kırılmaları erken tespit edecek izleme/geri bildirim döngüleri kurarak iyileştirmeleri hızlı yayına aldık.",
     "results": "3 platformda daha tutarlı kullanıcı deneyimi sağlandı, Günlük kullanım mekaniklerinin sürdürülebilirliği artırıldı, Destek operasyonları daha hızlı ve ölçülebilir hale getirildi, Ürün sürekliliğini destekleyen teknik omurga güçlendirildi",
-    "gallery": [
-      "/assets/images/work/delail/home.png",
-      "/assets/images/work/delail/app-dashboard.png",
-      "/assets/images/work/delail/read-flow.png",
-      "/assets/images/work/delail/ranking.png"
-    ],
+    "gallery": [],
     "metrics": [
       {
         "label": "Platform",
@@ -901,7 +844,7 @@
     "name": "Dr.Sufi — Ürün Tasarımı, E-Ticaret Danışmanlığı ve Şişe Tasarımı",
     "category": "web",
     "year": "2026",
-    "image": "/assets/images/work/work-img-2.jpg",
+    "image": "/assets/uploads/1776696363711-bbil6a.png",
     "tags": [
       "Ürün Tasarımı",
       "E-Ticaret Danışmanlığı",
@@ -940,12 +883,7 @@
     "challenges": "Fiziksel ürün deneyimini dijital satış kanallarında doğru yansıtmak, premium algıyı korurken dönüşüm odaklı bir e-ticaret yapısı kurmak ve marka anlatısını ürün ambalajında tutarlı şekilde taşımak.",
     "solutions": "Ürün/şişe tasarımını yalnızca estetik değil, marka konumlandırması ve satın alma psikolojisiyle birlikte ele aldık. E-ticaret danışmanlığı kapsamında ürün hiyerarşisi, teklif yapısı ve satış metinlerini yeniden kurgulayarak kullanıcıyı daha hızlı karar noktasına taşıyan bir dönüşüm sistemi kurduk.",
     "results": "Marka dili ürün tasarımı ve ambalajda daha net hale geldi, E-ticaret akışları satış odağında yeniden yapılandırıldı, Ürün değer algısı dijitalde daha güçlü yansıtıldı, Danışmanlık ve tasarım çıktıları tek bir büyüme stratejisinde birleşti",
-    "gallery": [
-      "/assets/images/work/work-img-2.jpg",
-      "/assets/images/work/work-img-4.jpg",
-      "/assets/images/work/work-img-6.jpg",
-      "/assets/images/work/work-img-8.jpg"
-    ],
+    "gallery": [],
     "metrics": [
       {
         "label": "Kapsam",
@@ -979,7 +917,7 @@
     "name": "Tulu Çocuk Vakfı — Mobil Oyun Geliştirme",
     "category": "oyun",
     "year": "2026",
-    "image": "/assets/images/work/work-img-4.jpg",
+    "image": "/assets/uploads/1776696378029-vrhx2q.png",
     "tags": [
       "Mobil Oyun",
       "Çocuk Odaklı Ürün",
@@ -1016,12 +954,7 @@
     "challenges": "Çocuk yaş gruplarına uygun deneyimi sağlarken eğitsel hedefleri korumak, oyun keyfi ile öğrenme dengesini doğru kurmak ve mobil performansı sürdürülebilir tutmak.",
     "solutions": "Oyun döngüsünü kısa ve anlaşılır etkileşimlerle kurguladık. Seviye zorluğunu kademeli tasarlayarak erişilebilirliği artırdık. Geri bildirim ve test çıktılarıyla iteratif geliştirme modeli uygulayarak ürün kalitesini adım adım yükseltiyoruz.",
     "results": "MVP oyun yapısı netleştirildi, Seviye ve görev mimarisi oluşturuldu, Mobil performans kriterleri proje başında tanımlandı, Geliştirme süreci vaka bazlı raporlanabilir hale getirildi",
-    "gallery": [
-      "/assets/images/work/work-img-4.jpg",
-      "/assets/images/work/work-img-3.jpg",
-      "/assets/images/work/work-img-7.jpg",
-      "/assets/images/work/work-img-9.jpg"
-    ],
+    "gallery": [],
     "metrics": [
       {
         "label": "Platform",
@@ -1055,7 +988,7 @@
     "name": "CoinFeedback.io — Resmi Tanıtım Videoları ve Pazarlama Desteği",
     "category": "video",
     "year": "2026",
-    "image": "/assets/images/work/work-img-1.jpg",
+    "image": "/assets/uploads/1776696394666-ejm8jz.png",
     "tags": [
       "Resmi Tanıtım Videosu",
       "Video Prodüksiyon",
@@ -1093,17 +1026,28 @@
     "challenges": "Web3/fintech benzeri teknik anlatımı geniş kitleye anlaşılır şekilde aktarmak, kurumsal güven algısını korumak ve videoları yalnızca vitrin değil performans üreten içeriklere dönüştürmek.",
     "solutions": "Video içeriklerini hedef kitle segmentlerine göre farklı mesaj katmanlarıyla tasarladık. Pazarlama desteğinde kreatif test, kanal bazlı dağıtım ve performans geri bildirim döngüsü kurarak içeriklerin dönüşüm etkisini artırdık.",
     "results": "Marka iletişimi daha net ve profesyonel bir anlatı kazandı, Tanıtım videoları pazarlama kanalında aktif kullanılan varlıklara dönüştü, Kampanya süreçlerinde içerik üretim ve yayın hızı arttı, Video ve pazarlama operasyonu tek stratejide birleşti",
-    "gallery": [
-      "/assets/images/work/work-img-1.jpg",
-      "/assets/images/work/work-img-5.jpg",
-      "/assets/images/work/work-img-6.jpg",
-      "/assets/images/work/work-img-10.jpg"
-    ],
+    "gallery": [],
     "metrics": [
-      { "label": "Teslimat", "value": "Resmi Video Serisi", "period": "Kurumsal tanıtım odağı" },
-      { "label": "Kapsam", "value": "Video + Pazarlama", "period": "Uçtan uca destek" },
-      { "label": "Odak", "value": "Büyüme", "period": "Dağıtım ve performans optimizasyonu" },
-      { "label": "Sektör", "value": "Web3/Fintech", "period": "Global hedef kitle" }
+      {
+        "label": "Teslimat",
+        "value": "Resmi Video Serisi",
+        "period": "Kurumsal tanıtım odağı"
+      },
+      {
+        "label": "Kapsam",
+        "value": "Video + Pazarlama",
+        "period": "Uçtan uca destek"
+      },
+      {
+        "label": "Odak",
+        "value": "Büyüme",
+        "period": "Dağıtım ve performans optimizasyonu"
+      },
+      {
+        "label": "Sektör",
+        "value": "Web3/Fintech",
+        "period": "Global hedef kitle"
+      }
     ],
     "testimonial": {
       "text": "CoinFeedback.io için resmi video prodüksiyonunu pazarlama performans hedefleriyle birleştirerek markanın görünürlüğünü ve anlatım gücünü aynı anda yükselttik.",
