@@ -43,9 +43,11 @@ export default function Navigation() {
     pathname.startsWith('/kaynaklar/') ||
     pathname === '/fiyatlandirma' ||
     pathname === '/projeler' ||
-    pathname.startsWith('/projeler/')
+    pathname.startsWith('/projeler/') ||
+    pathname === '/iletisim' ||
+    pathname === '/iletisim'
   );
-  const isLight = hasDarkHero && !isScrolled;
+  const isLight = (hasDarkHero || isHome) && !isScrolled;
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -67,10 +69,9 @@ export default function Navigation() {
   }, []);
 
   const navLinks = [
-    { label: 'Projeler', href: '/projeler', hashHref: null },
-    { label: 'Hakkımızda', href: '/hakkimizda', hashHref: null },
-    { label: 'Fiyatlandırma', href: '/fiyatlandirma', hashHref: null },
-    { label: 'İletişim', href: '/#iletisim', hashHref: '#iletisim' },
+    { label: 'Projeler', href: '/projeler' },
+    { label: 'Hakkımızda', href: '/hakkimizda' },
+    { label: 'Fiyatlandırma', href: '/fiyatlandirma' },
   ];
 
   return (
@@ -148,20 +149,12 @@ export default function Navigation() {
               </div>
             </div>
             {navLinks.map((link) => (
-              isHome && link.hashHref ? (
-                <a key={link.label} href={link.hashHref}>{link.label}</a>
-              ) : (
-                <Link key={link.label} href={link.href} className={pathname.startsWith(link.href) && link.href !== '/' ? 'active' : ''}>
-                  {link.label}
-                </Link>
-              )
+              <Link key={link.label} href={link.href} className={pathname.startsWith(link.href) && link.href !== '/' ? 'active' : ''}>
+                {link.label}
+              </Link>
             ))}
           </div>
-          {isHome ? (
-            <a href="#iletisim" className="nav-cta">Ücretsiz Teklif <i className="bi bi-arrow-up-right"></i></a>
-          ) : (
-            <Link href="/#iletisim" className="nav-cta">Ücretsiz Teklif <i className="bi bi-arrow-up-right"></i></Link>
-          )}
+          <Link href="/iletisim" className="nav-cta">Ücretsiz Teklif <i className="bi bi-arrow-up-right"></i></Link>
           <button className={`nav-burger ${isMobileMenuOpen ? 'on' : ''}`} onClick={() => setIsMobileMenuOpen(true)} aria-label="Menüyü aç" aria-expanded={isMobileMenuOpen} aria-controls="mob-nav">
             <span /><span /><span />
           </button>
@@ -217,14 +210,6 @@ export default function Navigation() {
           </div>
           {navLinks.map((link, i) => {
             const baseNum = i + 3;
-            if (isHome && link.hashHref) {
-              return (
-                <a key={link.label} href={link.hashHref} className="mob-link" onClick={() => setIsMobileMenuOpen(false)} style={{ animationDelay: `${baseNum * 60}ms` }}>
-                  <span className="mob-link-num">0{baseNum}</span>
-                  {link.label}
-                </a>
-              );
-            }
             return (
               <Link key={link.label} href={link.href} className="mob-link" onClick={() => setIsMobileMenuOpen(false)} style={{ animationDelay: `${baseNum * 60}ms` }}>
                 <span className="mob-link-num">0{baseNum}</span>
@@ -235,21 +220,12 @@ export default function Navigation() {
         </div>
 
         <div className="mob-nav-footer">
-          {isHome ? (
-            <a href="#iletisim" className="cta-main" onClick={() => setIsMobileMenuOpen(false)} style={{ width: '100%', justifyContent: 'center' }}>
-              Proje Başlat
-              <span className="ico">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
-              </span>
-            </a>
-          ) : (
-            <Link href="/#iletisim" className="cta-main" onClick={() => setIsMobileMenuOpen(false)} style={{ width: '100%', justifyContent: 'center' }}>
-              Proje Başlat
-              <span className="ico">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
-              </span>
-            </Link>
-          )}
+          <Link href="/iletisim" className="cta-main" onClick={() => setIsMobileMenuOpen(false)} style={{ width: '100%', justifyContent: 'center' }}>
+            Proje Başlat
+            <span className="ico">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </span>
+          </Link>
         </div>
       </div>
     </>

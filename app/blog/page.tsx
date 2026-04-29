@@ -182,7 +182,7 @@ export default function BlogPage() {
               <p className="sec-sub" style={{ textAlign: 'center', margin: '0 auto 40px' }}>
                 Dijital dünyadan en güncel içgörüleri e-posta kutunuza gönderelim.
               </p>
-              <Link href="/#iletisim" className="cta-main">
+              <Link href="/iletisim" className="cta-main">
                 Abone Ol <span className="ico"><i className="bi bi-arrow-right"></i></span>
               </Link>
             </div>

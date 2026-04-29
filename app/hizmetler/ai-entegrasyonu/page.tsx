@@ -64,7 +64,7 @@ export default function AIEntegrasyonuPage() {
           <p style={{ fontSize: 14, color: 'rgba(255,255,255,.45)', marginBottom: 16 }}>
             <i className="bi bi-tag" style={{ marginRight: 6 }}></i>Başlangıç fiyatı: <strong style={{ color: accent }}>₺20.000</strong>&apos;den
           </p>
-          <Link href="/#iletisim" className="cta-main" style={{ background: accent }}>
+          <Link href="/iletisim" className="cta-main" style={{ background: accent }}>
             Ücretsiz AI Danışmanlığı <span className="ico"><i className="bi bi-arrow-right"></i></span>
           </Link>
         </div>
@@ -168,7 +168,7 @@ export default function AIEntegrasyonuPage() {
               <p className="sec-sub" style={{ textAlign: 'center', margin: '0 auto 40px', color: 'rgba(255,255,255,.55)' }}>
                 İşletmenize özel AI çözümlerini birlikte keşfedelim. Ücretsiz danışmanlık görüşmesi için hemen ulaşın.
               </p>
-              <Link href="/#iletisim" className="cta-main" style={{ background: accent }}>
+              <Link href="/iletisim" className="cta-main" style={{ background: accent }}>
                 Ücretsiz Danışmanlık <span className="ico"><i className="bi bi-arrow-right"></i></span>
               </Link>
             </div>

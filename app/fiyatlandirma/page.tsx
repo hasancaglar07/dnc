@@ -277,7 +277,7 @@ export default function FiyatlandirmaPage() {
                     ))}
                   </div>
 
-                  <Link href="/#iletisim" className={pkg.popular ? 'cta-main' : 'cta-sec'} style={{ width: '100%', justifyContent: 'center', ...(pkg.popular ? {} : { borderColor: 'var(--border)' }) }}>
+                  <Link href="/iletisim" className={pkg.popular ? 'cta-main' : 'cta-sec'} style={{ width: '100%', justifyContent: 'center', ...(pkg.popular ? {} : { borderColor: 'var(--border)' }) }}>
                     {pkg.cta}
                     <span className="ico"><i className="bi bi-arrow-right"></i></span>
                   </Link>
@@ -437,7 +437,7 @@ export default function FiyatlandirmaPage() {
               <p style={{ textAlign: 'center', fontSize: 14, color: 'var(--muted)', margin: '0 auto 36px' }}>
                 Ortalama teklif hazırlama süremiz: <strong>24 saat</strong>
               </p>
-              <Link href="/#iletisim" className="cta-main">
+              <Link href="/iletisim" className="cta-main">
                 Ücretsiz Teklif Alın <span className="ico"><i className="bi bi-arrow-right"></i></span>
               </Link>
             </div>

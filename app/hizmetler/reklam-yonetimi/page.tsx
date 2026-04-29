@@ -47,7 +47,7 @@ export default function ReklamYonetimiPage() {
           <p style={{ fontSize: 14, color: 'rgba(255,255,255,.45)', marginBottom: 16 }}>
             <i className="bi bi-tag" style={{ marginRight: 6 }}></i>Aylık yönetim: <strong style={{ color: '#EF4444' }}>₺5.000</strong>&apos;den
           </p>
-          <Link href="/#iletisim" className="cta-main" style={{ background: '#EF4444' }}>
+          <Link href="/iletisim" className="cta-main" style={{ background: '#EF4444' }}>
             Ücretsiz Reklam Analizi <span className="ico"><i className="bi bi-arrow-right"></i></span>
           </Link>
         </div>
@@ -122,7 +122,7 @@ export default function ReklamYonetimiPage() {
             <p className="sec-sub" style={{ textAlign: 'center', margin: '0 auto 40px' }}>
               Ücretsiz reklam hesap analizi ile mevcut durumunuzu değerlendirelim.
             </p>
-            <Link href="/#iletisim" className="cta-main" style={{ background: '#EF4444' }}>
+            <Link href="/iletisim" className="cta-main" style={{ background: '#EF4444' }}>
               Ücretsiz Analiz İsteyin <span className="ico"><i className="bi bi-arrow-right"></i></span>
             </Link>
           </div>

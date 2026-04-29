@@ -66,7 +66,7 @@ export default function ProduksiyonFilmleriPage() {
           <p style={{ fontSize: 14, color: 'rgba(255,255,255,.45)', marginBottom: 16 }}>
             <i className="bi bi-tag" style={{ marginRight: 6 }}></i>Başlangıç fiyatı: <strong style={{ color: accent }}>₺25.000</strong>&apos;den
           </p>
-          <Link href="/#iletisim" className="cta-main" style={{ background: accent }}>
+          <Link href="/iletisim" className="cta-main" style={{ background: accent }}>
             Proje Başlat <span className="ico"><i className="bi bi-arrow-right"></i></span>
           </Link>
         </div>
@@ -168,7 +168,7 @@ export default function ProduksiyonFilmleriPage() {
               <p className="sec-sub" style={{ textAlign: 'center', margin: '0 auto 40px' }}>
                 Prodüksiyon ihtiyaçlarınız için hemen iletişime geçin.
               </p>
-              <Link href="/#iletisim" className="cta-main" style={{ background: accent }}>
+              <Link href="/iletisim" className="cta-main" style={{ background: accent }}>
                 Ücretsiz Keşif Toplantısı <span className="ico"><i className="bi bi-arrow-right"></i></span>
               </Link>
             </div>

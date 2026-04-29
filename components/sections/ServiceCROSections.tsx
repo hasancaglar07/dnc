@@ -45,7 +45,7 @@ export default function ServiceCROSections({ slug, accent }: Props) {
             <p style={{ fontSize: 17, fontWeight: 700, color: 'var(--text)', marginBottom: 16 }}>
               Bu sorunların hepsini <span style={{ color: accent }}>çözüyoruz.</span>
             </p>
-            <Link href="/#iletisim" className="cta-main" style={{ background: accent }}>
+            <Link href="/iletisim" className="cta-main" style={{ background: accent }}>
               Ücretsiz Değerlendirme Al <span className="ico"><i className="bi bi-arrow-right"></i></span>
             </Link>
           </div>
