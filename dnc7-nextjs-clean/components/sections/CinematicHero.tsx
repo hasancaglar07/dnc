@@ -5,7 +5,7 @@ import Player from '@vimeo/player';
 
 const SLIDES = [
   { vimeoId: 1116741515, title: 'CW Energy',                 category: 'Kurumsal Tanıtım Filmi',   year: '2025' },
-  { vimeoId: 1116760970, title: 'Spice Hotel & SPA',          category: 'Sinematik Tanıtım Filmi',  year: '2021' },
+  { vimeoId: 1116760970, title: 'Spice Hotel & SPA',          category: 'Reklam Filmi',              year: '2021' },
   { vimeoId: 1184357793, title: 'Q Lounge',                  category: 'Reklam Filmi',             year: '2026' },
   { vimeoId: 1184347798, title: 'Martı Resort',              category: 'Reklam Filmi',             year: '2026' },
   { vimeoId: 1184345822, title: 'Elika Cave',                category: 'Reklam Filmi',             year: '2026' },

@@ -19,7 +19,7 @@ const FILMS = [
   {
     id: 17,
     title: 'Spice Hotel & SPA',
-    sub: 'Sinematik Tanıtım Filmi',
+    sub: 'Reklam Filmi',
     year: '2026',
     tags: ['Tanıtım Filmi', 'Drone', 'Turizm'],
     poster: '/assets/images/work/spice/home.png',
