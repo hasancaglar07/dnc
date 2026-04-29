@@ -189,7 +189,7 @@ export default function KullanimSartlariPage() {
             <Link href="/gizlilik" style={{ fontSize: 15, fontWeight: 700, color: 'var(--accent)', textDecoration: 'underline', textUnderlineOffset: 4 }}>
               Gizlilik Politikası →
             </Link>
-            <Link href="/#iletisim" style={{ fontSize: 15, fontWeight: 700, color: 'var(--text2)', textDecoration: 'underline', textUnderlineOffset: 4 }}>
+            <Link href="/iletisim" style={{ fontSize: 15, fontWeight: 700, color: 'var(--text2)', textDecoration: 'underline', textUnderlineOffset: 4 }}>
               İletişim →
             </Link>
           </div>

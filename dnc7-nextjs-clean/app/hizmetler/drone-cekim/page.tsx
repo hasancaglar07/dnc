@@ -63,7 +63,7 @@ export default function DroneCekimPage() {
           <p style={{ fontSize: 14, color: 'rgba(255,255,255,.45)', marginBottom: 16 }}>
             <i className="bi bi-tag" style={{ marginRight: 6 }}></i>Başlangıç fiyatı: <strong style={{ color: accent }}>₺8.000</strong>&apos;den
           </p>
-          <Link href="/#iletisim" className="cta-main" style={{ background: accent }}>
+          <Link href="/iletisim" className="cta-main" style={{ background: accent }}>
             Teklif Alın <span className="ico"><i className="bi bi-arrow-right"></i></span>
           </Link>
         </div>
@@ -158,7 +158,7 @@ export default function DroneCekimPage() {
               <p className="sec-sub" style={{ textAlign: 'center', margin: '0 auto 40px' }}>
                 Drone çekim ihtiyaçlarınız için hemen iletişime geçin. 48 saat içinde teklifinizi hazırlarız.
               </p>
-              <Link href="/#iletisim" className="cta-main" style={{ background: accent }}>
+              <Link href="/iletisim" className="cta-main" style={{ background: accent }}>
                 Ücretsiz Keşif <span className="ico"><i className="bi bi-arrow-right"></i></span>
               </Link>
             </div>

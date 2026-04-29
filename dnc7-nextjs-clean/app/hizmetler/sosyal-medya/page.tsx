@@ -63,7 +63,7 @@ export default function SosyalMedyaPage() {
           <p style={{ fontSize: 14, color: 'rgba(255,255,255,.45)', marginBottom: 16 }}>
             <i className="bi bi-tag" style={{ marginRight: 6 }}></i>Aylık paketler: <strong style={{ color: accent }}>₺7.500</strong>&apos;den
           </p>
-          <Link href="/#iletisim" className="cta-main" style={{ background: accent }}>
+          <Link href="/iletisim" className="cta-main" style={{ background: accent }}>
             Ücretsiz Hesap Analizi <span className="ico"><i className="bi bi-arrow-right"></i></span>
           </Link>
         </div>
@@ -156,7 +156,7 @@ export default function SosyalMedyaPage() {
               <p className="sec-sub" style={{ textAlign: 'center', margin: '0 auto 40px' }}>
                 Ücretsiz hesap analizi ile mevcut durumunuzu değerlendirelim, büyüme fırsatlarını ortaya çıkaralım.
               </p>
-              <Link href="/#iletisim" className="cta-main" style={{ background: accent }}>
+              <Link href="/iletisim" className="cta-main" style={{ background: accent }}>
                 Ücretsiz Analiz İsteyin <span className="ico"><i className="bi bi-arrow-right"></i></span>
               </Link>
             </div>

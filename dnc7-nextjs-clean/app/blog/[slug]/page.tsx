@@ -251,7 +251,7 @@ export default function BlogDetailPage({ params }: Props) {
                 <p style={{ fontSize: 15, color: 'rgba(255,255,255,.65)', lineHeight: 1.6, marginBottom: 20 }}>
                   Bu konuda yardıma mı ihtiyacınız var? Uzman ekibimizle konuşun.
                 </p>
-                <Link href="/#iletisim" style={{ display: 'block', padding: '12px 20px', borderRadius: 12, background: 'var(--accent)', color: '#fff', fontSize: 14, fontWeight: 700, textDecoration: 'none', textAlign: 'center' }}>
+                <Link href="/iletisim" style={{ display: 'block', padding: '12px 20px', borderRadius: 12, background: 'var(--accent)', color: '#fff', fontSize: 14, fontWeight: 700, textDecoration: 'none', textAlign: 'center' }}>
                   Ücretsiz Görüşme
                 </Link>
               </div>

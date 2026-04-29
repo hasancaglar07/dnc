@@ -75,7 +75,7 @@ export default function HakkimizdaPage() {
               markaların büyümesine katkı sağlayan tam hizmet dijital ajansıyız.
             </p>
             <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-              <Link href="/#iletisim" className="cta-main">
+              <Link href="/iletisim" className="cta-main">
                 Proje Başlat
                 <span className="ico">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -324,7 +324,7 @@ export default function HakkimizdaPage() {
                 Projenizi hayata geçirmek için ihtiyacınız olan her şey bizde.
               </p>
               <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-                <Link href="/#iletisim" className="cta-main">
+                <Link href="/iletisim" className="cta-main">
                   Proje Başlat
                   <span className="ico">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">

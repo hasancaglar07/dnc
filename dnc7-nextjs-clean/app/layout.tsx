@@ -7,6 +7,7 @@ import WhatsAppButton from "@/components/layout/WhatsAppButton";
 import CookieConsent from "@/components/layout/CookieConsent";
 import SchemaOrg from "@/components/layout/SchemaOrg";
 import MobileStickyCTA from "@/components/layout/MobileStickyCTA";
+
 import { cn } from "@/lib/utils";
 
 const spaceGrotesk = Space_Grotesk({subsets:['latin'],variable:'--font-sans'});

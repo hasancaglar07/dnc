@@ -19,7 +19,7 @@ const company = [
   { label: 'Projeler', href: '/projeler' },
   { label: 'Araçlar', href: '/araclar' },
   { label: 'Fiyatlandırma', href: '/fiyatlandirma' },
-  { label: 'İletişim', href: '/#iletisim' },
+  { label: 'İletişim', href: '/iletisim' },
 ];
 
 const legal = [

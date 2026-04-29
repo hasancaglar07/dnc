@@ -58,7 +58,7 @@ export default function MobilUygulamaPage() {
           <p style={{ fontSize: 14, color: 'rgba(255,255,255,.45)', marginBottom: 16 }}>
             <i className="bi bi-tag" style={{ marginRight: 6 }}></i>Başlangıç fiyatı: <strong style={{ color: accent }}>₺40.000</strong>&apos;den
           </p>
-          <Link href="/#iletisim" className="cta-main" style={{ background: accent }}>
+          <Link href="/iletisim" className="cta-main" style={{ background: accent }}>
             Uygulama Geliştir <span className="ico"><i className="bi bi-arrow-right"></i></span>
           </Link>
         </div>
@@ -149,7 +149,7 @@ export default function MobilUygulamaPage() {
               <p className="sec-sub" style={{ textAlign: 'center', margin: '0 auto 40px' }}>
                 Mobil uygulama fikrinizi gerçeğe dönüştürmek için hemen konuşalım.
               </p>
-              <Link href="/#iletisim" className="cta-main" style={{ background: accent }}>
+              <Link href="/iletisim" className="cta-main" style={{ background: accent }}>
                 Ücretsiz Keşif <span className="ico"><i className="bi bi-arrow-right"></i></span>
               </Link>
             </div>
