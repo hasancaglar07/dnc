@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import Player from '@vimeo/player';
 
 const SLIDES = [
@@ -25,50 +25,95 @@ const FIRST_SLIDE = 1;
 const DURATION = 25000;
 const START_TIME = 4;
 
+function styleIframe(container: HTMLDivElement | null) {
+  if (!container) return;
+  const iframe = container.querySelector('iframe');
+  if (!iframe) return;
+  iframe.style.position = 'absolute';
+  iframe.style.top = '50%';
+  iframe.style.left = '50%';
+  iframe.style.width = 'max(100vw, 177.78vh)';
+  iframe.style.height = 'max(100vh, 56.25vw)';
+  iframe.style.transform = 'translate(-50%, -50%)';
+  iframe.style.border = 'none';
+  iframe.style.pointerEvents = 'none';
+}
+
 export default function CinematicHero() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const playerRef    = useRef<Player | null>(null);
-  const timerRef     = useRef<ReturnType<typeof setInterval> | null>(null);
+  const containerA = useRef<HTMLDivElement>(null);
+  const containerB = useRef<HTMLDivElement>(null);
+  const playerA = useRef<Player | null>(null);
+  const playerB = useRef<Player | null>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const activeSlot = useRef<'A' | 'B'>('A');
+  const preloadReady = useRef(false);
 
-  const [current, setCurrent]         = useState(FIRST_SLIDE);
-  const [loaded, setLoaded]           = useState(false);
-  const [transitioning, setTransitioning] = useState(false);
+  const [current, setCurrent] = useState(FIRST_SLIDE);
+  const [loaded, setLoaded] = useState(false);
+  const [showA, setShowA] = useState(true);
 
-  const startTimer = () => {
+  const getNextIndex = (idx: number) => (idx + 1) % SLIDES.length;
+
+  const getPlayers = useCallback(() => {
+    const active = activeSlot.current === 'A'
+      ? { player: playerA.current, container: containerA.current }
+      : { player: playerB.current, container: containerB.current };
+    const standby = activeSlot.current === 'A'
+      ? { player: playerB.current, container: containerB.current }
+      : { player: playerA.current, container: containerA.current };
+    return { active, standby };
+  }, []);
+
+  const startTimer = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current);
-    timerRef.current = setInterval(advance, DURATION);
-  };
+    timerRef.current = setInterval(() => {
+      setCurrent(prev => {
+        const next = (prev + 1) % SLIDES.length;
+        return next;
+      });
+    }, DURATION);
+  }, []);
 
-  const advance = () => {
-    setCurrent(prev => {
-      const next = (prev + 1) % SLIDES.length;
-      loadSlide(next);
-      return next;
-    });
-  };
+  const switchToNext = useCallback((nextIdx: number) => {
+    if (!preloadReady.current) return;
+    preloadReady.current = false;
 
-  const goTo = (i: number) => {
-    if (transitioning) return;
-    if (timerRef.current) clearInterval(timerRef.current);
-    loadSlide(i);
-    setCurrent(i);
-    startTimer();
-  };
+    const { standby } = getPlayers();
 
-  const loadSlide = (i: number) => {
-    if (!playerRef.current) return;
-    setTransitioning(true);
-    playerRef.current.loadVideo(SLIDES[i].vimeoId).then(() => {
-      playerRef.current?.setCurrentTime(START_TIME);
-      playerRef.current?.play();
-      setTimeout(() => setTransitioning(false), 400);
-    });
-  };
+    if (activeSlot.current === 'A') {
+      setShowA(false);
+      playerA.current?.pause();
+      standby.player?.play();
+    } else {
+      setShowA(true);
+      playerB.current?.pause();
+      standby.player?.play();
+    }
+    activeSlot.current = activeSlot.current === 'A' ? 'B' : 'A';
+  }, [getPlayers]);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (current === FIRST_SLIDE && !loaded) return;
+    switchToNext(current);
+    startTimer();
 
-    const player = new Player(containerRef.current, {
+    const nextIdx = getNextIndex(current);
+    const { standby } = getPlayers();
+    if (standby.player) {
+      preloadReady.current = false;
+      standby.player.loadVideo(SLIDES[nextIdx].vimeoId).then(() => {
+        standby.player?.setCurrentTime(START_TIME);
+        standby.player?.pause();
+        preloadReady.current = true;
+        styleIframe(standby.container);
+      });
+    }
+  }, [current]);
+
+  useEffect(() => {
+    if (!containerA.current || !containerB.current) return;
+
+    const pA = new Player(containerA.current, {
       id: SLIDES[FIRST_SLIDE].vimeoId,
       background: true,
       muted: true,
@@ -78,62 +123,70 @@ export default function CinematicHero() {
       width: window.innerWidth,
       height: window.innerHeight,
     });
+    playerA.current = pA;
 
-    playerRef.current = player;
+    const pB = new Player(containerB.current, {
+      id: SLIDES[getNextIndex(FIRST_SLIDE)].vimeoId,
+      background: true,
+      muted: true,
+      loop: true,
+      autopause: false,
+      responsive: false,
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+    playerB.current = pB;
 
-    player.ready().then(() => {
-      player.setCurrentTime(START_TIME);
-      player.play();
+    Promise.all([pA.ready(), pB.ready()]).then(() => {
+      pA.setCurrentTime(START_TIME);
+      pA.play();
+      styleIframe(containerA.current);
+
+      pB.setCurrentTime(START_TIME);
+      pB.pause();
+      styleIframe(containerB.current);
+
+      preloadReady.current = true;
       setLoaded(true);
       startTimer();
-
-      // Make the internal iframe fill the container via cover
-      const iframe = containerRef.current?.querySelector('iframe');
-      if (iframe) {
-        iframe.style.position = 'absolute';
-        iframe.style.top = '50%';
-        iframe.style.left = '50%';
-        iframe.style.width = 'max(100vw, 177.78vh)';
-        iframe.style.height = 'max(100vh, 56.25vw)';
-        iframe.style.transform = 'translate(-50%, -50%)';
-        iframe.style.border = 'none';
-        iframe.style.pointerEvents = 'none';
-      }
     });
 
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
-      player.destroy();
+      pA.destroy();
+      pB.destroy();
     };
   }, []);
+
+  const goTo = (i: number) => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    setCurrent(i);
+  };
 
   const slide = SLIDES[current];
 
   return (
     <section className="vh-root">
-
-      {/* ── VIMEO PLAYER CONTAINER ── */}
-      <div className={`vh-video-wrap ${transitioning ? 'vh-video-wrap--out' : 'vh-video-wrap--in'}`}>
-        <div ref={containerRef} className="vh-player-container" />
+      <div className={`vh-video-wrap ${showA ? 'vh-video-wrap--in' : 'vh-video-wrap--out'}`}>
+        <div ref={containerA} className="vh-player-container" />
+      </div>
+      <div className={`vh-video-wrap ${!showA ? 'vh-video-wrap--in' : 'vh-video-wrap--out'}`}>
+        <div ref={containerB} className="vh-player-container" />
       </div>
 
-      {/* ── OVERLAY ── */}
       <div className="vh-overlay" />
 
-      {/* ── CENTER LOGO ── */}
       <div className={`vh-center ${loaded ? 'vh-center--in' : ''}`}>
         <div className="vh-logo">DNC<em>7</em></div>
         <p className="vh-tagline">Film · Reklam · Prodüksiyon</p>
       </div>
 
-      {/* ── BOTTOM LEFT INFO ── */}
-      <div className={`vh-info ${loaded ? 'vh-info--in' : ''} ${transitioning ? 'vh-info--out' : ''}`}>
+      <div className={`vh-info ${loaded ? 'vh-info--in' : ''}`}>
         <span className="vh-info-cat">{slide.category}</span>
         <h2 className="vh-info-title">{slide.title}</h2>
         <span className="vh-info-year">{slide.year}</span>
       </div>
 
-      {/* ── BOTTOM RIGHT NAV ── */}
       <div className={`vh-nav ${loaded ? 'vh-nav--in' : ''}`}>
         <div className="vh-dots">
           {SLIDES.map((s, i) => (
@@ -150,17 +203,14 @@ export default function CinematicHero() {
         </span>
       </div>
 
-      {/* ── SCROLL HINT ── */}
       <div className={`vh-scroll ${loaded ? 'vh-scroll--in' : ''}`}>
         <div className="vh-scroll-line" />
         <span>Scroll</span>
       </div>
 
-      {/* ── PROGRESS BAR ── */}
       <div className="vh-progress">
         <div key={current} className="vh-progress-fill" />
       </div>
-
     </section>
   );
 }
